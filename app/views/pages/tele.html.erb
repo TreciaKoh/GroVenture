@@ -1,64 +1,89 @@
 <h1>Telemarketer Page</h1>
 <%if session[:type]=='Telemarketer'%>
 <%if !@records.nil?%>
-<table class = "table table-bordered table-condensed"> 
-	<tr><td>CompanyName</td>
-	<td>address</td>
-	<td>postalCode</td>
-	<td>contactPerson</td>
-	<td>position</td>
-	<td>hp</td>
-	<td>office</td>
-	<td>email</td>
-	<td>apptBy</td>
-	<td>dateAppt</td>
-	<td>remarks</td>
-	<td bgcolor=#00FF00>attendedBy</td>
-	<td bgcolor=#00FF00>grade</td>
-	<td bgcolor=#00FF00>Remarks</td>
-	<td>Edit</td>
-	<td>Delete</td>
+<table class = "table table-bordered table-condensed" align='center'>
+	<tr>
+		<td>CompanyName</td>
+		<td>address</td>
+		<td>postalCode</td>
+		<td>contactPerson</td>
+		<td>position</td>
+		<td>hp</td>
+		<td>office</td>
+		<td>email</td>
+		<td>apptBy</td>
+		<td>dateAppt</td>
+		<td>remarks</td>
+		<td bgcolor=#00FF00>attendedBy</td>
+		<td bgcolor=#00FF00>grade</td>
+		<td bgcolor=#00FF00>Remarks</td>
+		<td>Edit</td>
+		<td>Delete</td>
 	</tr>
-<%@records.each do |r|%>	
-<tr>
-	<td><%=r.companyName%></td>
-	<td><%=r.address%></td>
-	<td><%=r.postalCode%></td>
-	<td><%=r.contactPerson%></td>
-	<td><%=r.position%></td>
-	<td><%=r.hp%></td>
-	<td><%=r.office%></td>
-	<td><%=r.email%></td>
-	<td><%=r.apptBy%></td>
-	<td><%=r.dateAppt%></td>
-	<td><%=r.remarks%></td>
-	<td><%=r.attendedBy%></td>
-	<td><%=r.attendedByGrade%></td>
-	<td><%=r.attendedByRemarks%></td>
-	<td><a href='/pages/editRecord?id=<%=r.id%>'>Edit</a></td>
-  	<td><a href='/pages/deleteRecord?id=<%=r.id%>'>Delete</a></td>
-  
-	
-</tr>
-<%end%>	
+	<%@records.each do |r|%>
+	<tr>
+		<td><%= r.companyName%></td>
+		<td><%= r.address%></td>
+		<td><%= r.postalCode%></td>
+		<td><%= r.contactPerson%></td>
+		<td><%= r.position%></td>
+		<td><%= r.hp%></td>
+		<td><%= r.office%></td>
+		<td><%= r.email%></td>
+		<td style="word-wrap: break-word"><%= r.apptBy%></td>
+		<td><%= r.dateAppt%></td>
+		<td><%= r.remarks%></td>
+		<td><%= r.attendedBy%></td>
+		<td><%= r.attendedByGrade%></td>
+		<td><%= r.attendedByRemarks%></td>
+		<td><a href='/pages/editRecord?id=<%= r.id%>'>Edit</a></td>
+		<td><a href='/pages/deleteRecord?id=<%= r.id%>'>Delete</a></td>
+
+	</tr>
+	<%end%>
 </table>
 <%end%>
 
 <h1>Add new record:</h1>
 
 <%= form_for @new_record, :url => { :action => "add" }  do |f|  %>
-			<%= f.text_field  :companyName %>:companyName<br>
-			<%= f.text_field  :address %>:address<br>
-			<%= f.text_field  :postalCode %>:postalCode<br>
-			<%= f.text_field  :contactPerson %>:contactPerson<br>
-			<%= f.text_field  :position %>:position<br>
-			<%= f.text_field  :hp %>:hp<br>
-			<%= f.text_field  :office %>:office<br>
-			<%= f.text_field  :email %>:email<br>
-			<!-- <%= f.text_field  :apptBy %>:apptBy<br> -->
-			<%= f.datetime_local_field  :dateAppt %>:dateAppt<br>
-			<%= f.text_field  :remarks %>:remarks<br>
-			<%= f.submit "Add record", class: "btn btn-primary" %>
-			<%end%>
-			
-<%end%>
+<table align="center">
+	<tr>
+		<td>Company Name:</td><td><%= f.text_field  :companyName %></td>
+	</tr>
+	<tr>
+		<td>Address:</td><td> <%= f.text_field  :address %></td>
+	</tr>
+	<tr>
+		<td>Postal Code:</td><td><%= f.text_field  :postalCode %></td>
+	</tr>
+	<tr>
+		<td>Contact Person:</td><td><%= f.text_field  :contactPerson %></td>
+	</tr>
+	<tr>
+		<td>Position:</td><td><%= f.text_field  :position %></td>
+	</tr>
+	<tr>
+		<td>Hp:</td><td> <%= f.text_field  :hp %></td>
+	</tr>
+	<tr>
+		<td>Office:</td><td> <%= f.text_field  :office %></td>
+	</tr>
+	<tr>
+		<td>Email: </td><td><%= f.text_field  :email %></td>
+	</tr>
+
+	<!-- <%= f.text_field  :apptBy %>:apptBy<br> -->
+	<tr>
+		<td>Date Appt: </td><td><%= f.datetime_local_field  :dateAppt %></td>
+	</tr>
+	<tr>
+		<td>Remarks: </td><td><%= f.text_field  :remarks %></td>
+	</tr>
+
+	<tr>
+		<td></td><td><%= f.submit "Add record", class: "btn btn-primary" %></td>
+	</tr>
+	<%end%>
+	<%end%>
+</table>

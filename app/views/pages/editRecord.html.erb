@@ -1,22 +1,54 @@
+
 <%= form_for @new_record, :url => { :action => "editRecord2" }  do |f|  %>
-			<%= f.text_field  :companyName %>:companyName<br>
-			<%= f.text_field  :address %>:address<br>
-			<%= f.text_field  :postalCode %>:postalCode<br>
-			<%= f.text_field  :contactPerson %>:contactPerson<br>
-			<%= f.text_field  :position %>:position<br>
-			<%= f.text_field  :hp %>:hp<br>
-			<%= f.text_field  :office %>:office<br>
-			<%= f.text_field  :email %>:email<br>
-			<!-- <%= f.text_field  :apptBy %>:apptBy<br> -->
-			<%= f.datetime_local_field  :dateAppt %>:dateAppt<br>
-			<%= f.text_field  :remarks %>:remarks<br>
-			<%if session[:type]=='Staff'%>
-			<%=f.select(:attendedBy, options_from_collection_for_select(@staff, "staffid", "staffid"), include_blank: true)%>AttendedBy<br>
-			<%= f.select(:attendedByGrade, "<option>0%</option><option>25%</option><option>50%</option><option>75%</option><option>100%</option>".html_safe, include_blank: true) %>Grade<br>
-			<!-- <%= f.text_field  :attendedBy %>:attendedBy<br> -->
-			<!-- <%= f.text_field  :attendedByGrade %>grade<br> -->
-			<%= f.text_field  :attendedByRemarks %>remarks<br>
-			<%end%>
-			<%= f.hidden_field  :id %>
-			<%= f.submit "Edit record", class: "btn btn-primary" %>
-			<%end%>
+<table align="center">
+	<tr>
+		<td>Company Name:</td><td><%= f.text_field  :companyName %></td>
+	</tr>
+	<tr>
+		<td>Address: </td><td><%= f.text_field  :address %></td>
+	</tr>
+	<tr>
+		<td>Postal Code:</td><td> <%= f.text_field  :postalCode %></td>
+	</tr>
+	<tr>
+		<td>Contact Person:</td><td> <%= f.text_field  :contactPerson %></td>
+	</tr>
+	<tr>
+		<td>Position:</td><td> <%= f.text_field  :position %></td>
+	</tr>
+	<tr>
+		<td>Hp:</td><td><%= f.text_field  :hp %></td>
+	</tr>
+	<tr>
+		<td>Office:</td><td><%= f.text_field  :office %></td>
+	</tr>
+	<tr>
+		<td>Email: </td><td><%= f.text_field  :email %></td>
+	</tr>
+	<tr>
+		<!-- <%= f.text_field  :apptBy %>:apptBy<br> -->
+		<td>Appt Date: </td><td><%= f.datetime_local_field  :dateAppt %></td>
+	</tr>
+	<tr>
+		<td>Remarks: </td><td><%= f.text_field  :remarks %></td>
+	</tr>
+	<tr>
+		<%if session[:type]=='Staff'%>
+		<td>AttendedBy:</td><td><%= f.select(:attendedBy, options_from_collection_for_select(@staff, "staffid", "staffid"), include_blank: true)%></td>
+	</tr>
+	<tr>
+		<td>Grade:</td><td> <%= f.select(:attendedByGrade, "<option>0%</option><option>25%</option><option>50%</option><option>75%</option><option>100%</option>".html_safe, include_blank: true) %></td>
+	</tr>
+	<tr>
+		<!-- <%= f.text_field  :attendedBy %>:attendedBy<br> -->
+		<!-- <%= f.text_field  :attendedByGrade %>grade<br> -->
+		<td>Remarks:</td><td><%= f.text_field  :attendedByRemarks %></td>
+
+		<%end%>
+	<tr>
+		<td></td>
+		<td><%= f.hidden_field  :id %>
+		<%= f.submit "Edit record", class: "btn btn-primary" %>
+		<%end%></td>
+	</tr>
+</table>

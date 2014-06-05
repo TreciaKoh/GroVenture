@@ -7,16 +7,21 @@
 		<%= csrf_meta_tags %>
 	</head>
 	<body>
-		<div class="navbar">
-			<div class="navbar-inner">
-				<a class="brand" href="#">GroVenture</a>
-				<a href="/pages/logout">Logout</a>
-				<a href="/pages/overall">Overall View</a>
-					
-			</div>
-		</div>
 
-		<%= yield %>
+		<div class="container">
+			<ul class="nav nav-tabs">
+				<center>
+					<table>
+						<%= image_tag "dreamwrkz.png", height: '100', weight: '100'%>
+					</table>
+
+					<center>
+						<a href="/pages/overall">Overall View</a>
+						<a href="/pages/logout">Logout</a>
+			</ul>
+
+			<%= yield %>
+		</div>
 
 	</body>
 </html>
