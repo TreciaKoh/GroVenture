@@ -1,0 +1,13 @@
+<%= form_for @new_staff, :url => { :action => "edit2" }, :method => :POST  do |f|  %>
+<%if @type == 'staff'%>
+<%= f.text_field  :staffid %>username<br>
+<%= hidden_field_tag(:type, 'staff')%>
+<%else%>
+<%= f.text_field  :teleid %>username<br>
+<%= hidden_field_tag(:type, 'telemarketer')%>
+<%end%>
+<%= f.text_field  :password %>password<br>
+<%= f.hidden_field  :id %><br>
+
+<%= f.submit "Update", class: "btn btn-primary" %>
+<%end%>

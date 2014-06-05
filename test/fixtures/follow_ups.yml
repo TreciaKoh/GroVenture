@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  recordId: 1
+  dateFollowUp: 2014-06-03 14:57:57
+  remarks: MyString
+
+two:
+  recordId: 1
+  dateFollowUp: 2014-06-03 14:57:57
+  remarks: MyString

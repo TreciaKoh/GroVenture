@@ -1,0 +1,33 @@
+<h1>Overall Page</h1>
+
+<%if !@records.nil?%>
+<table class = "table table-bordered table-condensed"> 
+	<tr><td>CompanyName</td>
+
+	<td>contactPerson</td>
+
+	<td>apptBy</td>
+	<td>dateAppt</td>
+
+	<td bgcolor=#00FF00>attendedBy</td>
+	<td bgcolor=#00FF00>grade</td>
+	<td bgcolor=#00FF00>Remarks</td>
+	</tr>
+<%@records.each do |r|%>	
+<tr>
+	<td><%=r.companyName%></td>
+
+	<td><%=r.contactPerson%></td>
+
+	<td><%=r.apptBy%></td>
+	<td><%=r.dateAppt%></td>
+
+	<td><%=r.attendedBy%></td>
+	<td><%=r.attendedByGrade%></td>
+	<td><%=r.attendedByRemarks%></td>
+  
+	
+</tr>
+<%end%>	
+</table>
+<%end%>

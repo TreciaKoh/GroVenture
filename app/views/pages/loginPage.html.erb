@@ -1,0 +1,13 @@
+<%= form_tag("/pages/login/", :method => "post") do %>
+Username<%= text_field_tag(:userid) %>
+<br>
+Password<%= password_field_tag(:password) %>
+<%= submit_tag("Login", :class=>"btn") %>
+<% if !flash[:error].nil? %>
+<div class="alert alert-error">
+	
+	<strong><%= flash[:error] %></strong>
+</div>
+<% end %>
+
+<%end%>

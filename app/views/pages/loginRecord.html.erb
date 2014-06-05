@@ -1,0 +1,13 @@
+<%if session[:type]=="Master"%>
+<table class="table table-bordered">
+	<tr>
+		<td>Userid</td><td>Time of login</td>
+	</tr>
+	<%@login_records.each do |l|%>
+	<tr>
+		<td><%=l.userid%></td>
+		<td><%=l.logintime%></td>
+	</tr>
+	<%end%>
+</table>
+<%end%>

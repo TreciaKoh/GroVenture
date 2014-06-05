@@ -1,0 +1,98 @@
+<h1>Company Page</h1>
+<%if session[:type]=="Master"%>
+<h4>Set filters:</h4><br>
+
+<%= form_tag("/pages/company/", :method => "post") do %>
+Grade: <%=select_tag("selections[]", "<option>0%</option><option>25%</option><option>50%</option><option>75%</option><option>100%</option>".html_safe, multiple:true)%>
+Date Start: <%=date_field_tag(:startdate)%> Date End: <%=date_field_tag(:enddate)%>
+<%= submit_tag("Filter", :class=>"btn") %>
+
+<%end%>
+
+
+<%if !@records.nil?%>
+<table class = "table table-bordered table-condensed"> 
+	<tr><td>CompanyName</td>
+	<td>address</td>
+	<td>postalCode</td>
+	<td>contactPerson</td>
+	<td>position</td>
+	<td>hp</td>
+	<td>office</td>
+	<td>email</td>
+	<td>apptBy</td>
+	<td>dateAppt</td>
+	<td>remarks</td>
+	<td bgcolor=#00FF00>attendedBy</td>
+	<td bgcolor=#00FF00>grade</td>
+	<td bgcolor=#00FF00>Remarks</td>
+	</tr>
+<%@records.each do |r|%>	
+<tr>
+	<td><%=r.companyName%></td>
+	<td><%=r.address%></td>
+	<td><%=r.postalCode%></td>
+	<td><%=r.contactPerson%></td>
+	<td><%=r.position%></td>
+	<td><%=r.hp%></td>
+	<td><%=r.office%></td>
+	<td><%=r.email%></td>
+	<td><%=r.apptBy%></td>
+	<td><%=r.dateAppt.strftime('%-Y-%m-%d %H:%M')%></td>
+	<td><%=r.remarks%></td>
+	<td><%=r.attendedBy%></td>
+	<td><%=r.attendedByGrade%></td>
+	<td><%=r.attendedByRemarks%></td>
+  
+	
+</tr>
+<%= form_tag("/pages/update/", :method => "post") do %>
+<tr class="success">
+	
+	<td>Staff</td><td><%=select_tag(:staff, options_from_collection_for_select(@staff, "staffid", "staffid"), include_blank:true)%></td>
+	<td>Grade</td><td><%= select_tag(:grade, "<option>0%</option><option>25%</option><option>50%</option><option>75%</option><option>100%</option>".html_safe, include_blank:true) %></td>
+	<td>Remarks</td><td><%= text_field_tag(:remarks) %></td>
+	<%= hidden_field_tag(:id, r.id)%>
+	<td><%= submit_tag("Update", :class=>"btn") %></td>
+</tr>
+
+<%end%>
+<%end%>	
+</table>
+<%end%>
+
+<h2>Admin - Manage Staff</h2>
+<a href='/pages/loginRecord'>View login records</a>
+<h3>Staff</h3>
+<table class = "table table-bordered">
+	<tr>
+		<th>Username</th><th>Password</th>
+	</tr>
+	<%@staff.each do |s|%>
+		<tr>
+			<td><%=s.staffid%></td><td><%=s.password%></td><td><a href='/pages/edit?type=staff&id=<%=s.id%>'>Edit</a></td>
+			<td><a href='/pages/delete?type=staff&id=<%=s.id%>'>Delete</a></td>
+		</tr>
+	<%end%>
+</table><br>
+<h3>Telemarketers</h3>
+<table class = "table table-bordered">
+	<tr>
+		<th>Username</th><th>Password</th>
+	</tr>
+	<%@telemarketers.each do |s|%>
+		<tr>
+			<td><%=s.teleid%></td><td><%=s.password%></td><td><a href='/pages/edit?type=telemarketer&id=<%=s.id%>'>Edit</a></td>
+			<td><a href='/pages/delete?type=telemarketer&id=<%=s.id%>'>Delete</a></td>
+		</tr>
+	<%end%>
+</table><br>
+<h2>Add new user</h2>
+<%= form_tag("/pages/adduser/", :method => "post") do %>
+Username:<%= text_field_tag(:username)%><br>
+Password:<%= text_field_tag(:password)%><br>
+Type:<%= select_tag(:type, "<option>Staff</option><option>Telemarketer</option>".html_safe)%>
+<%= submit_tag("Add User", :class=>"btn") %>
+<%end%>
+
+<%end%>
