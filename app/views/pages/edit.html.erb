@@ -1,6 +1,7 @@
 <%= form_for @new_staff, :url => { :action => "edit2" }, :method => :POST  do |f|  %>
-<%if @type == 'staff'%>
+
 <table align="center">
+	<%if @type == 'staff'%>
 	<tr>
 		<td>Username:</td><td> <%= f.text_field  :staffid %></td>
 	</tr>
