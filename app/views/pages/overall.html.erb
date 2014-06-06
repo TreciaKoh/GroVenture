@@ -1,33 +1,36 @@
 <h1>Overall Page</h1>
+<form>
+Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
+</form><br>
 
 <%if !@records.nil?%>
-<table class = "table table-bordered table-condensed"> 
-	<tr><td>CompanyName</td>
+<table class = "table table-bordered table-condensed", id='sf'>
+	<tr>
+		<th>Company Name</th>
 
-	<td>contactPerson</td>
+		<th>Contact Person</th>
 
-	<td>apptBy</td>
-	<td>dateAppt</td>
+		<th>Appt By</th>
+		<th>Appt Date</th>
 
-	<td bgcolor=#00FF00>attendedBy</td>
-	<td bgcolor=#00FF00>grade</td>
-	<td bgcolor=#00FF00>Remarks</td>
+		<td bgcolor=#00FF00><b>Attended By</b></td>
+		<td bgcolor=#00FF00><b>Grade</b></td>
+		<td bgcolor=#00FF00><b>Remarks</b></td>
 	</tr>
-<%@records.each do |r|%>	
-<tr>
-	<td><%=r.companyName%></td>
+	<%@records.each do |r|%>
+	<tr>
+		<td><%= r.companyName%></td>
 
-	<td><%=r.contactPerson%></td>
+		<td><%= r.contactPerson%></td>
 
-	<td><%=r.apptBy%></td>
-	<td><%=r.dateAppt%></td>
+		<td><%= r.apptBy%></td>
+		<td><%= r.dateAppt%></td>
 
-	<td><%=r.attendedBy%></td>
-	<td><%=r.attendedByGrade%></td>
-	<td><%=r.attendedByRemarks%></td>
-  
-	
-</tr>
-<%end%>	
+		<td><%= r.attendedBy%></td>
+		<td><%= r.attendedByGrade%></td>
+		<td><%= r.attendedByRemarks%></td>
+
+	</tr>
+	<%end%>
 </table>
 <%end%>

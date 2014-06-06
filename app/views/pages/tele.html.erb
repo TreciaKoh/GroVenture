@@ -1,7 +1,11 @@
 <h1>Telemarketer Page</h1>
+<form>
+Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
+</form><br>
+
 <%if session[:type]=='Telemarketer'%>
 <%if !@records.nil?%>
-<table class = "table table-bordered table-condensed" align='center'>
+<table class = "table table-bordered table-condensed" align='center', id='sf'>
 	<tr>
 		<td><b>CompanyName</b></td>
 		<td><b>Address</b></td>
