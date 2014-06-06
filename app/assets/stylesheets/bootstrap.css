@@ -289,7 +289,7 @@ a:focus {
 .navbar-static-top .container,
 .navbar-fixed-top .container,
 .navbar-fixed-bottom .container {
-  width: 940px;
+  width: 1160px;
 }
 
 .span12 {
@@ -804,8 +804,11 @@ h4 small {
 }
 
 .page-header {
+  position: fixed;
+  margin: auto;
+    left: 1%;
+    right: 1%;
   padding-bottom: 9px;
-  margin: 20px 0 30px;
   border-bottom: 1px solid #eeeeee;
 }
 
@@ -2002,7 +2005,7 @@ table {
 }
 
 .table {
-  width: 50%;
+  width: 100%;
   margin-bottom: 20px;
 }
 

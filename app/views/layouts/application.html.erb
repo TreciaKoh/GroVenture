@@ -12,14 +12,14 @@
 			<ul class="nav nav-tabs">
 				<center>
 					<table>
-						<%= image_tag "dreamwrkz.png", height: '100', weight: '100'%>
+						<a href="/pages/loginPage"><%= image_tag "dreamwrkz.png", height: '100', weight: '100'%></a>
 					</table>
-
 					<center>
-						<a href="/pages/overall">Overall View</a>
-						<a href="/pages/logout">Logout</a>
 			</ul>
-
+			<p align="right">
+				<a href="/pages/overall">Overall View</a>
+				<a href="/pages/logout">Logout</a>
+			</p>
 			<%= yield %>
 		</div>
 
