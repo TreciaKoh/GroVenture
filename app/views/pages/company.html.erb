@@ -3,7 +3,7 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script>
 		$(function() {
-			$("td[colspan=12]").find("p").hide();
+			$("td[colspan=15]").find("p").hide();
 			$("table[class = 'table table-bordered table-condensed']").click(function(event) {
 				event.stopPropagation();
 				var $target = $(event.target);
@@ -51,6 +51,9 @@ Date Start: <%= date_field_tag(:startdate)%> Date End: <%= date_field_tag(:endda
 		<td>apptBy</td>
 		<td>dateAppt</td>
 		<td>remarks</td>
+		<td bgcolor=#00FF00>attendedBy</td>
+		<td bgcolor=#00FF00>grade</td>
+		<td bgcolor=#00FF00>Remarks</td>
 
 	</tr>
 	<%@records.each do |r|%>
@@ -67,10 +70,13 @@ Date Start: <%= date_field_tag(:startdate)%> Date End: <%= date_field_tag(:endda
 		<td><%= r.apptBy%></td>
 		<td><%= r.dateAppt.strftime('%-Y-%m-%d %H:%M')%></td>
 		<td><%= r.remarks%></td>
+		<td><%= r.attendedBy%></td>
+		<td><%= r.attendedByGrade%></td>
+		<td><%= r.attendedByRemarks%></td>
 	</tr>
 	<tr class="success">
 		<%= form_tag("/pages/update/", :method => "post") do %>
-		<td colspan="12">
+		<td colspan="15">
 		<p>
 			Attended by: <%= r.attendedBy%></br>
 			Grade      : <%= r.attendedByGrade%></br>
