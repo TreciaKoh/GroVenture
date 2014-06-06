@@ -7,22 +7,22 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 <%if !@records.nil?%>
 <table class = "table table-bordered table-condensed" align='center', id='sf'>
 	<tr>
-		<td><b>CompanyName</b></td>
-		<td><b>Address</b></td>
-		<td><b>Postal Code</b></td>
-		<td><b>Contact Person</b></td>
-		<td><b>Position</b></td>
-		<td><b>Hp</b></td>
-		<td><b>Office</b></td>
-		<td><b>Email</b></td>
-		<td><b>ApptBy</b></td>
-		<td><b>Appt Date</b></td>
-		<td><b>Remarks</b></td>
+		<th>Company Name</th>
+		<th>Address</th>
+		<th>Postal Code</th>
+		<th>Contact Person</th>
+		<th>Position</th>
+		<th>Hp</th>
+		<th>Office</th>
+		<th>Email</th>
+		<th>Appt By</th>
+		<th>Appt Date</th>
+		<th>Remarks</th>	
 		<td bgcolor=#00FF00><b>AttendedBy</b></td>
 		<td bgcolor=#00FF00><b>Grade</b></td>
 		<td bgcolor=#00FF00><b>Remarks</b></td>
-		<td>Edit</td>
-		<td>Delete</td>
+		<th>Edit</th>
+		<th>Delete</th>
 	</tr>
 	<%@records.each do |r|%>
 	<tr>
