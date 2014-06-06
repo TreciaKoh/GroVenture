@@ -68,7 +68,12 @@ Date Start: <%= date_field_tag(:startdate)%> Date End: <%= date_field_tag(:endda
 		<td><%= r.office%></td>
 		<td><%= r.email%></td>
 		<td><%= r.apptBy%></td>
+		<%if r.dateAppt.nil?%>
+		<td></td>
+		<%else%>
 		<td><%= r.dateAppt.strftime('%-Y-%m-%d %H:%M')%></td>
+		<%end%>
+		
 		<td><%= r.remarks%></td>
 		<td><%= r.attendedBy%></td>
 		<td><%= r.attendedByGrade%></td>
