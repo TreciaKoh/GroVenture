@@ -119,6 +119,7 @@ class PagesController < ApplicationController
       else
         session[:user] = userid
         session[:type] = "Staff"
+        LoginLog.create(:userid => userid, :logintime => DateTime.current)
         redirect_to :action => 'staff'
       end
 
@@ -129,6 +130,7 @@ class PagesController < ApplicationController
       else
         session[:user] = userid
         session[:type] = "Master"
+        LoginLog.create(:userid => userid, :logintime => DateTime.current)
         redirect_to :action => 'company'
       end
 
