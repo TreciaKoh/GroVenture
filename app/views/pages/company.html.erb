@@ -24,6 +24,33 @@
 
 <h1>Company Page</h1>
 
+<style>
+.sidebar {
+   display: inline-block; 
+   webkit-box-shadow: 0 8px 6px -6px black; 
+   -moz-box-shadow: 0 8px 6px -6px black; 
+   box-shadow: 0 8px 6px -6px black; 
+   padding: 10px; 
+   margin-bottom: 5px !important; 
+   border: 1px solid #D7D7D7
+   width: 45px;
+   height: 120px;
+   position: fixed;
+   left: 0px;
+   top: 300px;
+}
+</style>
+<div class='sidebar'>
+	<ul>
+		<b>Menu</b>
+		<li><a href="#sf">All info</a></li>
+		<li><a href="#mngStff">Mng Staff</a></li>
+		<li><a href="#stf">Staff</a></li>
+		<li><a href="#tele">Telemrkt</a></li>
+		<li><a href="#user">Add user</a></li>
+	</ul>
+</div>
+
 <%if session[:type]=="Master"%>
 <h4>Set filters:</h4>
 <br>
@@ -36,7 +63,7 @@ Date Start: <%= date_field_tag(:startdate)%> Date End: <%= date_field_tag(:endda
 <%end%>
 
 <%if !@records.nil?%>
-<table class = "table table-bordered table-condensed">
+<table class = "table table-bordered table-condensed", id='sf'>
 	<tr>
 		<th></th>
 		<th>Company Name</th>
@@ -96,10 +123,10 @@ Date Start: <%= date_field_tag(:startdate)%> Date End: <%= date_field_tag(:endda
 <%end%>
 
 
-<h2>Admin - Manage Staff</h2>
+<h2 id='mngStff'>Admin - Manage Staff</h2>
 <a href='/pages/loginRecord'>View login records</a>
 
-<h3>Staff</h3>
+<h3 id='stf'>Staff</h3>
 <table class = "table table-bordered">
 	<tr>
 		<th>Username</th><th>Password</th>
@@ -112,7 +139,7 @@ Date Start: <%= date_field_tag(:startdate)%> Date End: <%= date_field_tag(:endda
 	<%end%>
 </table>
 <br>
-<h3>Telemarketers</h3>
+<h3 id='tele'>Telemarketers</h3>
 <table class = "table table-bordered">
 	<tr>
 		<th>Username</th><th>Password</th>
@@ -126,7 +153,7 @@ Date Start: <%= date_field_tag(:startdate)%> Date End: <%= date_field_tag(:endda
 </table>
 <br>
 
-<h2>Add new user</h2>
+<h2 id='user'>Add new user</h2>
 <%= form_tag("/pages/adduser/", :method => "post") do %>
 <table>
 	<tr>
