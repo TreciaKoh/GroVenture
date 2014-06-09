@@ -16,11 +16,11 @@ default: &default
   password: 
   host: 127.0.0.1
   port: 3306
-  database: groventure
+  # database: groventure
 
 development:
   <<: *default
-  # database: db/development.sqlite3
+ database: groventure
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -31,4 +31,6 @@ test:
 
 production:
   <<: *default
-  # database: db/production.sqlite3
+  database: testgro
+  username: adminrJdBYup
+  password: TYTiJeNCQyPk
