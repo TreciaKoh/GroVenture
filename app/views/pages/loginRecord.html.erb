@@ -1,5 +1,9 @@
+<form>
+Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
+</form>
+
 <%if session[:type]=="Master"%>
-<table class="table table-bordered">
+<table class="table table-bordered", id='sf'>
 	<tr>
 		<td>Userid</td><td>Time of login</td>
 	</tr>

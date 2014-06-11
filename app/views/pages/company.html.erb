@@ -1,31 +1,20 @@
 <head>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	
-	<script>
-		$(function() {
-			$("td[colspan=15]").find("p").hide();
-			$("table[class = 'table table-bordered table-condensed']").click(function(event) {
-				event.stopPropagation();
-				var $target = $(event.target);
-				if ($target.closest("td").attr("colspan") > 1) {
-					$target.closest("tr").prev().find("td:first").html("+");
-				} else {
-					$target.closest("tr").next().find("p").slideToggle();
-					if ($target.closest("tr").find("td:first").html() === "+")
-						$target.closest("tr").find("td:first").html("-");
-					else
-						$target.closest("tr").find("td:first").html("+");
-
-				}
-			});
-		});
-	</script>
 </head>
 
 
 <h1>Company Page</h1>
 
-<style>
+<div id="navigation">
+		<a href="#sf">All info</a>
+		<a href="#mngStff">Manage Staff</a>
+		<a href="#stf">Staff</a>
+		<a href="#tele">Telemarket</a>
+		<a href="#user">Add user</a>
+		<a href="/pages/overall">Overall View</a>
+		<a href="/pages/logout">Logout</a>
+</div>
+
+<!-- <style>
 .sidebar {
    display: inline-block; 
    webkit-box-shadow: 0 8px 6px -6px black; 
@@ -51,6 +40,7 @@
 		<li><a href="#user">Add user</a></li>
 	</ul>
 </div>
+-->
 
 <%if session[:type]=="Master"%>
 <h4>Set filters:</h4>
@@ -62,6 +52,10 @@ Date Start: <%= date_field_tag(:startdate)%> Date End: <%= date_field_tag(:endda
 <%= submit_tag("Filter", :class=>"btn") %>
 
 <%end%>
+
+<form>
+Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
+</form>
 
 <%if !@records.nil?%>
 <table class = "table table-bordered table-condensed", id='sf'>
@@ -173,3 +167,24 @@ Date Start: <%= date_field_tag(:startdate)%> Date End: <%= date_field_tag(:endda
 	<%end%>
 </table>
 
+<!-- Javascript-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	
+	<script>
+		$(function() {
+			$("td[colspan=15]").find("p").hide();
+			$("table[class = 'table table-bordered table-condensed']").click(function(event) {
+				event.stopPropagation();
+				var $target = $(event.target);
+				if ($target.closest("td").attr("colspan") > 1) {
+					$target.closest("tr").prev().find("td:first").html("+");
+				} else {
+					$target.closest("tr").next().find("p").slideToggle();
+					if ($target.closest("tr").find("td:first").html() === "+")
+						$target.closest("tr").find("td:first").html("-");
+					else
+						$target.closest("tr").find("td:first").html("+");
+				}
+			});
+		});
+	</script>
