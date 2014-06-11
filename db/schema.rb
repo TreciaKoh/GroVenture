@@ -51,6 +51,8 @@ ActiveRecord::Schema.define(version: 20140605021849) do
   create_table "staffs", force: true do |t|
     t.string   "staffid"
     t.string   "password"
+    t.string   "profession"
+    t.string   "company"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
