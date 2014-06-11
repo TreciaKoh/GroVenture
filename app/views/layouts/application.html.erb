@@ -1,3 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>GroVenture</title>
+		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+		<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+		<%= csrf_meta_tags %>
+	</head>
+	<body>
+
+		<div class="container-fluid full-width">
+			<ul class="nav nav-tabs">
+				<center>
+					<table>
+						<a href="/pages/loginPage"><%= image_tag "dreamwrkz.png", height: '100', weight: '100'%></a>
+					</table>
+					<center>
+			</ul>
+			<%= yield %>
+		</div>
+
+	</body>
+</html>
+
+<!-- Filter table-->
 <script type="text/javascript">
 	function filter2 (phrase, _id){
 	var words = phrase.value.toLowerCase().split(" ");
@@ -19,30 +44,4 @@
 }
 </script>
 
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>GroVenture</title>
-		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-		<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-		<%= csrf_meta_tags %>
-	</head>
-	<body>
 
-		<div class="container-fluid full-width">
-			<ul class="nav nav-tabs">
-				<center>
-					<table>
-						<a href="/pages/loginPage"><%= image_tag "dreamwrkz.png", height: '100', weight: '100'%></a>
-					</table>
-					<center>
-			</ul>
-			<p align="right">
-				<a href="/pages/overall">Overall View</a>
-				<a href="/pages/logout">Logout</a>
-			</p>
-			<%= yield %>
-		</div>
-
-	</body>
-</html>
