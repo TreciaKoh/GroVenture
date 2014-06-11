@@ -1,0 +1,118 @@
+<h1>Telemarketer Page</h1>
+
+<style>
+.sidebar {
+   display: inline-block; 
+   webkit-box-shadow: 0 8px 6px -6px black; 
+   -moz-box-shadow: 0 8px 6px -6px black; 
+   box-shadow: 0 8px 6px -6px black; 
+   padding: 10px; 
+   margin-bottom: 5px !important; 
+   border: 1px solid #D7D7D7
+   width: 45px;
+   height: 120px;
+   position: fixed;
+   left: 0px;
+   top: 300px;
+}
+</style>
+<div class='sidebar'>
+	<ul>
+		<b>Menu</b>
+		<li><a href="#sf">All info</a></li>
+		<li><a href="#rec">Add rec</a></li>
+	</ul>
+</div>
+
+<form>
+Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
+</form><br>
+
+<%if session[:type]=='Telemarketer'%>
+<%if !@records.nil?%>
+<table class = "table table-bordered table-condensed" align='center', id='sf'>
+	<tr>
+		<th>Company Name</th>
+		<th>Address</th>
+		<th>Postal Code</th>
+		<th>Contact Person</th>
+		<th>Position</th>
+		<th>Hp</th>
+		<th>Office</th>
+		<th>Email</th>
+		<th>Appt By</th>
+		<th>Appt Date</th>
+		<th>Remarks</th>	
+		<td bgcolor=#00FF00><b>AttendedBy</b></td>
+		<td bgcolor=#00FF00><b>Grade</b></td>
+		<td bgcolor=#00FF00><b>Remarks</b></td>
+		<th>Edit</th>
+		<th>Delete</th>
+	</tr>
+	<%@records.each do |r|%>
+	<tr>
+		<td><%= r.companyName%></td>
+		<td><%= r.address%></td>
+		<td><%= r.postalCode%></td>
+		<td><%= r.contactPerson%></td>
+		<td><%= r.position%></td>
+		<td><%= r.hp%></td>
+		<td><%= r.office%></td>
+		<td><%= r.email%></td>
+		<td style="word-wrap: break-word"><%= r.apptBy%></td>
+		<td><%= r.dateAppt%></td>
+		<td><%= r.remarks%></td>
+		<td><%= r.attendedBy%></td>
+		<td><%= r.attendedByGrade%></td>
+		<td><%= r.attendedByRemarks%></td>
+		<td><a href='/pagesgro/editRecord?id=<%= r.id%>'>Edit</a></td>
+		<td><a href='/pagesgro/deleteRecord?id=<%= r.id%>'>Delete</a></td>
+
+	</tr>
+	<%end%>
+</table>
+<%end%>
+
+<h1 id='rec'>Add new record:</h1>
+
+<%= form_for @new_record, :url => { :action => "add" }  do |f|  %>
+<table align="center">
+	<tr>
+		<td>Company Name:</td><td><%= f.text_field  :companyName %></td>
+	</tr>
+	<tr>
+		<td>Address:</td><td> <%= f.text_field  :address %></td>
+	</tr>
+	<tr>
+		<td>Postal Code:</td><td><%= f.text_field  :postalCode %></td>
+	</tr>
+	<tr>
+		<td>Contact Person:</td><td><%= f.text_field  :contactPerson %></td>
+	</tr>
+	<tr>
+		<td>Position:</td><td><%= f.text_field  :position %></td>
+	</tr>
+	<tr>
+		<td>Hp:</td><td> <%= f.text_field  :hp %></td>
+	</tr>
+	<tr>
+		<td>Office:</td><td> <%= f.text_field  :office %></td>
+	</tr>
+	<tr>
+		<td>Email: </td><td><%= f.text_field  :email %></td>
+	</tr>
+
+	<!-- <%= f.text_field  :apptBy %>:apptBy<br> -->
+	<tr>
+		<td>Date Appt: </td><td><%= f.datetime_local_field  :dateAppt %></td>
+	</tr>
+	<tr>
+		<td>Remarks: </td><td><%= f.text_field  :remarks %></td>
+	</tr>
+
+	<tr>
+		<td></td><td><%= f.submit "Add record", class: "btn btn-primary" %></td>
+	</tr>
+	<%end%>
+	<%end%>
+</table>

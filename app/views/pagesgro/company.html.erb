@@ -1,6 +1,5 @@
 <head>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	
 	<script>
 		$(function() {
 			$("td[colspan=15]").find("p").hide();
@@ -56,7 +55,7 @@
 <h4>Set filters:</h4>
 <br>
 
-<%= form_tag("/pages/company/", :method => "post") do %>
+<%= form_tag("/pagesgro/company/", :method => "post") do %>
 Grade: <%= select_tag("selections[]", "<option>0%</option><option>25%</option><option>50%</option><option>75%</option><option>100%</option>".html_safe, multiple:true)%>
 Date Start: <%= date_field_tag(:startdate)%> Date End: <%= date_field_tag(:enddate)%>
 <%= submit_tag("Filter", :class=>"btn") %>
@@ -107,7 +106,7 @@ Date Start: <%= date_field_tag(:startdate)%> Date End: <%= date_field_tag(:endda
 		<td><%= r.attendedByRemarks%></td>
 	</tr>
 	<tr class="success">
-		<%= form_tag("/pages/update/", :method => "post") do %>
+		<%= form_tag("/pagesgro/update/", :method => "post") do %>
 		<td colspan="15">
 		<p>
 			Staff:<%= select_tag(:staff, options_from_collection_for_select(@staff, "staffid", "staffid"), include_blank:true, :class => "span1")%>
@@ -125,7 +124,7 @@ Date Start: <%= date_field_tag(:startdate)%> Date End: <%= date_field_tag(:endda
 
 
 <h2 id='mngStff'>Admin - Manage Staff</h2>
-<a href='/pages/loginRecord'>View login records</a>
+<a href='/pagesgro/loginRecord'>View login records</a>
 
 <h3 id='stf'>Staff</h3>
 <table class = "table table-bordered">
@@ -134,8 +133,8 @@ Date Start: <%= date_field_tag(:startdate)%> Date End: <%= date_field_tag(:endda
 	</tr>
 	<%@staff.each do |s|%>
 	<tr>
-		<td><%= s.staffid%></td><td><%= s.password%></td><td><a href='/pages/edit?type=staff&id=<%= s.id%>'>Edit</a></td>
-		<td><a href='/pages/delete?type=staff&id=<%= s.id%>'>Delete</a></td>
+		<td><%= s.staffid%></td><td><%= s.password%></td><td><a href='/pagesgro/edit?type=staff&id=<%= s.id%>'>Edit</a></td>
+		<td><a href='/pagesgro/delete?type=staff&id=<%= s.id%>'>Delete</a></td>
 	</tr>
 	<%end%>
 </table>
@@ -147,15 +146,15 @@ Date Start: <%= date_field_tag(:startdate)%> Date End: <%= date_field_tag(:endda
 	</tr>
 	<%@telemarketers.each do |s|%>
 	<tr>
-		<td><%= s.staffid%></td><td><%= s.password%></td><td><a href='/pages/edit?type=telemarketer&id=<%= s.id%>'>Edit</a></td>
-		<td><a href='/pages/delete?type=telemarketer&id=<%= s.id%>'>Delete</a></td>
+		<td><%= s.staffid%></td><td><%= s.password%></td><td><a href='/pagesgro/edit?type=telemarketer&id=<%= s.id%>'>Edit</a></td>
+		<td><a href='/pagesgro/delete?type=telemarketer&id=<%= s.id%>'>Delete</a></td>
 	</tr>
 	<%end%>
 </table>
 <br>
 
 <h2 id='user'>Add new user</h2>
-<%= form_tag("/pages/adduser/", :method => "post") do %>
+<%= form_tag("/pagesgro/adduser/", :method => "post") do %>
 <table>
 	<tr>
 		<td>Username:</td><td><%= text_field_tag(:username)%></td>

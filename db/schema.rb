@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140605021849) do
+ActiveRecord::Schema.define(version: 20140611080151) do
 
   create_table "follow_ups", force: true do |t|
     t.integer  "recordId"
@@ -24,6 +24,26 @@ ActiveRecord::Schema.define(version: 20140605021849) do
   create_table "login_logs", force: true do |t|
     t.string   "userid"
     t.datetime "logintime"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "main_record_gros", force: true do |t|
+    t.integer  "recordId"
+    t.string   "companyName"
+    t.string   "address"
+    t.string   "postalCode"
+    t.string   "contactPerson"
+    t.string   "position"
+    t.string   "hp"
+    t.string   "office"
+    t.string   "email"
+    t.string   "apptBy"
+    t.datetime "dateAppt"
+    t.string   "remarks"
+    t.string   "attendedBy"
+    t.string   "attendedByGrade"
+    t.string   "attendedByRemarks"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

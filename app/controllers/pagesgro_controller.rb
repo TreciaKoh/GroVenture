@@ -1,17 +1,17 @@
-class PagesController < ApplicationController
+class PagesgroController < ApplicationController
   def tele
     id = session[:user]
-    @records = MainRecord.where(apptBy:id)
-    @new_record = MainRecord.new
+    @records = MainRecordGro.where(apptBy:id)
+    @new_record = MainRecordGro.new
   end
 
   def staff
     id = session[:user]
-    @records1 = MainRecord.where(apptBy:id)
-    @records2 = MainRecord.where(attendedBy:id)
+    @records1 = MainRecordGro.where(apptBy:id)
+    @records2 = MainRecordGro.where(attendedBy:id)
     @records = @records1 + @records2
     @records = @records.uniq
-    @new_record = MainRecord.new
+    @new_record = MainRecordGro.new
     @staff = Staff.where(profession:"staff")
   end
 
@@ -20,19 +20,19 @@ class PagesController < ApplicationController
     # p params[:startdate]
     # p params[:enddate]
     if params[:selections].nil? && (params[:startdate]=="" || params[:enddate]=="" || params[:startdate].nil? || params[:enddate].nil? )
-      @records = MainRecord.all
+      @records = MainRecordGro.all
     else
       if !params[:selections].nil?
         gradearray = params[:selections]
         @records1 = []
         gradearray.each do |g|
-          @records1 = @records1 + MainRecord.where(attendedByGrade:g)
+          @records1 = @records1 + MainRecordGro.where(attendedByGrade:g)
         end
       end
       if (params[:startdate]!="") && (params[:enddate]!="")
         sd = params[:startdate].to_date
         ed = params[:enddate].to_date
-        @records2 = MainRecord.where(:dateAppt => sd.beginning_of_day..ed.end_of_day)
+        @records2 = MainRecordGro.where(:dateAppt => sd.beginning_of_day..ed.end_of_day)
       end
 
       if params[:startdate]!="" && params[:enddate]!="" && !params[:selections].nil?
@@ -47,30 +47,30 @@ class PagesController < ApplicationController
       end
     end
 
-    @staff = Staff.where(profession:"staff", company:"dreamwrkz")
-    @telemarketers = Staff.where(profession:"tele", company:"dreamwrkz")
+    @staff = Staff.where(profession:"staff", company:"groventure")
+    @telemarketers = Staff.where(profession:"tele", company:"groventure")
   end
 
   def overall
-    @records = MainRecord.all
+    @records = MainRecordGro.all
   end
 
   def add
-    r = MainRecord.new
-    r.companyName = params[:main_record][:companyName]
-    r.address = params[:main_record][:address]
-    r.postalCode = params[:main_record][:postalCode]
-    r.contactPerson = params[:main_record][:contactPerson]
-    r.position = params[:main_record][:position]
-    r.hp = params[:main_record][:hp]
-    r.office = params[:main_record][:office]
-    r.email = params[:main_record][:email]
+    r = MainRecordGro.new
+    r.companyName = params[:main_record_gro][:companyName]
+    r.address = params[:main_record_gro][:address]
+    r.postalCode = params[:main_record_gro][:postalCode]
+    r.contactPerson = params[:main_record_gro][:contactPerson]
+    r.position = params[:main_record_gro][:position]
+    r.hp = params[:main_record_gro][:hp]
+    r.office = params[:main_record_gro][:office]
+    r.email = params[:main_record_gro][:email]
     r.apptBy = session[:user]
-    r.dateAppt = params[:main_record][:dateAppt]
-    r.remarks = params[:main_record][:remarks]
-    r.attendedBy = params[:main_record][:attendedBy]
-    r.attendedByGrade = params[:main_record][:attendedByGrade]
-    r.attendedByRemarks = params[:main_record][:attendedByRemarks]
+    r.dateAppt = params[:main_record_gro][:dateAppt]
+    r.remarks = params[:main_record_gro][:remarks]
+    r.attendedBy = params[:main_record_gro][:attendedBy]
+    r.attendedByGrade = params[:main_record_gro][:attendedByGrade]
+    r.attendedByRemarks = params[:main_record_gro][:attendedByRemarks]
     r.save
     if session[:type]=="Telemarketer"
       redirect_to :action => 'tele'
@@ -82,7 +82,7 @@ class PagesController < ApplicationController
   end
 
   def update
-    m = MainRecord.find_by_id(params[:id])
+    m = MainRecordGro.find_by_id(params[:id])
     m.update_attribute(:attendedBy, params[:staff])
     m.update_attribute(:attendedByGrade, params[:grade])
     m.update_attribute(:attendedByRemarks, params[:remarks])
@@ -185,24 +185,24 @@ class PagesController < ApplicationController
 
   def adduser
     if params[:type]=='Staff'
-      Staff.create(:staffid => params[:username], :password => params[:password], :profession => "staff", :company => "dreamwrkz")
+      Staff.create(:staffid => params[:username], :password => params[:password], :profession => "staff", :company => "groventure")
     else
-      Staff.create(:staffid => params[:username], :password => params[:password], :profession => "tele", :company => "dreamwrkz")
+      Staff.create(:staffid => params[:username], :password => params[:password], :profession => "tele", :company => "groventure")
     end
     redirect_to :action => 'company'
   end
 
   def editRecord
-    @new_record = MainRecord.find_by_id(params[:id])
+    @new_record = MainRecordGro.find_by_id(params[:id])
     @staff = Staff.where(profession:"staff")
   end
 
   def editRecord2
-    r = MainRecord.find_by_id(params[:main_record][:id])
-    # r.update_attributes(:companyName => params[:main_record][:companyName],:address => params [:main_record][:address],:postalCode => params[:main_record][:postalCode],:contactPerson => params[:main_record][:contactPerson],:position => params[:main_record][:position],:hp => params[:main_record][:hp],:office => params[:main_record][:office],:email =>params [:main_record][:email],:dateAppt => params[:main_record][:dateAppt],:remarks => params[:main_record][:remarks])
-    r.update_attributes(:companyName=>params[:main_record][:companyName],:address=>params[:main_record][:address],:postalCode=>params[:main_record][:postalCode],:contactPerson=>params[:main_record][:contactPerson],:position=>params[:main_record][:position],:hp=>params[:main_record][:hp],:office=>params[:main_record][:office],:email=>params[:main_record][:email],:dateAppt=>params[:main_record][:dateAppt],:remarks=>params[:main_record][:remarks])
+    r = MainRecordGro.find_by_id(params[:main_record_gro][:id])
+    # r.update_attributes(:companyName => params[:main_record_gro][:companyName],:address => params [:main_record_gro][:address],:postalCode => params[:main_record_gro][:postalCode],:contactPerson => params[:main_record_gro][:contactPerson],:position => params[:main_record_gro][:position],:hp => params[:main_record_gro][:hp],:office => params[:main_record_gro][:office],:email =>params [:main_record_gro][:email],:dateAppt => params[:main_record_gro][:dateAppt],:remarks => params[:main_record_gro][:remarks])
+    r.update_attributes(:companyName=>params[:main_record_gro][:companyName],:address=>params[:main_record_gro][:address],:postalCode=>params[:main_record_gro][:postalCode],:contactPerson=>params[:main_record_gro][:contactPerson],:position=>params[:main_record_gro][:position],:hp=>params[:main_record_gro][:hp],:office=>params[:main_record_gro][:office],:email=>params[:main_record_gro][:email],:dateAppt=>params[:main_record_gro][:dateAppt],:remarks=>params[:main_record_gro][:remarks])
     if session[:type]=='Staff'
-      r.update_attributes(:attendedBy =>params[:main_record][:attendedBy],:attendedByGrade =>params[:main_record][:attendedByGrade],:attendedByRemarks =>params[:main_record][:attendedByRemarks])
+      r.update_attributes(:attendedBy =>params[:main_record_gro][:attendedBy],:attendedByGrade =>params[:main_record_gro][:attendedByGrade],:attendedByRemarks =>params[:main_record_gro][:attendedByRemarks])
     end
 
     if session[:type] == "Staff"
@@ -213,7 +213,7 @@ class PagesController < ApplicationController
   end
 
   def deleteRecord
-    r = MainRecord.find_by_id(params[:id])
+    r = MainRecordGro.find_by_id(params[:id])
     r.delete
     if session[:type] == "Staff"
       redirect_to :action => 'staff'
