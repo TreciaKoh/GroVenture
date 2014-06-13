@@ -79,7 +79,7 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 	</tr>
 	<%@records.each do |r|%>
 	<tr>
-		<td>+</td>
+		<td onclick=""><button>+</button></td>
 		<td><%= r.companyName%></td>
 		<td><%= r.address%></td>
 		<td><%= r.postalCode%></td>
@@ -124,7 +124,7 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 <h3 id='stf'>Staff</h3>
 <table class = "table table-bordered">
 	<tr>
-		<th>Username</th><th>Password</th>
+		<th>Username</th><th>Password</th><th colspan="2">Options</th>
 	</tr>
 	<%@staff.each do |s|%>
 	<tr>
@@ -137,7 +137,7 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 <h3 id='tele'>Telemarketers</h3>
 <table class = "table table-bordered">
 	<tr>
-		<th>Username</th><th>Password</th>
+		<th>Username</th><th>Password</th><th colspan="2">Options</th>
 	</tr>
 	<%@telemarketers.each do |s|%>
 	<tr>
@@ -173,17 +173,17 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 	<script>
 		$(function() {
 			$("td[colspan=15]").find("p").hide();
-			$("table[class = 'table table-bordered table-condensed']").click(function(event) {
+			$("td[onclick='']").click(function(event) {
 				event.stopPropagation();
 				var $target = $(event.target);
 				if ($target.closest("td").attr("colspan") > 1) {
-					$target.closest("tr").prev().find("td:first").html("+");
+					$target.closest("tr").prev().find("td:first").html("<button>+</button>");
 				} else {
 					$target.closest("tr").next().find("p").slideToggle();
-					if ($target.closest("tr").find("td:first").html() === "+")
-						$target.closest("tr").find("td:first").html("-");
+					if ($target.closest("tr").find("td:first").html() === "<button>+</button>")
+						$target.closest("tr").find("td:first").html("<button>-</button>");
 					else
-						$target.closest("tr").find("td:first").html("+");
+						$target.closest("tr").find("td:first").html("<button>+</button>");
 				}
 			});
 		});
