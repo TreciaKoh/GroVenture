@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'admins/calendar'
+  
   get 'pagesgro/index'
 
   get 'pagesgro/tele'

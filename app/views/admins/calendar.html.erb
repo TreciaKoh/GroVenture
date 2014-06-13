@@ -1,0 +1,38 @@
+<%a = 'Eventssssss'%>
+
+<head>
+	<%=javascript_tag do%>
+		$(document).ready(function() {
+
+			// page is now ready, initialize the calendar...
+
+			$('#calendar').fullCalendar({
+				// put your options and callbacks here
+				
+    events: [
+        {
+            title: '<%=a%>',
+            start: '2014-04-04'
+        },
+        {
+            title: 'Event2',
+            start: '2014-05-05'
+        }
+        // etc...
+    ],
+    color: 'yellow',   // an option!
+    textColor: 'black' // an option!
+
+				
+				
+				
+				
+				
+				
+			})
+
+		});
+	<%end%>
+</head>
+
+<div id='calendar'></div>

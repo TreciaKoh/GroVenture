@@ -2,8 +2,26 @@
 <html>
 	<head>
 		<title>GroVenture</title>
+
+		<!-- <link rel='stylesheet' type='text/css' href='fullcalendar.css' />
+		<script type='text/javascript' src='jquery.js'></script>
+		<script type='text/javascript' src='fullcalendar.js'></script> -->
+
 		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-		<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+		<!-- <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %> -->
+
+		<script data-turbolinks-track="true" src="/assets/jquery.min.js?body=1"></script>
+		<script data-turbolinks-track="true" src="/assets/moment.min.js?body=1"></script>
+		<script data-turbolinks-track="true" src="/assets/jquery.js?body=1"></script>
+		<script data-turbolinks-track="true" src="/assets/jquery_ujs.js?body=1"></script>
+		<script data-turbolinks-track="true" src="/assets/turbolinks.js?body=1"></script>
+		<script data-turbolinks-track="true" src="/assets/admins.js?body=1"></script>
+		<script data-turbolinks-track="true" src="/assets/fullcalendar.js?body=1"></script>
+
+		<script data-turbolinks-track="true" src="/assets/pages.js?body=1"></script>
+		<script data-turbolinks-track="true" src="/assets/pagesgro.js?body=1"></script>
+		<script data-turbolinks-track="true" src="/assets/application.js?body=1"></script>
 		<%= csrf_meta_tags %>
 	</head>
 	<body>
@@ -25,24 +43,23 @@
 <!-- Javascript-->
 <!-- Filter table-->
 <script type="text/javascript">
-	function filter2 (phrase, _id){
-	var words = phrase.value.toLowerCase().split(" ");
-	var table = document.getElementById(_id);
-	var ele;
-	for (var r = 1; r < table.rows.length; r++){
-		ele = table.rows[r].innerHTML.replace(/<[^>]+>/g,"");
-	        var displayStyle = 'none';
-	        for (var i = 0; i < words.length; i++) {
-		    if (ele.toLowerCase().indexOf(words[i])>=0)
-			displayStyle = '';
-		    else {
-			displayStyle = 'none';
-			break;
-		    }
-	        }
-		table.rows[r].style.display = displayStyle;
+	function filter2(phrase, _id) {
+		var words = phrase.value.toLowerCase().split(" ");
+		var table = document.getElementById(_id);
+		var ele;
+		for (var r = 1; r < table.rows.length; r++) {
+			ele = table.rows[r].innerHTML.replace(/<[^>]+>/g, "");
+			var displayStyle = 'none';
+			for (var i = 0; i < words.length; i++) {
+				if (ele.toLowerCase().indexOf(words[i]) >= 0)
+					displayStyle = '';
+				else {
+					displayStyle = 'none';
+					break;
+				}
+			}
+			table.rows[r].style.display = displayStyle;
+		}
 	}
-}
 </script>
-
 
