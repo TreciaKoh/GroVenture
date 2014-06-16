@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get 'admins/profile'
+  get 'admins/leave'
+  get 'admins/approveleave'
+  get 'admins/approve'
+  get 'admins/reject'
+  post 'admins/addLeave'
+  get 'admins/editRecord'
+  get 'admins/deleteRecord'
+  patch 'admins/updateLeave'
+  patch 'admins/updateProfile'
   get 'admins/calendar'
   
   get 'pagesgro/index'

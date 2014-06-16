@@ -1,0 +1,20 @@
+<%= form_for @leave, :url => { :action => "updateLeave" }  do |f|  %>
+<table align="center">
+	<tr>
+		<td>Date From:</td><td><%= f.date_field  :datestart %></td>
+	</tr>
+	<tr>
+		<td>Date To:</td><td> <%= f.date_field  :dateend %></td>
+	</tr>
+	<tr>
+		<td>Type:</td><td><%= f.select(:leavetype, "<option>normal</option><option>childcare</option><option>unpaid</option>".html_safe)   %></td>
+	</tr>
+	<tr>
+		<td>Reason:</td><td><%= f.text_field  :reason %></td>
+	</tr>
+	<%=f.hidden_field(:id, :value => @leave.id)%>
+
+	<tr>
+		<td></td><td><%= f.submit "Update Leave", class: "btn btn-primary" %></td>
+	</tr>
+	<%end%>

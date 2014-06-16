@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  staffid: MyString
+  company: MyString
+  profession: MyString
+  datestart: 2014-06-13
+  dateend: 2014-06-13
+  total: 1
+  reason: MyString
+
+two:
+  staffid: MyString
+  company: MyString
+  profession: MyString
+  datestart: 2014-06-13
+  dateend: 2014-06-13
+  total: 1
+  reason: MyString

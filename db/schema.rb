@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140611080151) do
+ActiveRecord::Schema.define(version: 20140613064458) do
 
   create_table "follow_ups", force: true do |t|
     t.integer  "recordId"
@@ -19,6 +19,20 @@ ActiveRecord::Schema.define(version: 20140611080151) do
     t.string   "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "leaves", force: true do |t|
+    t.string   "staffid"
+    t.string   "company"
+    t.string   "profession"
+    t.date     "datestart"
+    t.date     "dateend"
+    t.integer  "total"
+    t.string   "reason"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "approved"
+    t.string   "leavetype"
   end
 
   create_table "login_logs", force: true do |t|
@@ -75,6 +89,11 @@ ActiveRecord::Schema.define(version: 20140611080151) do
     t.string   "company"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "fullname"
+    t.string   "nric"
+    t.date     "dob"
+    t.date     "dateemployed"
+    t.date     "dobchild"
   end
 
   create_table "telemarketers", force: true do |t|

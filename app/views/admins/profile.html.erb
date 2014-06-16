@@ -1,0 +1,23 @@
+<%= form_for @user, :url => { :action => "updateProfile" }  do |f|  %>
+<table align="center">
+	<tr>
+		<td>Full name:</td><td><%= f.text_field  :fullname %></td>
+	</tr>
+	<tr>
+		<td>NRIC:</td><td> <%= f.text_field  :nric %></td>
+	</tr>
+	<tr>
+		<td>Date of Birth:</td><td><%= f.date_field :dob %></td>
+	</tr>
+	<tr>
+		<td>Date Employed:</td><td><%= f.date_field  :dateemployed %></td>
+	</tr>
+	<tr>
+		<td>Date of Birth of Youngest Child:</td><td><%= f.date_field  :dobchild %></td>
+	</tr>
+	<%=f.hidden_field(:id, :value => @user.id)%>
+
+	<tr>
+		<td></td><td><%= f.submit "Update Profile", class: "btn btn-primary" %></td>
+	</tr>
+	<%end%>

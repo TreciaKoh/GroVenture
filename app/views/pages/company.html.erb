@@ -11,6 +11,7 @@
 		<a href="#tele">Telemarket</a>
 		<a href="#user">Add user</a>
 		<a href="/pages/overall">Overall View</a>
+		<a href="/admins/approveleave">Approve Leave</a>
 		<a href="/pages/logout">Logout</a>
 </div>
 
@@ -59,6 +60,7 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 
 <%if !@records.nil?%>
 <table class = "table table-bordered table-condensed", id='sf'>
+	<thead>
 	<tr>
 		<th></th>
 		<th>Company Name</th>
@@ -77,6 +79,7 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 		<td bgcolor=#00FF00><b>Remarks</b></td>
 
 	</tr>
+	</thead>
 	<%@records.each do |r|%>
 	<tr>
 		<td onclick=""><button>+</button></td>
@@ -135,10 +138,10 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 </table>
 <br>
 <h3 id='tele'>Telemarketers</h3>
-<table class = "table table-bordered">
-	<tr>
+<table class = "table table-bordered" id = 'demo'>
+	<thead><tr>
 		<th>Username</th><th>Password</th><th colspan="2">Options</th>
-	</tr>
+	</tr></thead>
 	<%@telemarketers.each do |s|%>
 	<tr>
 		<td><%= s.staffid%></td><td><%= s.password%></td><td><a href='/pages/edit?type=telemarketer&id=<%= s.id%>'>Edit</a></td>
@@ -168,10 +171,12 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 </table>
 
 <!-- Javascript-->
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	
-	<script>
-		$(function() {
+<script>
+
+		(function() {
 			$("td[colspan=15]").find("p").hide();
 			$("td[onclick='']").click(function(event) {
 				event.stopPropagation();
@@ -188,3 +193,4 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 			});
 		});
 	</script>
+	

@@ -1,0 +1,59 @@
+Entitled annual leave: <%=@numAnnualLeave%><br>
+Entitled child leave: <%=@numChildLeave%><br />
+
+<div id="navigation">
+		<a href="/pages/tele">Home</a>
+		<a href="/pages/staff">Home</a>
+		<a href="/pages/logout">Logout</a>
+</div>
+
+
+<table class = "table table-bordered table-condensed" align='center', id='sf'>
+	<tr>
+		<th>Date Start</th>
+		<th>Date End</th>
+		<th>Total</th>
+		<th>Reason</th>
+		<th>Type</th>
+		<th>Approved</th>
+		
+		<th>Edit</th>
+		<th>Delete</th>
+	</tr>
+	<%@leaves.each do |r|%>
+	<tr>
+		<td><%= r.datestart%></td>
+		<td><%= r.dateend%></td>
+		<td><%= r.total%></td>
+		<td><%= r.reason%></td>
+		<td><%= r.leavetype%></td>
+		<td><%= r.approved%></td>
+		
+		<td><a href='/admins/editRecord?id=<%= r.id%>'>Edit</a></td>
+		<td><a href='/admins/deleteRecord?id=<%= r.id%>'>Delete</a></td>
+	</tr>
+	<%end%>
+</table>
+
+<h1 id='rec'>Add new leave:</h1>
+
+<%= form_for @new_leave, :url => { :action => "addLeave" }  do |f|  %>
+<table align="center">
+	<tr>
+		<td>Date From:</td><td><%= f.date_field  :datestart %></td>
+	</tr>
+	<tr>
+		<td>Date To:</td><td> <%= f.date_field  :dateend %></td>
+	</tr>
+	<tr>
+		<td>Type:</td><td><%= f.select(:leavetype, "<option>normal</option><option>childcare</option><option>unpaid</option><option>medical</option>".html_safe)   %></td>
+	</tr>
+	<tr>
+		<td>Reason:</td><td><%= f.text_field  :reason %></td>
+	</tr>
+	
+
+	<tr>
+		<td></td><td><%= f.submit "Add record", class: "btn btn-primary" %></td>
+	</tr>
+	<%end%>

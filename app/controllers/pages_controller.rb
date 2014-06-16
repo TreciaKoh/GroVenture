@@ -108,6 +108,7 @@ class PagesController < ApplicationController
         session[:user] = userid
 
         session[:type] = "Telemarketer"
+        session[:company]= "dreamwrkz"
         LoginLog.create(:userid => userid, :logintime => DateTime.current)
         redirect_to :action => 'tele'
       end
@@ -119,6 +120,7 @@ class PagesController < ApplicationController
       else
         session[:user] = userid
         session[:type] = "Staff"
+        session[:company]= "dreamwrkz"
         LoginLog.create(:userid => userid, :logintime => DateTime.current)
         redirect_to :action => 'staff'
       end
@@ -130,6 +132,7 @@ class PagesController < ApplicationController
       else
         session[:user] = userid
         session[:type] = "Master"
+        session[:company]= "dreamwrkz"
         LoginLog.create(:userid => userid, :logintime => DateTime.current)
         redirect_to :action => 'company'
       end
@@ -142,6 +145,7 @@ class PagesController < ApplicationController
   def logout
     session[:user]=nil
     session[:type]=nil
+    session[:company]= nil
     redirect_to :action => 'loginPage'
   end
 

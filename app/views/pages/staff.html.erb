@@ -5,6 +5,8 @@
 		<a href="#rec">Add record</a>
 
 		<a href="/pages/overall">Overall View</a>
+		<a href="/admins/leave">Apply Leave</a>
+		<a href="/admins/profile">Set my profile</a>
 		<a href="/pages/logout">Logout</a>
 </div>
 
@@ -41,7 +43,7 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 <%if session[:type]=='Staff'%>
 <%if !@records.nil?%>
 <table class = "table table-bordered table-condensed", align='center', id='sf'>
-	<tr>
+	<thead><tr>
 		<th>Company Name</th>
 		<th>Address</th>
 		<th>Postal Code</th>
@@ -58,7 +60,7 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 		<td bgcolor=#00FF00><b>Remarks</b></td>
 		<th>Edit</th>
 		<th>Delete</th>
-	</tr>
+	</tr></thead>
 	<%@records.each do |r|%>
 	<tr>
 		<td><%= r.companyName%></td>
@@ -137,3 +139,4 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 	<%end%>
 	<%end%>
 </table>
+
