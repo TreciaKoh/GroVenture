@@ -1,12 +1,16 @@
-Entitled annual leave: <%=@numAnnualLeave%><br>
-Entitled child leave: <%=@numChildLeave%><br />
+Entitled annual leave: <%= @numAnnualLeave%>
+<br>
+Entitled child leave: <%= @numChildLeave%>
+<br />
 
 <div id="navigation">
-		<a href="/pages/tele">Home</a>
-		<a href="/pages/staff">Home</a>
-		<a href="/pages/logout">Logout</a>
+	<%if session[:type]=="Telemarketer"%>
+	<a href="/pages/tele">Home</a>
+	<%elsif session[:type]=="Staff"%>
+	<a href="/pages/staff">Home</a>
+	<%end%>
+	<a href="/pages/logout">Logout</a>
 </div>
-
 
 <table class = "table table-bordered table-condensed" align='center', id='sf'>
 	<tr>
@@ -16,7 +20,7 @@ Entitled child leave: <%=@numChildLeave%><br />
 		<th>Reason</th>
 		<th>Type</th>
 		<th>Approved</th>
-		
+
 		<th>Edit</th>
 		<th>Delete</th>
 	</tr>
@@ -28,7 +32,7 @@ Entitled child leave: <%=@numChildLeave%><br />
 		<td><%= r.reason%></td>
 		<td><%= r.leavetype%></td>
 		<td><%= r.approved%></td>
-		
+
 		<td><a href='/admins/editRecord?id=<%= r.id%>'>Edit</a></td>
 		<td><a href='/admins/deleteRecord?id=<%= r.id%>'>Delete</a></td>
 	</tr>
@@ -51,7 +55,6 @@ Entitled child leave: <%=@numChildLeave%><br />
 	<tr>
 		<td>Reason:</td><td><%= f.text_field  :reason %></td>
 	</tr>
-	
 
 	<tr>
 		<td></td><td><%= f.submit "Add record", class: "btn btn-primary" %></td>

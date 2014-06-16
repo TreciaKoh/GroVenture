@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140613064458) do
+ActiveRecord::Schema.define(version: 20140616072111) do
 
   create_table "follow_ups", force: true do |t|
     t.integer  "recordId"
@@ -33,7 +33,10 @@ ActiveRecord::Schema.define(version: 20140613064458) do
     t.datetime "updated_at"
     t.boolean  "approved"
     t.string   "leavetype"
+    t.string   "staff_id"
   end
+
+  add_index "leaves", ["staff_id"], name: "index_leaves_on_staff_id", using: :btree
 
   create_table "login_logs", force: true do |t|
     t.string   "userid"

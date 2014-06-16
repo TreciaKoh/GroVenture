@@ -1,4 +1,10 @@
 <%if session[:type]=="Master"%>
+
+<div id="navigation">
+	<a href="/pages/company">Home</a>
+	<a href="/pages/logout">Logout</a>
+</div>
+
 <table class = "table table-bordered table-condensed" align='center', id='sf'>
 	<tr>
 		<th>Date Start</th>
@@ -8,7 +14,16 @@
 		<th>Type</th>
 		<th>Company</th>
 		<th>Approved</th>
-		
+		<th>Date of Birth</th>
+		<th>Date of Employment</th>
+		<th># AL</th>
+		<th># AL taken</th>
+		<th># AL left</th>
+		<th># CL</th>
+		<th># CL taken</th>
+		<th># CL left</th>
+		<th># MCs taken</th>
+
 		<th>Approve</th>
 		<th>Reject</th>
 	</tr>
@@ -21,7 +36,9 @@
 		<td><%= r.leavetype%></td>
 		<td><%= r.company%></td>
 		<td><%= r.approved%></td>
-		
+		<td><%= r.staff.dob%></td>
+		<td><%= r.staff.dateemployed%></td>
+
 		<td><a href='/admins/approve?id=<%= r.id%>'>Approve</a></td>
 		<td><a href='/admins/reject?id=<%= r.id%>'>Reject</a></td>
 	</tr>
