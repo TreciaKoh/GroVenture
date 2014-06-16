@@ -1,7 +1,25 @@
 <%a = 'Eventssssss'%>
 
 <head>
-	<%=javascript_tag do%>
+	
+</head>
+<div id="navigation">
+	<%if session[:company] == 'dreamwrkz'%>
+	<a href="/pages/company">Home</a>
+	<%else%>
+	<a href="/pagesgro/company">Home</a>
+	<%end%>
+	<a href="/admins/approveleave">Approve leaves</a>
+	<a href="/pages/logout">Logout</a>
+</div>
+<%= form_tag("/admins/calendar/", :method => "post") do %>
+<%=select_tag(:selection, "<option>All</option><option>Dreamwrkz</option><option>Groventure</option>".html_safe)%>
+<%= submit_tag("Update", :class=>"btn") %>
+<%end%>
+
+<div id='calendar'></div>
+
+<%=javascript_tag do%>
 		$(document).ready(function() {
 
 			// page is now ready, initialize the calendar...
@@ -38,6 +56,3 @@
 
 		});
 	<%end%>
-</head>
-
-<div id='calendar'></div>

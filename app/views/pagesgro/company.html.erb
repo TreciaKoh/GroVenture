@@ -13,6 +13,8 @@
 		<a href="#tele">Telemarket</a>
 		<a href="#user">Add user</a>
 		<a href="/pagesgro/overall">Overall View</a>
+		<a href="/admins/approveleave">Approve Leave</a>
+		<a href="/admins/calendar">View leaves calendar</a>
 		<a href="/pagesgro/logout">Logout</a>
 </div>
 
@@ -171,21 +173,21 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 
 <!-- Javascript-->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script>
+<script>
+
 		$(function() {
 			$("td[colspan=15]").find("p").hide();
-			$("table[class = 'table table-bordered table-condensed']").click(function(event) {
+			$("td[onclick='']").click(function(event) {
 				event.stopPropagation();
 				var $target = $(event.target);
 				if ($target.closest("td").attr("colspan") > 1) {
-					$target.closest("tr").prev().find("td:first").html("+");
+					$target.closest("tr").prev().find("td:first").html("<button>+</button>");
 				} else {
 					$target.closest("tr").next().find("p").slideToggle();
-					if ($target.closest("tr").find("td:first").html() === "+")
-						$target.closest("tr").find("td:first").html("-");
+					if ($target.closest("tr").find("td:first").html() === "<button>+</button>")
+						$target.closest("tr").find("td:first").html("<button>-</button>");
 					else
-						$target.closest("tr").find("td:first").html("+");
-
+						$target.closest("tr").find("td:first").html("<button>+</button>");
 				}
 			});
 		});

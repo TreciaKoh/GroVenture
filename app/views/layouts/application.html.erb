@@ -16,7 +16,7 @@
 		<script data-turbolinks-track="true" src="/assets/jquery-1.10.2.min.js?body=1"></script>
 		<script data-turbolinks-track="true" src="/assets/jquery.dataTables.js?body=1"></script>
 		<script data-turbolinks-track="true" src="/assets/dataTables.bootstrap.js?body=1"></script>
-		<!-- <script data-turbolinks-track="true" src="/assets/jquery.js?body=1"></script> -->
+		<script data-turbolinks-track="true" src="/assets/jquery.js?body=1"></script>
 		<script data-turbolinks-track="true" src="/assets/jquery_ujs.js?body=1"></script>
 		<script data-turbolinks-track="true" src="/assets/turbolinks.js?body=1"></script>
 		<script data-turbolinks-track="true" src="/assets/admins.js?body=1"></script>
@@ -32,8 +32,14 @@
 			<ul class="nav nav-tabs">
 				<center>
 					<table>
-						<a href="/pages/loginPage"><%= image_tag "dreamwrkz.png", height: '100', weight: '100'%></a>
-						<a href="/pages/loginPage"><%= image_tag "groventure.jpg", height: '100', weight: '100'%></a>
+						<%if session[:company].nil?%>
+						<a href="/admins/index"><%= image_tag "dreamwrkz.png", height: '100', weight: '100'%></a>
+						<a href="/admins/index"><%= image_tag "groventure.jpg", height: '100', weight: '100'%></a>
+						<%elsif session[:company] == 'dreamwrkz'%>
+						<a href="/admins/index"><%= image_tag "dreamwrkz.png", height: '100', weight: '100'%></a>
+						<%elsif session[:company] == 'groventure'%>
+						<a href="/admins/index"><%= image_tag "groventure.jpg", height: '100', weight: '100'%></a>
+						<%end%>
 					</table>
 					<center>
 			</ul>

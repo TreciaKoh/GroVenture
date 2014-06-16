@@ -2,93 +2,19 @@ class AdminsController < ApplicationController
   def index
 
   end
+  
+ 
 
   def leave
     user = session[:user]
-    u = Staff.find_by_staffid(user)
-    childdob = u.dobchild
-    if !childdob.nil?
-    childdob = childdob.to_date
-    end
-    dateemployed = u.dateemployed
-    if !dateemployed.nil?
-    dateemployed = dateemployed.to_date
-    end
-    today = Date.today
-    if dateemployed.nil?
-    annualLeave = 0
-    else
-      numYears = today.year-dateemployed.year
-
-      numMonths = today.month-dateemployed.month
-      numDays = today.day - dateemployed.day
-      if numMonths > 0
-      numYears = numYears + 1
-
-      elsif numMonths == 0
-
-        if numDays > 0
-        numYears = numYears + 1
-        end
-      end
-
-      if numYears == 1
-        if numMonths < 0
-        numMonths = numMonths + 12
-        end
-        if numDays < 0
-        numMonths = numMonths - 1
-        end
-        if numMonths <= 3
-        annualLeave = 2
-        else
-        annualLeave = numMonths.to_f/12*7.round
-        end
-      else
-        annualLeave = 6 + numYears
-        if annualLeave > 14
-        annualLeave = 14
-        end
-      end
-
-    end
-    p numYears
-    p numMonths
-    p numDays
-
-    if childdob.nil?
-    childLeave = 0
-    else
-      childYears = today.year-childdob.year
-      childMonths = today.month-childdob.month
-      if childMonths > 0
-      childYears = childYears + 1
-      elsif childMonths == 0
-        childDays = today.day - childdob.day
-        if childDays > 0
-        childYears = childYears + 1
-        end
-      end
-
-      childYears = childYears - 1
-      if childYears < 7
-        childLeave = 6
-        if numYears == 1
-          if numMonths <= 3
-          childLeave = 2
-          else
-          childLeave = numMonths.to_f/12*6.round
-          end
-        end
-      elsif childYears < 13
-      childLeave = 2
-      else
-      childLeave = 0
-      end
-    end
-
-    @numAnnualLeave = annualLeave.round
-    @numChildLeave = childLeave.round
+    
+    
+    hash = calculateLeaves(user)
+    @numAnnualLeave = hash["numAL"]
+    @numChildLeave = hash["numCL"]
+    @leavestaken = hash["numTaken"]
+    @childleavestaken = hash["childLeavesTaken"]
+    @mctaken = hash["mcTaken"]
     @leaves = Leave.where(staff_id:user)
     @new_leave = Leave.new
   end
@@ -106,10 +32,17 @@ class AdminsController < ApplicationController
   end
 
   def calendar
-    leaves = Leave.all
+    if params[:selection].nil? || params[:selection] == 'All'
+      leaves = Leave.all
+    elsif params[:selection] == 'Dreamwrkz'
+      leaves = Leave.where(company:'dreamwrkz')
+    else
+      leaves = Leave.where(company:'groventure')
+    end
+    
     array = []
     leaves.each do |l|
-      hash = {:title => l.staffid, :start => l.datestart, :end => l.dateend, :color => '#33FF00'}
+      hash = {:title => l.staff_id, :start => l.datestart, :end => l.dateend, :color => '#33FF00'}
       if l.approved == false
         hash[:color] = 'red'
       end
@@ -121,7 +54,8 @@ class AdminsController < ApplicationController
   end
 
   def approveleave
-    @leaves = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id")
+    @leaves = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id").where(approved:false)
+    @leavesapproved = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id").where(approved:true)
   end
 
   def approve

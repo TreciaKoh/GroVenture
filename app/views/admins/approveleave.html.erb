@@ -1,7 +1,13 @@
 <%if session[:type]=="Master"%>
-
+<br>
+<h2>Pending approval</h2>
 <div id="navigation">
+	<%if session[:company] == 'dreamwrkz'%>
 	<a href="/pages/company">Home</a>
+	<%else%>
+	<a href="/pagesgro/company">Home</a>
+	<%end%>
+	<a href="/admins/calendar">View leaves calendar</a>
 	<a href="/pages/logout">Logout</a>
 </div>
 
@@ -24,10 +30,11 @@
 		<th># CL left</th>
 		<th># MCs taken</th>
 
+		
 		<th>Approve</th>
-		<th>Reject</th>
 	</tr>
 	<%@leaves.each do |r|%>
+	<%p r%>
 	<tr>
 		<td><%= r.datestart%></td>
 		<td><%= r.dateend%></td>
@@ -36,10 +43,74 @@
 		<td><%= r.leavetype%></td>
 		<td><%= r.company%></td>
 		<td><%= r.approved%></td>
-		<td><%= r.staff.dob%></td>
-		<td><%= r.staff.dateemployed%></td>
+		
+		<%s = Staff.find_by_staffid(r.staff_id)%>
+		<td><%= s.dob%></td>
+		<td><%= s.dateemployed%></td>
+		<%hash = calculateLeaves(r.staff_id)%>
+		<td><%= hash["numAL"]%></td>
+		<td><%= hash["numTaken"]%></td>
+		<td><%= hash["numAL"] - hash["numTaken"]%></td>
+		<td><%= hash["numCL"]%></td>
+		<td><%= hash["childLeavesTaken"]%></td>
+		<td><%= hash["numCL"] - hash["childLeavesTaken"]%></td>
+		<td><%= hash["mcTaken"]%></td>
+	
 
+		
 		<td><a href='/admins/approve?id=<%= r.id%>'>Approve</a></td>
+	</tr>
+	<%end%>
+</table>
+
+<h2>Approved Leaves</h2>
+<table class = "table table-bordered table-condensed" align='center', id='sf'>
+	<tr>
+		<th>Date Start</th>
+		<th>Date End</th>
+		<th>Total</th>
+		<th>Reason</th>
+		<th>Type</th>
+		<th>Company</th>
+		<th>Approved</th>
+		<th>Date of Birth</th>
+		<th>Date of Employment</th>
+		<th># AL</th>
+		<th># AL taken</th>
+		<th># AL left</th>
+		<th># CL</th>
+		<th># CL taken</th>
+		<th># CL left</th>
+		<th># MCs taken</th>
+
+		
+		<th>Reject</th>
+	</tr>
+	<%@leavesapproved.each do |r|%>
+	<%p r%>
+	<tr>
+		<td><%= r.datestart%></td>
+		<td><%= r.dateend%></td>
+		<td><%= r.total%></td>
+		<td><%= r.reason%></td>
+		<td><%= r.leavetype%></td>
+		<td><%= r.company%></td>
+		<td><%= r.approved%></td>
+		
+		<%s = Staff.find_by_staffid(r.staff_id)%>
+		<td><%= s.dob%></td>
+		<td><%= s.dateemployed%></td>
+		<%hash = calculateLeaves(r.staff_id)%>
+		<td><%= hash["numAL"]%></td>
+		<td><%= hash["numTaken"]%></td>
+		<td><%= hash["numAL"] - hash["numTaken"]%></td>
+		<td><%= hash["numCL"]%></td>
+		<td><%= hash["childLeavesTaken"]%></td>
+		<td><%= hash["numCL"] - hash["childLeavesTaken"]%></td>
+		<td><%= hash["mcTaken"]%></td>
+	
+
+		
 		<td><a href='/admins/reject?id=<%= r.id%>'>Reject</a></td>
 	</tr>
 	<%end%>

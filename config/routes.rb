@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   patch 'admins/updateLeave'
   patch 'admins/updateProfile'
   get 'admins/calendar'
-  
+  post 'admins/calendar'
   get 'pagesgro/index'
 
   get 'pagesgro/tele'
