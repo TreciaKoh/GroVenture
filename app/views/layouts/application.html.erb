@@ -8,10 +8,8 @@
 		<script type='text/javascript' src='fullcalendar.js'></script> -->
 
 		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-
-		<!-- <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %> -->
-
-		<script data-turbolinks-track="true" src="/assets/jquery.min.js?body=1"></script>
+		
+<!-- <script data-turbolinks-track="true" src="/assets/jquery.min.js?body=1"></script>
 		<script data-turbolinks-track="true" src="/assets/moment.min.js?body=1"></script>
 		<script data-turbolinks-track="true" src="/assets/jquery-1.10.2.min.js?body=1"></script>
 		<script data-turbolinks-track="true" src="/assets/jquery.dataTables.js?body=1"></script>
@@ -24,10 +22,15 @@
 
 		<script data-turbolinks-track="true" src="/assets/pages.js?body=1"></script>
 		<script data-turbolinks-track="true" src="/assets/pagesgro.js?body=1"></script>
-		<script data-turbolinks-track="true" src="/assets/application.js?body=1"></script>
+		<script data-turbolinks-track="true" src="/assets/application.js?body=1"></script> -->
+		<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+		
+
+		
 		<%= csrf_meta_tags %>
 	</head>
 	<body>
+		
 		<div class="container-fluid full-width">
 			<ul class="nav nav-tabs">
 				<center>
