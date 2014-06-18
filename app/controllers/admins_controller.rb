@@ -17,14 +17,20 @@ class AdminsController < ApplicationController
     @mctaken = hash["mcTaken"]
     @leaves = Leave.where(staff_id:user)
     @new_leave = Leave.new
+    @windowstart = hash["windowstart"]
+    @numUnpaid = hash["numUnpaid"]
   end
 
   def addLeave
-    enddate = params[:leave][:dateend].to_date
-    startdate = params[:leave][:datestart].to_date
-    total = enddate - startdate + 1
-    Leave.create(:datestart => startdate, :dateend => enddate, :leavetype => params[:leave][:leavetype], :reason => params[:leave][:reason], :total => total, :staff_id => session[:user], :company => session[:company], :profession => session[:type], :approved => false)
-    redirect_to :action => 'leave'
+    if params[:leave][:dateend] == "" || params[:leave][:datestart] == "" || params[:leave][:leavetype] == ""
+      redirect_to :action => 'leave'
+    else
+      enddate = params[:leave][:dateend].to_date
+      startdate = params[:leave][:datestart].to_date
+      total = enddate - startdate + 1
+      Leave.create(:datestart => startdate, :dateend => enddate, :leavetype => params[:leave][:leavetype], :reason => params[:leave][:reason], :total => total, :staff_id => session[:user], :company => session[:company], :profession => session[:type], :approved => false)
+      redirect_to :action => 'leave'
+    end
   end
 
   def leave_params
@@ -99,10 +105,14 @@ class AdminsController < ApplicationController
   def updateProfile
     s = Staff.find_by_id(params[:staff][:id])
     s.update_attributes(staff_params)
-    if session[:type] == "Staff"
+    if session[:type] == "Staff" && session[:company] == 'dreamwrkz'
       redirect_to :controller => 'pages', :action => 'staff'
-    else
+    elsif session[:type] == "Telemarketer" && session[:company] == 'dreamwrkz'
       redirect_to :controller => 'pages', :action => 'tele'
+     elsif session[:type] == "Staff" && session[:company] == 'groventure'
+      redirect_to :controller => 'pagesgro', :action => 'staff'
+    elsif session[:type] == "Telemarketer" && session[:company] == 'groventure'
+      redirect_to :controller => 'pagesgro', :action => 'tele' 
     end
   end
 

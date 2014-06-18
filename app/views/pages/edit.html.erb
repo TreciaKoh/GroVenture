@@ -2,20 +2,24 @@
 
 <table align="center">
 	<%if @type == 'staff'%>
-	<tr>
+	<!-- <tr>
 		<td>Username:</td><td> <%= f.text_field  :staffid %></td>
-	</tr>
+	</tr> -->
 	<%= hidden_field_tag(:type, 'staff')%>
 	<%else%>
-	<tr>
+	<!-- <tr>
 		<td>Username: </td><td><%= f.text_field  :staffid %></td>
-	</tr>
+	</tr> -->
 	<%= hidden_field_tag(:type, 'telemarketer')%>
 	<%end%>
 
 	<tr>
 		<td>Password: </td><td><%= f.text_field  :password %></td>
 	</tr>
+	<tr>
+		<td>Date Employed: </td><td><%= f.date_field  :dateemployed %></td>
+	</tr>
+	
 	<%= f.hidden_field  :id %>
 
 	<tr>

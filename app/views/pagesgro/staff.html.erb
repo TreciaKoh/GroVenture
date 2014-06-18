@@ -41,7 +41,7 @@
 Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 </form><br>
 
-<%if session[:type]=='Staff'%>
+<%if session[:type]=='Staff' && session[:company] == 'groventure'%>
 <%if !@records.nil?%>
 <table class = "table table-bordered table-condensed", align='center', id='sf'>
 	<tr>

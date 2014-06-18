@@ -13,6 +13,7 @@
 
 <table class = "table table-bordered table-condensed" align='center', id='sf'>
 	<tr>
+		<th>Staff ID</th>
 		<th>Date Start</th>
 		<th>Date End</th>
 		<th>Total</th>
@@ -36,6 +37,7 @@
 	<%@leaves.each do |r|%>
 	<%p r%>
 	<tr>
+		<td><%= r.staff_id%></td>
 		<td><%= r.datestart%></td>
 		<td><%= r.dateend%></td>
 		<td><%= r.total%></td>
@@ -66,6 +68,7 @@
 <h2>Approved Leaves</h2>
 <table class = "table table-bordered table-condensed" align='center', id='sf'>
 	<tr>
+		<th>Staff ID</th>
 		<th>Date Start</th>
 		<th>Date End</th>
 		<th>Total</th>
@@ -89,6 +92,7 @@
 	<%@leavesapproved.each do |r|%>
 	<%p r%>
 	<tr>
+		<td><%= r.staff_id%></td>
 		<td><%= r.datestart%></td>
 		<td><%= r.dateend%></td>
 		<td><%= r.total%></td>

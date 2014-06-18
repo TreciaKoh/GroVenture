@@ -97,8 +97,8 @@ class PagesgroController < ApplicationController
   def login
     userid = params[:userid]
     pass = params[:password]
-    t = Staff.find_by(staffid:userid, profession:"tele")
-    s = Staff.find_by(staffid:userid, profession:"staff")
+    t = Staff.find_by(staffid:userid, profession:"tele", company: "groventure")
+    s = Staff.find_by(staffid:userid, profession:"staff", company: "groventure")
     if !t.nil?
 
       if pass != t.password
@@ -165,12 +165,14 @@ class PagesgroController < ApplicationController
     if params[:type] == 'staff'
      
       new_staff = Staff.find_by_id(params[:staff][:id])
-      new_staff.update_attribute(:staffid, params[:staff][:staffid])
+      # new_staff.update_attribute(:staffid, params[:staff][:staffid])
       new_staff.update_attribute(:password, params[:staff][:password])
+       new_staff.update_attribute(:dateemployed, params[:staff][:dateemployed])
     else
       new_staff = Staff.find_by_id(params[:staff][:id])
-      new_staff.update_attribute(:staffid, params[:staff][:staffid])
+      # new_staff.update_attribute(:staffid, params[:staff][:staffid])
       new_staff.update_attribute(:password, params[:staff][:password])
+       new_staff.update_attribute(:dateemployed, params[:staff][:dateemployed])
     end
     redirect_to :action => 'company'
 

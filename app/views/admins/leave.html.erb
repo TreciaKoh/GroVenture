@@ -6,16 +6,27 @@ Entitled child leave: <%= @numChildLeave%>
 <br />
 Child leave taken: <%= @childleavestaken%>
 <br>
-MCs taken: <%= @mctaken%>
+MCs taken: <%= @mctaken%><br>
+Unpaid leaves taken: <%= @numUnpaid%><br>
+<!-- Window Start: <%=@windowstart%> -->
+
 <br>
 
 <div id="navigation">
-	<%if session[:type]=="Telemarketer"%>
+	<%if session[:type]=="Telemarketer" && session[:company] == 'dreamwrkz'%>
 	<a href="/pages/tele">Home</a>
-	<%elsif session[:type]=="Staff"%>
+	<%elsif session[:type]=="Staff" && session[:company] == 'dreamwrkz'%>
 	<a href="/pages/staff">Home</a>
+	<%elsif session[:type]=="Telemarketer" && session[:company] == 'groventure'%>
+	<a href="/pagesgro/tele">Home</a>
+	<%elsif session[:type]=="Staff" && session[:company] == 'groventure'%>
+	<a href="/pagesgro/staff">Home</a>
 	<%end%>
+	<%if session[:company] == 'dreamwrkz'%>
 	<a href="/pages/logout">Logout</a>
+	<%elsif session[:company] == 'groventure'%>
+	<a href="/pages/logout">Logout</a>
+	<%end%>
 </div>
 
 <table class = "table table-bordered table-condensed" align='center', id='sf'>
@@ -37,10 +48,12 @@ MCs taken: <%= @mctaken%>
 		<td><%= r.total%></td>
 		<td><%= r.reason%></td>
 		<td><%= r.leavetype%></td>
-		<td><%= r.approved%></td>
-
+		<%approved = r.approved%>
+		<td><%= approved%></td>
+		<%if !approved%>
 		<td><a href='/admins/editRecord?id=<%= r.id%>'>Edit</a></td>
 		<td><a href='/admins/deleteRecord?id=<%= r.id%>'>Delete</a></td>
+		<%end%>
 	</tr>
 	<%end%>
 </table>
