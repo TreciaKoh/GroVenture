@@ -102,34 +102,62 @@ class ApplicationController < ActionController::Base
       windowstart = Date.new(yeartoday -1, dateemployed.month, dateemployed.day)
       windowend = Date.new(yeartoday, dateemployed.month, dateemployed.day)
     end
-    leavestaken = Leave.where(datestart: windowstart..windowend, leavetype:"normal", staff_id:user, approved:true)
+    leavestaken = Leave.where(datestart: windowstart..windowend, leavetype:"normal", staff_id:user, approved:1..2)
     total = 0
     totalcl = 0
     totalmc = 0
     totalunpaid = 0
     leavestaken.each do |lt|
-      duration = lt.dateend - lt.datestart
-      total = total + duration + 1
+      # duration = lt.dateend - lt.datestart
+      # total = total + duration + 1
+      # starttime = lt.starttime
+      # endtime = lt.endtime
+      # if starttime == 'AM' && endtime == 'PM'
+      # elsif starttime == 'PM' && endtime == 'AM'
+        # total = total - 1
+      # else
+        # total = total - 0.5
+      # end 
+      total = total + lt.total
     end
     
-    childleavestaken = Leave.where(datestart: windowstart..windowend, leavetype:"childcare", staff_id:user, approved:true)
+    childleavestaken = Leave.where(datestart: windowstart..windowend, leavetype:"childcare", staff_id:user, approved:1..2)
     childleavestaken.each do |lt|
-      duration = lt.dateend - lt.datestart
-      totalcl = totalcl + duration + 1
+      # duration = lt.dateend - lt.datestart
+      # totalcl = totalcl + duration + 1
+      # starttime = lt.starttime
+      # endtime = lt.endtime
+      # if starttime == 'AM' && endtime == 'PM'
+      # elsif starttime == 'PM' && endtime == 'AM'
+        # totalcl = totalcl - 1
+      # else
+        # totalcl = totalcl - 0.5
+      # end 
+      totalcl = totalcl + lt.total
     end
    
-    mctaken = Leave.where(datestart: windowstart..windowend, leavetype:"medical", staff_id:user, approved:true)
+    mctaken = Leave.where(datestart: windowstart..windowend, leavetype:"medical", staff_id:user, approved:1..2)
     mctaken.each do |lt|
-      duration = lt.dateend - lt.datestart
-      totalmc = totalmc + duration + 1
+      # duration = lt.dateend - lt.datestart
+      # totalmc = totalmc + duration + 1
+      totalmc = totalmc + lt.total
     end
-    unpaidtaken = Leave.where(datestart: windowstart..windowend, leavetype:"unpaid", staff_id:user, approved:true)
+    unpaidtaken = Leave.where(datestart: windowstart..windowend, leavetype:"unpaid", staff_id:user, approved:1..2)
     unpaidtaken.each do |lt|
-      duration = lt.dateend - lt.datestart
-      totalunpaid = totalunpaid + duration + 1
+      # duration = lt.dateend - lt.datestart
+      # totalunpaid = totalunpaid + duration + 1
+      # starttime = lt.starttime
+      # endtime = lt.endtime
+      # if starttime == 'AM' && endtime == 'PM'
+      # elsif starttime == 'PM' && endtime == 'AM'
+        # totalunpaid = totalunpaid - 1
+      # else
+        # totalunpaid = totalunpaid - 0.5
+      # end 
+      totalunpaid = totalunpaid + lt.total
     end
     
-    return {"numUnpaid" => totalunpaid.to_i, "windowstart" => windowstart, "numAL" => annualLeave.round, "numCL" => childLeave.round, "numTaken" => (total).to_i, "childLeavesTaken" => (totalcl).to_i, "mcTaken" => (totalmc).to_i}
+    return {"numUnpaid" => totalunpaid.to_f, "windowstart" => windowstart, "numAL" => annualLeave.round, "numCL" => childLeave.round, "numTaken" => (total).to_f, "childLeavesTaken" => (totalcl).to_f, "mcTaken" => (totalmc).to_f}
   else
     return {"numAL" => 0, "numCL" => 0, "numTaken" => 0, "childLeavesTaken" => 0, "mcTaken" => 0}
   end

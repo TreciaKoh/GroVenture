@@ -1,0 +1,22 @@
+<h1 id='rec'>Request Cancellation:</h1>
+
+<%= form_for @l, :url => { :action => "requestCancel2" }  do |f|  %>
+<table align="center">
+	<tr>
+		<td>Date From:</td><td><%= @l.datestart %></td>
+	</tr>
+	<tr>
+		<td>Date To:</td><td> <%=@l.dateend %></td>
+	</tr>
+	<tr>
+		<td>Type:</td><td><%=@l.leavetype %></td>
+	</tr>
+	<tr>
+		<td>Reason:</td><td><%= f.text_field  :reason %></td>
+		<%=f.hidden_field(:id, :value => @l.id)%>
+	</tr>
+
+	<tr>
+		<td></td><td><%= f.submit "Request Cancellation", class: "btn btn-primary" %></td>
+	</tr>
+	<%end%>

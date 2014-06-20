@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140616072111) do
+ActiveRecord::Schema.define(version: 20140619062818) do
 
   create_table "follow_ups", force: true do |t|
     t.integer  "recordId"
@@ -27,13 +27,15 @@ ActiveRecord::Schema.define(version: 20140616072111) do
     t.string   "profession"
     t.date     "datestart"
     t.date     "dateend"
-    t.integer  "total"
+    t.decimal  "total",      precision: 5, scale: 2
     t.string   "reason"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "approved"
+    t.integer  "approved"
     t.string   "leavetype"
     t.string   "staff_id"
+    t.string   "starttime"
+    t.string   "endtime"
   end
 
   add_index "leaves", ["staff_id"], name: "index_leaves_on_staff_id", using: :btree

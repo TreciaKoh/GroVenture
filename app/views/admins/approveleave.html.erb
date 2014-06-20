@@ -44,7 +44,14 @@
 		<td><%= r.reason%></td>
 		<td><%= r.leavetype%></td>
 		<td><%= r.company%></td>
-		<td><%= r.approved%></td>
+		<%approved = r.approved%>
+		<%if approved == 0%>
+		<td>Pending</td>
+		<%elsif approved == 1%>
+		<td>Approved</td>
+		<%elsif approved == 2%>
+		<td>Pending cancellation</td>
+		<%end%>
 		
 		<%s = Staff.find_by_staffid(r.staff_id)%>
 		<td><%= s.dob%></td>
@@ -61,6 +68,72 @@
 
 		
 		<td><a href='/admins/approve?id=<%= r.id%>'>Approve</a></td>
+	</tr>
+	<%end%>
+</table>
+
+<h2>Cancellation requests</h2>
+
+
+<table class = "table table-bordered table-condensed" align='center', id='sf'>
+	<tr>
+		<th>Staff ID</th>
+		<th>Date Start</th>
+		<th>Date End</th>
+		<th>Total</th>
+		<th>Reason</th>
+		<th>Type</th>
+		<th>Company</th>
+		<th>Approved</th>
+		<th>Date of Birth</th>
+		<th>Date of Employment</th>
+		<th># AL</th>
+		<th># AL taken</th>
+		<th># AL left</th>
+		<th># CL</th>
+		<th># CL taken</th>
+		<th># CL left</th>
+		<th># MCs taken</th>
+
+		
+		<th>Approve Cancellation</th>
+		<th>Reject Cancellation</th>
+	</tr>
+	<%@leavestocancel.each do |r|%>
+	<%p r%>
+	<tr>
+		<td><%= r.staff_id%></td>
+		<td><%= r.datestart%></td>
+		<td><%= r.dateend%></td>
+		<td><%= r.total%></td>
+		<td><%= r.reason%></td>
+		<td><%= r.leavetype%></td>
+		<td><%= r.company%></td>
+		<%approved = r.approved%>
+		<%if approved == 0%>
+		<td>Pending</td>
+		<%elsif approved == 1%>
+		<td>Approved</td>
+		<%elsif approved == 2%>
+		<td>Pending cancellation</td>
+		<%end%>
+		
+		<%s = Staff.find_by_staffid(r.staff_id)%>
+		<td><%= s.dob%></td>
+		<td><%= s.dateemployed%></td>
+		<%hash = calculateLeaves(r.staff_id)%>
+		<td><%= hash["numAL"]%></td>
+		<td><%= hash["numTaken"]%></td>
+		<td><%= hash["numAL"] - hash["numTaken"]%></td>
+		<td><%= hash["numCL"]%></td>
+		<td><%= hash["childLeavesTaken"]%></td>
+		<td><%= hash["numCL"] - hash["childLeavesTaken"]%></td>
+		<td><%= hash["mcTaken"]%></td>
+	
+
+		
+		<td><a href='/admins/deleteRecord?id=<%= r.id%>'>Approve Cancellation</a></td>
+		<td><a href='/admins/removeRequestCancel?id=<%= r.id%>'>Reject Cancellation</a></td>
 	</tr>
 	<%end%>
 </table>
@@ -99,7 +172,14 @@
 		<td><%= r.reason%></td>
 		<td><%= r.leavetype%></td>
 		<td><%= r.company%></td>
-		<td><%= r.approved%></td>
+		<%approved = r.approved%>
+		<%if approved == 0%>
+		<td>Pending</td>
+		<%elsif approved == 1%>
+		<td>Approved</td>
+		<%elsif approved == 2%>
+		<td>Pending cancellation</td>
+		<%end%>
 		
 		<%s = Staff.find_by_staffid(r.staff_id)%>
 		<td><%= s.dob%></td>

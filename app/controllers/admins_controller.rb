@@ -13,8 +13,10 @@ class AdminsController < ApplicationController
     @numAnnualLeave = hash["numAL"]
     @numChildLeave = hash["numCL"]
     @leavestaken = hash["numTaken"]
+    
     @childleavestaken = hash["childLeavesTaken"]
     @mctaken = hash["mcTaken"]
+    @leavesleft = {"normal" => @numAnnualLeave - @leavestaken, "child" => @numChildLeave - @childleavestaken, "mc" => 14 - @mctaken}
     @leaves = Leave.where(staff_id:user)
     @new_leave = Leave.new
     @windowstart = hash["windowstart"]
@@ -25,10 +27,51 @@ class AdminsController < ApplicationController
     if params[:leave][:dateend] == "" || params[:leave][:datestart] == "" || params[:leave][:leavetype] == ""
       redirect_to :action => 'leave'
     else
+      user = session[:user]
+      hash = calculateLeaves(user)
+      @numAnnualLeave = hash["numAL"]
+      @numChildLeave = hash["numCL"]
+      @leavestaken = hash["numTaken"]
+      
+      @childleavestaken = hash["childLeavesTaken"]
+      @mctaken = hash["mcTaken"]
+      @leavesleft = {"normal" => @numAnnualLeave - @leavestaken, "child" => @numChildLeave - @childleavestaken, "mc" => 14 - @mctaken}
+      leavetype = params[:leave][:leavetype]
+      
       enddate = params[:leave][:dateend].to_date
       startdate = params[:leave][:datestart].to_date
       total = enddate - startdate + 1
-      Leave.create(:datestart => startdate, :dateend => enddate, :leavetype => params[:leave][:leavetype], :reason => params[:leave][:reason], :total => total, :staff_id => session[:user], :company => session[:company], :profession => session[:type], :approved => false)
+      starttime = params[:leave][:starttime]
+      endtime = params[:leave][:endtime]
+      my_days = [0,6]
+      result = (startdate..enddate).to_a.select {|k| my_days.include?(k.wday)}
+      total = total - result.size
+      if starttime == 'AM' && endtime == 'PM'
+      elsif starttime == 'PM' && endtime == 'AM'
+        total = total - 1
+      else
+        total = total - 0.5
+      end 
+      problem = false
+      if leavetype == 'normal'
+        if @leavesleft["normal"] < total
+          problem = true
+        end
+      elsif leavetype == 'childcare'
+        if @leavesleft["child"] < total
+          problem = true
+        end
+      elsif leavetype == 'medical'
+        if @leavesleft["mc"] < total
+          problem = true
+        end
+      end
+      if problem
+        flash[:error] = 'Not enough leave left!'
+      else
+         Leave.create(:datestart => startdate, :dateend => enddate, :leavetype => params[:leave][:leavetype], :reason => params[:leave][:reason], :total => total, :staff_id => session[:user], :company => session[:company], :profession => session[:type], :approved => 0)
+      end
+     
       redirect_to :action => 'leave'
     end
   end
@@ -48,9 +91,11 @@ class AdminsController < ApplicationController
     
     array = []
     leaves.each do |l|
-      hash = {:title => l.staff_id, :start => l.datestart, :end => l.dateend, :color => '#33FF00'}
-      if l.approved == false
+      hash = {:title => l.staff_id + ", " + l.leavetype, :start => l.datestart, :end => l.dateend + 1, :color => '#33FF00'}
+      if l.approved == 0
         hash[:color] = 'red'
+      elsif l.approved == 2
+        hash[:color] = 'yellow'
       end
       array<<hash
     end
@@ -60,26 +105,54 @@ class AdminsController < ApplicationController
   end
 
   def approveleave
-    @leaves = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id").where(approved:false)
-    @leavesapproved = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id").where(approved:true)
+    @leaves = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id").where(approved:0)
+    @leavesapproved = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id").where(approved:1)
+    @leavestocancel = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id").where(approved:2)
+  end
+  
+  def requestCancel
+    @l = Leave.find_by_id(params[:id])
+    # l.update_attribute(:approved, 2)
+    # redirect_to :action => 'leave'
+  end
+  def requestCancel2
+    l = Leave.find_by_id(params[:leave][:id])
+    l.update_attribute(:approved, 2)
+    l.update_attribute(:reason, params[:leave][:reason])
+    redirect_to :action => 'leave'
+  end
+  
+  def removeRequestCancel
+    l = Leave.find_by_id(params[:id])
+    l.update_attribute(:approved, 1)
+    if session[:type] == 'Master'
+      redirect_to :action => 'approveleave'
+    else
+      redirect_to :action => 'leave'
+    end
   end
 
   def approve
     l = Leave.find_by_id(params[:id])
-    l.update_attribute(:approved, true)
+    l.update_attribute(:approved, 1)
     redirect_to :action => 'approveleave'
   end
 
   def reject
     l = Leave.find_by_id(params[:id])
-    l.update_attribute(:approved, false)
+    l.update_attribute(:approved, 0)
     redirect_to :action => 'approveleave'
   end
 
   def deleteRecord
     l = Leave.find_by_id(params[:id])
     l.delete
-    redirect_to :action => 'leave'
+    if session[:type] == 'Master'
+      redirect_to :action => 'approveleave'
+    else
+      redirect_to :action => 'leave'
+    end
+    
   end
 
   def editRecord
@@ -92,6 +165,18 @@ class AdminsController < ApplicationController
     enddate = params[:leave][:dateend].to_date
     startdate = params[:leave][:datestart].to_date
     total = enddate - startdate + 1
+    
+    starttime = params[:leave][:starttime]
+    endtime = params[:leave][:endtime]
+    my_days = [0,6]
+    result = (startdate..enddate).to_a.select {|k| my_days.include?(k.wday)}
+    total = total - result.size
+    if starttime == 'AM' && endtime == 'PM'
+    elsif starttime == 'PM' && endtime == 'AM'
+      total = total - 1
+    else
+      total = total - 0.5
+    end 
     l.update_attributes(leave_params)
     l.update_attribute(:total, total)
     redirect_to :action => 'leave'

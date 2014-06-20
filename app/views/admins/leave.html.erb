@@ -8,6 +8,21 @@ Child leave taken: <%= @childleavestaken%>
 <br>
 MCs taken: <%= @mctaken%><br>
 Unpaid leaves taken: <%= @numUnpaid%><br>
+Leaves left:
+<table border = 1>
+	<tr>
+		<th>Annual Leave</th><th>Child Leave</th><th>MC</th>
+	</tr>
+	<tr>
+		<td><%=@leavesleft["normal"]%></td><td><%=@leavesleft["child"]%></td><td><%=@leavesleft["mc"]%></td>
+	</tr>
+</table>
+
+<% if !flash[:error].nil? %>
+<div class="alert alert-error">
+	<strong><%= flash[:error] %></strong>
+</div>
+<%end%>
 <!-- Window Start: <%=@windowstart%> -->
 
 <br>
@@ -49,10 +64,21 @@ Unpaid leaves taken: <%= @numUnpaid%><br>
 		<td><%= r.reason%></td>
 		<td><%= r.leavetype%></td>
 		<%approved = r.approved%>
-		<td><%= approved%></td>
-		<%if !approved%>
+		<%if approved == 0%>
+		<td>Pending</td>
+		<%elsif approved == 1%>
+		<td>Approved</td>
+		<%elsif approved == 2%>
+		<td>Pending cancellation</td>
+		<%end%>
+		
+		<%if approved==0%>
 		<td><a href='/admins/editRecord?id=<%= r.id%>'>Edit</a></td>
 		<td><a href='/admins/deleteRecord?id=<%= r.id%>'>Delete</a></td>
+		<%elsif approved == 1%>
+		<td><a href='/admins/requestCancel?id=<%= r.id%>'>Request Cancellation</a></td>
+		<%elsif approved == 2%>
+		<td><a href='/admins/removeRequestCancel?id=<%= r.id%>'>Remove Cancellation Request</a></td>
 		<%end%>
 	</tr>
 	<%end%>
@@ -63,10 +89,10 @@ Unpaid leaves taken: <%= @numUnpaid%><br>
 <%= form_for @new_leave, :url => { :action => "addLeave" }  do |f|  %>
 <table align="center">
 	<tr>
-		<td>Date From:</td><td><%= f.date_field  :datestart %></td>
+		<td>Date From:</td><td><%= f.date_field  :datestart %></td><td><%=f.select(:starttime, "<option>AM</option><option>PM</option>".html_safe)%></td>
 	</tr>
 	<tr>
-		<td>Date To:</td><td> <%= f.date_field  :dateend %></td>
+		<td>Date To:</td><td> <%= f.date_field  :dateend %></td><td><%=f.select(:endtime, "<option>AM</option><option>PM</option>".html_safe)%></td>
 	</tr>
 	<tr>
 		<td>Type:</td><td><%= f.select(:leavetype, "<option>normal</option><option>childcare</option><option>unpaid</option><option>medical</option>".html_safe)   %></td>

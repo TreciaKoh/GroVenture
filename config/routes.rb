@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   get 'admins/calendar'
   post 'admins/calendar'
   get 'pagesgro/index'
-
+  get 'admins/requestCancel'
+  patch 'admins/requestCancel2'
+  get 'admins/removeRequestCancel'
   get 'pagesgro/tele'
 
   get 'pagesgro/staff'
