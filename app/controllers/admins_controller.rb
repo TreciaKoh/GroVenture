@@ -3,14 +3,96 @@ class AdminsController < ApplicationController
 
   end
   
+  def loginPage
+    
+  end
+  
+  def login
+    userid = params[:userid]
+    pass = params[:password]
+    t = Staff.find_by(staffid:userid, profession:"tele")
+    s = Staff.find_by(staffid:userid, profession:"staff")
+    if !t.nil?
+
+      if pass != t.password
+        flash[:error] = "Wrong password!"
+        redirect_to :action => 'loginPage'
+      else
+        session[:user] = userid
+
+        session[:type] = "Telemarketer"
+        company = t.company
+        session[:company]= company
+        session[:tier]= t.tier
+        LoginLog.create(:userid => userid, :logintime => DateTime.current)
+        if company == 'dreamwrkz'
+          redirect_to :controller => 'pages',:action => 'tele'
+        elsif company == 'groventure'
+          redirect_to :controller => 'pagesgro',:action => 'tele'
+        end
+        
+      end
+
+    elsif !s.nil?
+      if pass != s.password
+        flash[:error] = "Wrong password!"
+        redirect_to :action => 'loginPage'
+      else
+        session[:user] = userid
+        session[:type] = "Staff"
+        company = s.company
+        session[:company]= company
+        session[:tier] = s.tier
+        LoginLog.create(:userid => userid, :logintime => DateTime.current)
+       if company == 'dreamwrkz'
+          redirect_to :controller => 'pages',:action => 'staff'
+        elsif company == 'groventure'
+          redirect_to :controller => 'pagesgro',:action => 'staff'
+        end
+      end
+
+    elsif userid == "master"
+      if pass != "master"
+        flash[:error] = "Wrong password!"
+        redirect_to :action => 'loginPage'
+      else
+        session[:user] = userid
+        session[:type] = "Master"
+        session[:company]= nil
+        session[:tier] = 0
+        LoginLog.create(:userid => userid, :logintime => DateTime.current)
+        redirect_to :action => 'calendar'
+      end
+
+    else
+      flash[:error] = "Invaid credentials!"
+        redirect_to :action => 'loginPage'
+    end
+  end
  
+  def logout
+    session[:user]=nil
+    session[:type]=nil
+    session[:company]= nil
+    redirect_to :action => 'loginPage'
+  end
 
   def leave
     user = session[:user]
     
     
     hash = calculateLeaves(user)
-    @numAnnualLeave = hash["numAL"]
+    entitledOverwritten = hash["overwritten"]
+    overwritten = hash["cantakeoverwritten"]
+    if entitledOverwritten.nil?
+       @numALEntitled = hash["entitledAL"]
+       @numAnnualLeave = hash["numAL"]
+    else
+       @numALEntitled = entitledOverwritten
+       @numAnnualLeave = overwritten
+    end
+    @numCLEntitled = hash["entitledCL"]
+    
     @numChildLeave = hash["numCL"]
     @leavestaken = hash["numTaken"]
     
@@ -105,9 +187,19 @@ class AdminsController < ApplicationController
   end
 
   def approveleave
-    @leaves = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id").where(approved:0)
-    @leavesapproved = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id").where(approved:1)
-    @leavestocancel = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id").where(approved:2)
+    tier = params[:tier]
+    under = params[:under]
+    if under.nil? || under == 'master'
+      @leaves = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id").where(approved:0, :staffs => {:tier => tier})
+      @leavesapproved = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id").where(approved:1, :staffs => {:tier => tier})
+      @leavestocancel = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id").where(approved:2, :staffs => {:tier => tier})
+      @tier = tier 
+    else
+      @leaves = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id").where(approved:0, :staffs => {:workingunder => under})
+      @leavesapproved = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id").where(approved:1, :staffs => {:workingunder => under})
+      @leavestocancel = Leave.joins("INNER JOIN staffs ON staffs.staffid = leaves.staff_id").where(approved:2, :staffs => {:workingunder => under})
+    end
+    
   end
   
   def requestCancel
@@ -123,10 +215,11 @@ class AdminsController < ApplicationController
   end
   
   def removeRequestCancel
+    person = params[:person]
     l = Leave.find_by_id(params[:id])
     l.update_attribute(:approved, 1)
-    if session[:type] == 'Master'
-      redirect_to :action => 'approveleave'
+    if person=='manager'
+      redirect_to :action => 'approveleave', :under => session[:user], :tier => params[:tier]
     else
       redirect_to :action => 'leave'
     end
@@ -135,19 +228,20 @@ class AdminsController < ApplicationController
   def approve
     l = Leave.find_by_id(params[:id])
     l.update_attribute(:approved, 1)
-    redirect_to :action => 'approveleave'
+    redirect_to :action => 'approveleave', :under => session[:user], :tier => params[:tier]
   end
 
   def reject
     l = Leave.find_by_id(params[:id])
     l.update_attribute(:approved, 0)
-    redirect_to :action => 'approveleave'
+    redirect_to :action => 'approveleave', :under => session[:user], :tier => params[:tier]
   end
 
   def deleteRecord
+    person = params[:person]
     l = Leave.find_by_id(params[:id])
     l.delete
-    if session[:type] == 'Master'
+    if person=='manager'
       redirect_to :action => 'approveleave'
     else
       redirect_to :action => 'leave'
@@ -203,5 +297,97 @@ class AdminsController < ApplicationController
 
   def staff_params
     params.require(:staff).permit!
+  end
+  
+  def manageemployees
+    @tier1employees = Staff.where(tier:1)
+  end
+  
+  def addRemove
+    @new_user = Staff.new
+    @employees = Staff.all
+  end
+  
+  def delete
+    s = Staff.find_by_id(params[:id])
+    s.delete
+    redirect_to :action => 'addRemove'
+  end
+  
+   def adduser
+    Staff.create(staff_params)
+    redirect_to :action => 'manageemployees'
+  end
+  
+  def workingunder
+    id = params[:id]
+    manager = Staff.find_by_id(id)
+    @name = manager.staffid
+    @id = id
+    @managertier = manager.tier
+    @staffunder = Staff.where(workingunder:manager.staffid)
+    @tier2employees = Staff.where(tier:@managertier+1)
+  end
+  
+  def addworkingunder
+    id = params[:staff]
+    under = Staff.find_by_id(id)
+    under.update_attribute(:workingunder, params[:managerid])
+    managerid = params[:manageridid]
+    redirect_to :back
+  end
+  
+  def removeworkingunder
+    id = params[:id]
+    s = Staff.find_by_id(id)
+    s.update_attribute(:workingunder, nil)
+    redirect_to :back
+  end
+  
+  def employeeinfo
+    under = params[:under]
+    if under.nil? || under=='master'
+      @employees = Staff.all
+    else
+      @employees = Staff.where(workingunder:under)
+    end
+    
+  end
+  
+  def changeinfo
+    id = params[:id]
+    @var = params[:var]
+    @staff = Staff.find_by_id(id)
+  end
+  
+  def updatestaffinfo
+    s = Staff.find_by_id(params[:staff][:id])
+    s.update_attributes(staff_params)
+    redirect_to :action => 'employeeinfo', :under => session[:user]
+  end
+  
+  def edit
+    @staff = Staff.find_by_id(params[:id])
+  end
+  def edit2
+     s = Staff.find_by_id(params[:staff][:id])
+     s.update_attributes(staff_params)
+     redirect_to :action => 'addRemove'
+  end
+  
+   def loginRecord
+    @login_records = LoginLog.all
+  end
+  
+  def organstructure
+    @tier1employees = Staff.where(tier:1)
+  end
+  
+  def setdefaultleave
+    id = params[:id]
+    s = Staff.find_by_id(id)
+    s.update_attribute(:overwritttenleave, nil)
+    s.update_attribute(:overwrittenon, nil)
+    redirect_to :back
   end
 end

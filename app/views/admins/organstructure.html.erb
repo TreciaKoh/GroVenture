@@ -1,0 +1,34 @@
+<h2>Organisational Structure</h2>
+<table class="table table-bordered">
+	<thead><tr>
+		<td>Staff id</td>
+		<td>Profession</td>
+		<td>Company</td>
+	</tr></thead>
+<%@tier1employees.each do |e|%>
+<tr class='success'>
+	<td><%=e.staffid%></td>
+	<td><%=e.profession%></td>
+	<td><%=e.company%></td>
+</tr>
+
+<%tier2employees = Staff.where(workingunder: e.staffid)%>
+<%tier2employees.each do |f|%>
+<tr class='error'>
+	<td><%=f.staffid%></td>
+	<td><%=f.profession%></td>
+	<td><%=f.company%></td>
+</tr>
+<%tier3employees = Staff.where(workingunder: f.staffid)%>
+<%tier3employees.each do |g|%>
+<tr class='warning'>
+	<td><%=g.staffid%></td>
+	<td><%=g.profession%></td>
+	<td><%=g.company%></td>
+</tr>
+<%end%>
+
+<%end%>	
+</table>
+
+<%end%>

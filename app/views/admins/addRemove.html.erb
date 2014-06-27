@@ -1,0 +1,50 @@
+<h2 id='user'>Add new user</h2>
+<%= form_for @new_user, :url => { :action => "adduser" }  do |f|  %>
+<table>
+	<tr>
+		<td>Username:</td><td><%= f.text_field(:staffid)%></td>
+	</tr>
+	
+		<%= f.hidden_field(:password, :value =>'dreamgro')%>
+	
+	<tr>
+		<td>Type:</td><td><%= f.select(:profession, "<option>Staff</option><option>Telemarketer</option>".html_safe)%></td>
+	</tr>
+	<tr>
+		<td>Company</td><td><%= f.select(:company, "<option>dreamwrkz</option><option>groventure</option>".html_safe)%></td>
+	</tr>
+	<tr>
+		<td>Date Employed</td><td><%= f.date_field(:dateemployed)%></td>
+	</tr>
+	<tr>
+		<td>Department</td><td><%= f.select(:department, "<option>A</option><option>B</option>".html_safe)%></td>
+	</tr>
+	<tr>
+		<td>Tier</td><td><%= f.select(:tier, "<option>1</option><option>2</option>".html_safe)%></td>
+	</tr>
+	<tr>
+		<td></td><td><%= f.submit("Add User", :class=>"btn") %></td>
+	</tr>
+	<%end%> <!-- form -->
+</table>
+
+<h2>Employee List</h2>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>Staffid</td><td>Profession</td><td>Company</td><td>Department</td><td>Tier</td>
+		</tr>
+	</thead>
+	<%@employees.each do |e|%>
+	<tr>
+		<td><%=e.staffid%></td>
+		<td><%=e.profession%></td>
+		<td><%=e.company%></td>
+		<td><%=e.department%></td>
+		<td><%=e.tier%></td>
+		<td><a href='/admins/edit?id=<%= e.id%>'>Edit</td>
+		<td><a href='/admins/delete?id=<%= e.id%>'>Delete</a></td>
+	</tr>
+	<%end%>
+</table>

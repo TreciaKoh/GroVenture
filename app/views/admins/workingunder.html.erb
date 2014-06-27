@@ -1,0 +1,32 @@
+<h2>People under <%=@name%></h2>
+<% tierInDb = Setting.find_by_id(1).numtiers%>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>Staffid</td><td>Company</td><td>Department</td>
+		</tr>
+	</thead>
+	<%@staffunder.each do |e|%>
+	<tr>
+		
+		<%if @managertier < tierInDb - 2%>
+		<td><a href='/admins/workingunder?id=<%= e.id%>'><%=e.staffid%></td>
+		<%else%>
+		<td><%=e.staffid%></td>
+		<%end%>
+		<td><%=e.company%></td>
+		<td><%=e.department%></td>
+		<td><a href='/admins/removeworkingunder?id=<%= e.id%>'>Remove</td>
+		
+	</tr>
+	<%end%>
+</table>
+
+<h2>Add employee to be under this employee</h2>
+
+<%= form_tag("/admins/addworkingunder/", :method => "post") do %>
+<%= select_tag(:staff, options_from_collection_for_select(@tier2employees, "id", "staffid"))%>
+<%= hidden_field_tag(:managerid, @name)%>
+<%= hidden_field_tag(:manageridid, @id)%>
+<%= submit_tag("Add User", :class=>"btn") %>
+<%end%>

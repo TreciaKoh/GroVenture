@@ -3,10 +3,10 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 </form>
 
 <%if session[:type]=="Master"%>
-<table class="table table-bordered">
-	<tr>
+<table class="table table-bordered", id='sf'>
+	<thead><tr>
 		<td>Userid</td><td>Time of login</td>
-	</tr>
+	</tr></thead>
 	<%@login_records.each do |l|%>
 	<tr>
 		<td><%=l.userid%></td>
@@ -15,3 +15,9 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 	<%end%>
 </table>
 <%end%>
+<script>
+$(document).ready(function() {
+    $('#sf').dataTable();
+} );
+
+</script>

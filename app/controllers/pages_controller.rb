@@ -90,64 +90,11 @@ class PagesController < ApplicationController
     redirect_to :action => 'company'
   end
 
-  def loginPage
+ 
 
-  end
+  
 
-  def login
-    userid = params[:userid]
-    pass = params[:password]
-    t = Staff.find_by(staffid:userid, profession:"tele", company:"dreamwrkz")
-    s = Staff.find_by(staffid:userid, profession:"staff", company:"dreamwrkz")
-    if !t.nil?
-
-      if pass != t.password
-        flash[:error] = "Wrong password!"
-        redirect_to :action => 'loginPage'
-      else
-        session[:user] = userid
-
-        session[:type] = "Telemarketer"
-        session[:company]= "dreamwrkz"
-        LoginLog.create(:userid => userid, :logintime => DateTime.current)
-        redirect_to :action => 'tele'
-      end
-
-    elsif !s.nil?
-      if pass != s.password
-        flash[:error] = "Wrong password!"
-        redirect_to :action => 'loginPage'
-      else
-        session[:user] = userid
-        session[:type] = "Staff"
-        session[:company]= "dreamwrkz"
-        LoginLog.create(:userid => userid, :logintime => DateTime.current)
-        redirect_to :action => 'staff'
-      end
-
-    elsif userid == "master"
-      if pass != "master"
-        flash[:error] = "Wrong password!"
-        redirect_to :action => 'loginPage'
-      else
-        session[:user] = userid
-        session[:type] = "Master"
-        session[:company]= "dreamwrkz"
-        LoginLog.create(:userid => userid, :logintime => DateTime.current)
-        redirect_to :action => 'company'
-      end
-
-    else
-      redirect_to :action => 'overall'
-    end
-  end
-
-  def logout
-    session[:user]=nil
-    session[:type]=nil
-    session[:company]= nil
-    redirect_to :action => 'loginPage'
-  end
+ 
 
   def edit
     type = params[:type]
@@ -189,14 +136,7 @@ class PagesController < ApplicationController
     redirect_to :action => 'company'
   end
 
-  def adduser
-    if params[:type]=='Staff'
-      Staff.create(:staffid => params[:username], :password => params[:password], :profession => "staff", :company => "dreamwrkz")
-    else
-      Staff.create(:staffid => params[:username], :password => params[:password], :profession => "tele", :company => "dreamwrkz")
-    end
-    redirect_to :action => 'company'
-  end
+
 
   def editRecord
     @new_record = MainRecord.find_by_id(params[:id])
@@ -228,8 +168,6 @@ class PagesController < ApplicationController
     end
   end
 
-  def loginRecord
-    @login_records = LoginLog.all
-  end
+ 
 
 end

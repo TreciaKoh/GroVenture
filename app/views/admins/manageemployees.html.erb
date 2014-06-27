@@ -1,0 +1,23 @@
+<h2>Employee Management</h2>
+
+<h2>Tier 1 employees</h2>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>Staffid</td><td>Company</td><td>Department</td>
+		</tr>
+	</thead>
+	<%@tier1employees.each do |e|%>
+	<tr>
+		<td><a href='/admins/workingunder?id=<%= e.id%>'><%=e.staffid%></td>
+
+		<td><%=e.company%></td>
+		<td><%=e.department%></td>
+		
+		
+	</tr>
+	<%end%>
+</table>
+
+	
+	

@@ -1,4 +1,4 @@
-<%if session[:type]=="Master"%>
+
 <br>
 <h2>Pending approval</h2>
 <div id="navigation">
@@ -67,7 +67,7 @@
 	
 
 		
-		<td><a href='/admins/approve?id=<%= r.id%>'>Approve</a></td>
+		<td><a href='/admins/approve?id=<%= r.id%>&tier=<%=@tier%>'>Approve</a></td>
 	</tr>
 	<%end%>
 </table>
@@ -132,8 +132,8 @@
 	
 
 		
-		<td><a href='/admins/deleteRecord?id=<%= r.id%>'>Approve Cancellation</a></td>
-		<td><a href='/admins/removeRequestCancel?id=<%= r.id%>'>Reject Cancellation</a></td>
+		<td><a href='/admins/deleteRecord?id=<%= r.id%>&person=manager&tier=<%=@tier%>'>Approve Cancellation</a></td>
+		<td><a href='/admins/removeRequestCancel?id=<%= r.id%>&person=manager&tier=<%=@tier%>'>Reject Cancellation</a></td>
 	</tr>
 	<%end%>
 </table>
@@ -200,4 +200,4 @@
 	<%end%>
 </table>
 
-<%end%>
+

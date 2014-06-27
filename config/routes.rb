@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'admins/profile'
+  get 'admins/manageemployees'
   get 'admins/leave'
   get 'admins/approveleave'
   get 'admins/approve'
@@ -29,9 +30,15 @@ Rails.application.routes.draw do
   
   post 'pagesgro/update'
   
+  post 'admins/login'
+  
+  get 'admins/loginPage'
+  
   get 'pagesgro/loginPage'
   
   post 'pagesgro/login'
+  
+  get 'admins/logout'
   
   get 'pagesgro/logout'
   
@@ -41,17 +48,38 @@ Rails.application.routes.draw do
   
   get 'pagesgro/delete'
   
-  post 'pagesgro/adduser'
+  post 'admins/adduser'
+  
+  get 'admins/addRemove'
+  
+  get 'admins/workingunder'
+  
+  post 'admins/addworkingunder'
+  
+  get 'admins/removeworkingunder'
+  
+  get 'admins/employeeinfo'
+  
+  get 'admins/changeinfo'
+  
+  patch 'admins/updatestaffinfo'
+  
+  get 'admins/edit'
+  
+  patch 'admins/edit2'
+  
+  get 'admins/loginRecord'
   
   get 'pagesgro/editRecord'
   
+  get 'admins/setdefaultleave'
   patch 'pagesgro/editRecord2'
   
   get 'pagesgro/deleteRecord'
   
   get 'pagesgro/loginRecord'
   
-  
+  get 'admins/organstructure'
   
   
   
@@ -83,7 +111,7 @@ Rails.application.routes.draw do
   
   get 'pages/delete'
   
-  post 'pages/adduser'
+
   
   get 'pages/editRecord'
   
@@ -102,7 +130,7 @@ Rails.application.routes.draw do
   
   get 'admins/index'
   
-  root 'admins#index'
+  root 'admins#loginPage'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

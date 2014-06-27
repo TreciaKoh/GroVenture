@@ -1,0 +1,16 @@
+<h2>Update Info</h2>
+
+<%= form_for @staff, :url => { :action => "updatestaffinfo" }  do |f|  %>
+
+<%if @var == 'dateemployed'%>
+<td>Date Employed</td><td><%= f.date_field(:dateemployed)%></td>
+<%elsif @var == 'dobchild'%>
+<td>Date of birth of youngest child</td><td><%= f.date_field(:dobchild)%></td>
+<%elsif @var == 'overwrittenleave'%>
+<td>Leaves entitled</td><td><%= f.number_field(:overwritttenleave)%></td>
+<%= f.hidden_field(:overwrittenon, :value => Date.today)%>
+
+<%end%>
+<%= f.hidden_field(:id, :value => @staff.id)%>
+<td></td><td><%= f.submit("Update", :class=>"btn") %></td>
+<%end%>

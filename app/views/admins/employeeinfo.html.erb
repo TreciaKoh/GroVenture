@@ -1,0 +1,36 @@
+<h2>Manage Employee Info</h2>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>Staffid</td><td>Employment Date</td><td>Child Birth Date</td><td>Leave entitlement</td><td>Overwrite leave entitlement</td><td>Set default leave</td>
+		</tr>
+	</thead>
+	<%@employees.each do |e|%>
+	<%hash = calculateLeaves(e.staffid)
+	entitledLeave = hash["entitledAL"]%>
+	<tr>
+		<td><%= e.staffid%></td>
+		<%overwrittenleave = e.overwritttenleave
+			if overwrittenleave.nil? 
+			overwrittenleave = 'Not overwritten'
+			end
+			dateemployed = e.dateemployed
+			dobchild = e.dobchild
+			if dateemployed.nil?
+				dateemployed = 'add'
+			end
+			if dobchild.nil?
+				dobchild = 'add'
+			end
+			
+			%>
+		<td><a href='/admins/changeinfo?id=<%= e.id%>&var=dateemployed'><%= dateemployed%></td>
+		<td><a href='/admins/changeinfo?id=<%= e.id%>&var=dobchild'><%= dobchild%></td>
+		<td><%=entitledLeave%></td>
+			
+		<td><a href='/admins/changeinfo?id=<%= e.id%>&var=overwrittenleave'><%=overwrittenleave%></td>
+		<td><a href='/admins/setdefaultleave?id=<%= e.id%>'>Set default</td>
+	</tr>
+	<%end%>
+</table>

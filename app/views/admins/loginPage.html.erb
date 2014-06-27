@@ -1,9 +1,9 @@
-<p align="right">
+<!-- <p align="right">
 	<a href="/pages/overall">Overall View</a>
 	<a href="/pages/logout">Logout</a>
-</p>
-
-<%= form_tag("/pages/login/", :method => "post") do %>
+</p> -->
+<h2>Login</h2>
+<%= form_tag("/admins/login/", :method => "post") do %>
 <table align="center">
 	<tr>
 		<td>Username: </td><td><%= text_field_tag(:userid) %></td>

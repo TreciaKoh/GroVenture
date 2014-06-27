@@ -189,14 +189,7 @@ class PagesgroController < ApplicationController
     redirect_to :action => 'company'
   end
 
-  def adduser
-    if params[:type]=='Staff'
-      Staff.create(:staffid => params[:username], :password => params[:password], :profession => "staff", :company => "groventure")
-    else
-      Staff.create(:staffid => params[:username], :password => params[:password], :profession => "tele", :company => "groventure")
-    end
-    redirect_to :action => 'company'
-  end
+ 
 
   def editRecord
     @new_record = MainRecordGro.find_by_id(params[:id])

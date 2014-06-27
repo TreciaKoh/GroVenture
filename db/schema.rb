@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140619062818) do
+ActiveRecord::Schema.define(version: 20140626062715) do
 
   create_table "follow_ups", force: true do |t|
     t.integer  "recordId"
@@ -87,6 +87,13 @@ ActiveRecord::Schema.define(version: 20140619062818) do
     t.datetime "updated_at"
   end
 
+  create_table "settings", force: true do |t|
+    t.integer  "numtiers"
+    t.integer  "nummonths"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "staffs", force: true do |t|
     t.string   "staffid"
     t.string   "password"
@@ -99,6 +106,11 @@ ActiveRecord::Schema.define(version: 20140619062818) do
     t.date     "dob"
     t.date     "dateemployed"
     t.date     "dobchild"
+    t.string   "department"
+    t.string   "workingunder"
+    t.integer  "tier"
+    t.decimal  "overwritttenleave", precision: 5, scale: 2
+    t.date     "overwrittenon"
   end
 
   create_table "telemarketers", force: true do |t|
