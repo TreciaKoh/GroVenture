@@ -17,7 +17,10 @@ Rails.application.routes.draw do
   patch 'admins/requestCancel2'
   get 'admins/removeRequestCancel'
   get 'pagesgro/tele'
-
+  get 'admins/changepassword'
+  post 'admins/changepassword2'
+  get 'pages/togglecloseddream'
+  get 'pages/toggleclosedgro'
   get 'pagesgro/staff'
 
   get 'pagesgro/company'
@@ -28,6 +31,11 @@ Rails.application.routes.draw do
   
   post 'pagesgro/add'
   
+  get 'admins/viewsales'
+  
+  get 'admins/setbroughtforward'
+  
+  post 'admins/setbroughtforward2'
   post 'pagesgro/update'
   
   post 'admins/login'

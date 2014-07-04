@@ -390,4 +390,46 @@ class AdminsController < ApplicationController
     s.update_attribute(:overwrittenon, nil)
     redirect_to :back
   end
+  
+  def changepassword
+    
+  end
+  def changepassword2
+    user = Staff.find_by_staffid(session[:user])
+    oldpassword = params[:oldpassword]
+    newpassword = params[:newpassword]
+    if user.password != oldpassword
+      flash[:error] = 'Old password is wrong!'
+    else
+      user.update_attribute(:password, newpassword)
+      flash[:error] = 'Password changed!'
+    end
+    redirect_to :back
+  end
+  
+  def viewsales
+    @result = []
+    users = Staff.all
+    users.each do |u|
+      company = u.company
+      if company == 'dreamwrkz'
+        records = MainRecord.where(attendedBy:u.staffid).size
+        numclosed = MainRecord.where(attendedBy:u.staffid, closed:true).size
+      elsif company == 'groventure'
+        records = MainRecordGro.where(attendedBy:u.staffid).size
+        numclosed = MainRecordGro.where(attendedBy:u.staffid, closed:true).size
+      end
+      @result << {"staff"=>u.staffid, "total"=>records, "closed" =>numclosed, "percentage" => numclosed.to_f/records*100}
+    end
+  end
+  
+  def setbroughtforward
+    
+  end
+  def setbroughtforward2
+    s = Setting.find_by_id(1)
+    s.update_attribute(:nummonths, params[:num])
+    @success = 'Successfully changed'
+    redirect_to :back
+  end
 end

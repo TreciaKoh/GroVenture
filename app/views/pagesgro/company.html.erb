@@ -84,7 +84,7 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 	</tr>
 	<%@records.each do |r|%>
 	<tr>
-		<td>+</td>
+		<td onclick=""><button>+</button></td>
 		<td><%= r.companyName%></td>
 		<td><%= r.address%></td>
 		<td><%= r.postalCode%></td>
@@ -123,7 +123,7 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 <%end%>
 
 
-<h2 id='mngStff'>Admin - Manage Staff</h2>
+<!-- <h2 id='mngStff'>Admin - Manage Staff</h2>
 <a href='/pagesgro/loginRecord'>View login records</a>
 
 <h3 id='stf'>Staff</h3>
@@ -170,8 +170,7 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 	</tr>
 	<%end%>
 	<%end%>
-</table>
-
+</table> -->
 <!-- Javascript-->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>

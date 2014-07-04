@@ -61,6 +61,7 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 		<td bgcolor=#00FF00><b>Remarks</b></td>
 		<th>Edit</th>
 		<th>Delete</th>
+		<th>Closed</th>
 	</tr>
 	<%@records.each do |r|%>
 	<tr>
@@ -80,6 +81,12 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 		<td><%= r.attendedByRemarks%></td>
 		<td><a href='/pagesgro/editRecord?id=<%= r.id%>'>Edit</a></td>
 		<td><a href='/pagesgro/deleteRecord?id=<%= r.id%>'>Delete</a></td>
+		<%closed = r.closed%>
+		<%if closed%>
+		<td><a href='/pages/toggleclosedgro?id=<%= r.id%>'>Closed</a></td>
+		<%else%>
+		<td><a href='/pages/toggleclosedgro?id=<%= r.id%>'>Not Closed</a></td>
+		<%end%>
 
 	</tr>
 	<%end%>

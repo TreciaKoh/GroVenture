@@ -224,5 +224,16 @@ class PagesgroController < ApplicationController
   def loginRecord
     @login_records = LoginLog.all
   end
+  
+  def toggleclosedgro
+    r = MainRecordGro.find_by_id(params[:id])
+    closed = r.closed
+    if closed
+      r.update_attribute(:closed, false)
+    else
+      r.update_attribute(:closed, true)
+    end
+    redirect_to :back
+  end 
 
 end

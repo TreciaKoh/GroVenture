@@ -16,6 +16,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require admins
+//= require bootstrap.min
 //= require fullcalendar
 //= require jquery.dataTables
 

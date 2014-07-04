@@ -1,0 +1,16 @@
+<h2>View Sales Records</h2>
+<table class="table table-bordered">
+	<tr>
+		<th>Staff</th><th>Number Attended</th><th>Number Closed</th><th>Success Rate</th>
+	</tr>
+	<%@result.each do |r|%>
+	<tr>
+		<td><%=r["staff"]%></td>
+		<td><%=r["total"]%></td>
+		<td><%=r["closed"]%></td>
+		<td><%=r["percentage"]%></td>
+	</tr>
+	<%end%>
+	
+</table>
+	

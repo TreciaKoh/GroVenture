@@ -234,6 +234,8 @@ class ApplicationController < ActionController::Base
     end
     windowstart = Date.new(today.year, 1,1)
     windowend = Date.new(today.year, 12, 31)
+    windowstart1 = Date.new(today.year-1, 1,1)
+    windowend1 = Date.new(today.year-1, 12, 31)
     totalunpaid = 0
     unpaidtaken = Leave.where(datestart: windowstart..windowend, leavetype:"unpaid", staff_id:user, approved:1..2)
     unpaidtaken.each do |lt|
@@ -259,9 +261,23 @@ class ApplicationController < ActionController::Base
     
       total = total + lt.total
     end
+    broughtforwardmonths = Setting.find_by_id(1).nummonths
+    if (today.month <= broughtforwardmonths)
+      leavestaken = Leave.where(datestart: windowstart1..windowend1, leavetype:"normal", staff_id:user, approved:1..2)
+      total1 = 0
+      leavestaken.each do |lt|
+      
+        total1 = total1 + lt.total
+      end
+      lastyearentitlement = annualLeave - 1
+      tobringforward = lastyearentitlement - total1
+    end
+    
     entitledAL = annualLeave
+    entitledAL += tobringforward if !tobringforward.nil?
     entitledCL = childLeave
     annualLeave = annualLeave.to_f/12*today.month
+    annualLeave += tobringforward if !tobringforward.nil?
     childLeave = childLeave.to_f/12*today.month
     
     overwrittenleave = u.overwritttenleave

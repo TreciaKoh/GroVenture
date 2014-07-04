@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140626062715) do
+ActiveRecord::Schema.define(version: 20140704020419) do
 
   create_table "follow_ups", force: true do |t|
     t.integer  "recordId"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20140626062715) do
     t.string   "attendedByRemarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "closed"
   end
 
   create_table "main_records", force: true do |t|
@@ -85,6 +86,7 @@ ActiveRecord::Schema.define(version: 20140626062715) do
     t.string   "attendedByRemarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "closed"
   end
 
   create_table "settings", force: true do |t|
@@ -112,6 +114,8 @@ ActiveRecord::Schema.define(version: 20140626062715) do
     t.decimal  "overwritttenleave", precision: 5, scale: 2
     t.date     "overwrittenon"
   end
+
+  add_index "staffs", ["staffid"], name: "staffid", unique: true, using: :btree
 
   create_table "telemarketers", force: true do |t|
     t.string   "teleid"

@@ -168,6 +168,15 @@ class PagesController < ApplicationController
     end
   end
 
- 
+  def togglecloseddream
+    r = MainRecord.find_by_id(params[:id])
+    closed = r.closed
+    if closed
+      r.update_attribute(:closed, false)
+    else
+      r.update_attribute(:closed, true)
+    end
+    redirect_to :back
+  end 
 
 end
