@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :staffs do
+    resources :educations
+  end
+
   get 'admins/profile'
   get 'admins/manageemployees'
   get 'admins/leave'
@@ -137,6 +141,41 @@ Rails.application.routes.draw do
   
   
   get 'admins/index'
+  
+  get 'appendixes/index'
+  get 'appendixes/show'
+  get 'appendixes/new'
+  get 'appendixes/edit'
+  post 'appendixes/create'
+  patch 'appendixes/update'
+  delete 'appendixes/destroy'
+  resources :appendixes
+  
+  get 'products/index'
+  get 'products/show'
+  get 'products/new'
+  get 'products/edit'
+  post 'products/create'
+  patch 'products/update'
+  delete 'products/destroy'
+  resources :products
+  get 'logos/index'
+  get 'logos/show'
+  get 'logos/new'
+  get 'logos/edit'
+  post 'logos/create'
+  patch 'logos/update'
+  delete 'logos/destroy'
+  resources :logos
+  
+  get 'letters/index'
+  get 'letters/show'
+  get 'letters/new'
+  get 'letters/edit'
+  post 'letters/create'
+  patch 'letters/update'
+  delete 'letters/destroy'
+  resources :letters
   
   root 'admins#loginPage'
 

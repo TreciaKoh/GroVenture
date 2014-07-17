@@ -28,7 +28,7 @@
 		<%= csrf_meta_tags %>
 		<style type="text/css">
 			body {
-				padding-top: 60px;
+				padding-top: 130px;
 			}
 		</style>
 	</head>
@@ -161,6 +161,46 @@
 							</li>
 							<li>
 								<a href="/admins/viewsales">View Sales Records</a>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Employees <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="/admins/manageemployees">Manage employee structure</a>
+									</li>
+									<li>
+										<a href="/admins/employeeinfo">Manage employee info</a>
+									</li>
+									<li>
+										<a href="/admins/organstructure">See organisational structure</a>
+									</li>
+									<li>
+										<a href='/admins/loginRecord'>View login records</a>
+									</li>
+									<li>
+										<a href='/admins/addRemove'>Add/Remove Employees</a>
+									</li>
+
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin tools <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="/appendixes">Appendixes</a>
+									</li>
+									<li>
+										<a href="/products">Products sold by our company</a>
+									</li>
+									<li>
+										<a href="/logos">Company logos</a>
+									</li>
+									<li>
+										<a href='/letters'>Employee letters</a>
+									</li>
+									
+
+								</ul>
 							</li>
 							<%end%>
 

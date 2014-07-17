@@ -11,7 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140704020419) do
+ActiveRecord::Schema.define(version: 20140717083513) do
+
+  create_table "appendixes", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "supportdoc_file_name"
+    t.string   "supportdoc_content_type"
+    t.integer  "supportdoc_file_size"
+    t.datetime "supportdoc_updated_at"
+  end
+
+  create_table "educations", force: true do |t|
+    t.integer  "staff_id"
+    t.string   "schoolname"
+    t.string   "schooladdress"
+    t.string   "level"
+    t.integer  "from"
+    t.integer  "to"
+    t.boolean  "didyougraduate"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "follow_ups", force: true do |t|
     t.integer  "recordId"
@@ -40,11 +62,28 @@ ActiveRecord::Schema.define(version: 20140704020419) do
 
   add_index "leaves", ["staff_id"], name: "index_leaves_on_staff_id", using: :btree
 
+  create_table "letters", force: true do |t|
+    t.string   "name"
+    t.text     "text",       limit: 2147483647
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "login_logs", force: true do |t|
     t.string   "userid"
     t.datetime "logintime"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "logos", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "supportdoc_file_name"
+    t.string   "supportdoc_content_type"
+    t.integer  "supportdoc_file_size"
+    t.datetime "supportdoc_updated_at"
   end
 
   create_table "main_record_gros", force: true do |t|
@@ -65,7 +104,7 @@ ActiveRecord::Schema.define(version: 20140704020419) do
     t.string   "attendedByRemarks"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "closed"
+    t.boolean  "closed",            default: false
   end
 
   create_table "main_records", force: true do |t|
@@ -86,7 +125,13 @@ ActiveRecord::Schema.define(version: 20140704020419) do
     t.string   "attendedByRemarks"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "closed"
+    t.boolean  "closed",            default: false
+  end
+
+  create_table "products", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "settings", force: true do |t|
@@ -97,25 +142,54 @@ ActiveRecord::Schema.define(version: 20140704020419) do
   end
 
   create_table "staffs", force: true do |t|
+    t.string   "positionapplied"
+    t.string   "salutation"
+    t.string   "fullname"
+    t.string   "address"
+    t.integer  "telephone"
+    t.date     "dob"
+    t.string   "birthplace"
+    t.string   "race"
+    t.string   "dialect"
+    t.string   "nric"
+    t.string   "colour"
+    t.string   "citizenship"
+    t.string   "sex"
+    t.string   "religion"
+    t.string   "incometaxno"
+    t.string   "drivinglicenseno"
+    t.string   "maritalstatus"
+    t.string   "spousename"
+    t.string   "spouseoccupation"
+    t.integer  "noofchildren"
+    t.string   "agerange"
+    t.string   "emergencyname"
+    t.string   "emergencyrelationship"
+    t.string   "emergencyaddress"
+    t.integer  "emergencytelephone"
+    t.boolean  "servingbond"
+    t.integer  "salaryexpected"
+    t.date     "dateavailable"
+    t.boolean  "previousapplied"
+    t.date     "previousdate"
+    t.string   "previousposition"
+    t.string   "languagespoken"
+    t.string   "languagewritten"
+    t.string   "physicaldisability"
+    t.string   "majorillness"
     t.string   "staffid"
     t.string   "password"
     t.string   "profession"
     t.string   "company"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "fullname"
-    t.string   "nric"
-    t.date     "dob"
     t.date     "dateemployed"
     t.date     "dobchild"
     t.string   "department"
-    t.string   "workingunder"
     t.integer  "tier"
-    t.decimal  "overwritttenleave", precision: 5, scale: 2
+    t.decimal  "overwrittenleave",      precision: 5, scale: 2
     t.date     "overwrittenon"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
-
-  add_index "staffs", ["staffid"], name: "staffid", unique: true, using: :btree
 
   create_table "telemarketers", force: true do |t|
     t.string   "teleid"

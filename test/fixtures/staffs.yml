@@ -1,9 +1,95 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  positionapplied: MyString
+  salutation: MyString
+  fullname: MyString
+  address: MyString
+  telephone: 1
+  dob: 2014-07-17
+  birthplace: MyString
+  race: MyString
+  dialect: MyString
+  nric: MyString
+  colour: MyString
+  citizenship: MyString
+  sex: MyString
+  religion: MyString
+  incometaxno: MyString
+  drivinglicenseno: MyString
+  maritalstatus: MyString
+  spousename: MyString
+  spouseoccupation: MyString
+  noofchildren: 1
+  agerange: MyString
+  emergencyname: MyString
+  emergencyrelationship: MyString
+  emergencyaddress: MyString
+  emergencytelephone: 1
+  servingbond: false
+  salaryexpected: 1
+  dateavailable: 2014-07-17
+  previousapplied: false
+  previousdate: 2014-07-17
+  previousposition: MyString
+  languagespoken: MyString
+  languagewritten: MyString
+  physicaldisability: MyString
+  majorillness: MyString
   staffid: MyString
   password: MyString
+  profession: MyString
+  company: MyString
+  dateemployed: 2014-07-17
+  dobchild: 2014-07-17
+  department: MyString
+  tier: 1
+  overwrittenleave: 9.99
+  overwrittenon: 2014-07-17
 
 two:
+  positionapplied: MyString
+  salutation: MyString
+  fullname: MyString
+  address: MyString
+  telephone: 1
+  dob: 2014-07-17
+  birthplace: MyString
+  race: MyString
+  dialect: MyString
+  nric: MyString
+  colour: MyString
+  citizenship: MyString
+  sex: MyString
+  religion: MyString
+  incometaxno: MyString
+  drivinglicenseno: MyString
+  maritalstatus: MyString
+  spousename: MyString
+  spouseoccupation: MyString
+  noofchildren: 1
+  agerange: MyString
+  emergencyname: MyString
+  emergencyrelationship: MyString
+  emergencyaddress: MyString
+  emergencytelephone: 1
+  servingbond: false
+  salaryexpected: 1
+  dateavailable: 2014-07-17
+  previousapplied: false
+  previousdate: 2014-07-17
+  previousposition: MyString
+  languagespoken: MyString
+  languagewritten: MyString
+  physicaldisability: MyString
+  majorillness: MyString
   staffid: MyString
   password: MyString
+  profession: MyString
+  company: MyString
+  dateemployed: 2014-07-17
+  dobchild: 2014-07-17
+  department: MyString
+  tier: 1
+  overwrittenleave: 9.99
+  overwrittenon: 2014-07-17

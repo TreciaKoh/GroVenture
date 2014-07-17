@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Name:</strong>
+  <%= @appendix.name %>
+  <strong>Download:</strong>
+  <a href='<%= @appendix.supportdoc.url %>'>Download</a>
+</p>
+
+<p>
+  
+</p>
+
+<%= link_to 'Edit', edit_appendix_path(@appendix) %> |
+<%= link_to 'Back', appendixes_path %>

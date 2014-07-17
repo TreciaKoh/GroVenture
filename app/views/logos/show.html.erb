@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @logo.name %>
+</p>
+
+<p>
+  <strong>Supportdoc:</strong>
+  <%= image_tag @logo.supportdoc.url(:thumb) %>
+</p>
+
+<%= link_to 'Edit', edit_logo_path(@logo) %> |
+<%= link_to 'Back', logos_path %>

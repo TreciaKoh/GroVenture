@@ -1,0 +1,113 @@
+<h1>Listing staffs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Positionapplied</th>
+      <th>Salutation</th>
+      <th>Fullname</th>
+      <th>Address</th>
+      <th>Telephone</th>
+      <th>Dob</th>
+      <th>Birthplace</th>
+      <th>Race</th>
+      <th>Dialect</th>
+      <th>Nric</th>
+      <th>Colour</th>
+      <th>Citizenship</th>
+      <th>Sex</th>
+      <th>Religion</th>
+      <th>Incometaxno</th>
+      <th>Drivinglicenseno</th>
+      <th>Maritalstatus</th>
+      <th>Spousename</th>
+      <th>Spouseoccupation</th>
+      <th>Noofchildren</th>
+      <th>Agerange</th>
+      <th>Emergencyname</th>
+      <th>Emergencyrelationship</th>
+      <th>Emergencyaddress</th>
+      <th>Emergencytelephone</th>
+      <th>Servingbond</th>
+      <th>Salaryexpected</th>
+      <th>Dateavailable</th>
+      <th>Previousapplied</th>
+      <th>Previousdate</th>
+      <th>Previousposition</th>
+      <th>Languagespoken</th>
+      <th>Languagewritten</th>
+      <th>Physicaldisability</th>
+      <th>Majorillness</th>
+      <th>Staffid</th>
+      <th>Password</th>
+      <th>Profession</th>
+      <th>Company</th>
+      <th>Dateemployed</th>
+      <th>Dobchild</th>
+      <th>Department</th>
+      <th>Tier</th>
+      <th>Overwrittenleave</th>
+      <th>Overwrittenon</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @staffs.each do |staff| %>
+      <tr>
+        <td><%= staff.positionapplied %></td>
+        <td><%= staff.salutation %></td>
+        <td><%= staff.fullname %></td>
+        <td><%= staff.address %></td>
+        <td><%= staff.telephone %></td>
+        <td><%= staff.dob %></td>
+        <td><%= staff.birthplace %></td>
+        <td><%= staff.race %></td>
+        <td><%= staff.dialect %></td>
+        <td><%= staff.nric %></td>
+        <td><%= staff.colour %></td>
+        <td><%= staff.citizenship %></td>
+        <td><%= staff.sex %></td>
+        <td><%= staff.religion %></td>
+        <td><%= staff.incometaxno %></td>
+        <td><%= staff.drivinglicenseno %></td>
+        <td><%= staff.maritalstatus %></td>
+        <td><%= staff.spousename %></td>
+        <td><%= staff.spouseoccupation %></td>
+        <td><%= staff.noofchildren %></td>
+        <td><%= staff.agerange %></td>
+        <td><%= staff.emergencyname %></td>
+        <td><%= staff.emergencyrelationship %></td>
+        <td><%= staff.emergencyaddress %></td>
+        <td><%= staff.emergencytelephone %></td>
+        <td><%= staff.servingbond %></td>
+        <td><%= staff.salaryexpected %></td>
+        <td><%= staff.dateavailable %></td>
+        <td><%= staff.previousapplied %></td>
+        <td><%= staff.previousdate %></td>
+        <td><%= staff.previousposition %></td>
+        <td><%= staff.languagespoken %></td>
+        <td><%= staff.languagewritten %></td>
+        <td><%= staff.physicaldisability %></td>
+        <td><%= staff.majorillness %></td>
+        <td><%= staff.staffid %></td>
+        <td><%= staff.password %></td>
+        <td><%= staff.profession %></td>
+        <td><%= staff.company %></td>
+        <td><%= staff.dateemployed %></td>
+        <td><%= staff.dobchild %></td>
+        <td><%= staff.department %></td>
+        <td><%= staff.tier %></td>
+        <td><%= staff.overwrittenleave %></td>
+        <td><%= staff.overwrittenon %></td>
+        <td><%= link_to 'Show', staff %></td>
+        <td><%= link_to 'Edit', edit_staff_path(staff) %></td>
+        <td><%= link_to 'Destroy', staff, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Staff', new_staff_path %>

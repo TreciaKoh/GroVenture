@@ -1,0 +1,24 @@
+<h1>Listing appendixes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @appendixes.each do |appendix| %>
+      <tr>
+      	<td><%= appendix.name %></td>
+        <td><%= link_to 'Show', appendix %></td>
+        <td><%= link_to 'Edit', edit_appendix_path(appendix) %></td>
+        <td><%= link_to 'Destroy', appendix, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Appendix', new_appendix_path %>

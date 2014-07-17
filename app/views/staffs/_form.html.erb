@@ -1,0 +1,254 @@
+<%= form_for(@staff) do |f| %>
+  <% if @staff.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@staff.errors.count, "error") %> prohibited this staff from being saved:</h2>
+
+      <ul>
+      <% @staff.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :positionapplied %><br>
+    <%= f.text_field :positionapplied %>
+  </div>
+  <div class="field">
+  	<%salutations = ['Mr','Miss','Mrs','Mdm']%>
+    <%= f.label :salutation %><br>
+    <%= f.select :salutation, options_for_select(salutations) %>
+  </div>
+  <div class="field">
+    <%= f.label :fullname %><br>
+    <%= f.text_field :fullname %>
+  </div>
+  <div class="field">
+    <%= f.label :address %><br>
+    <%= f.text_field :address %>
+  </div>
+  <div class="field">
+    <%= f.label :telephone %><br>
+    <%= f.number_field :telephone %>
+  </div>
+  <div class="field">
+    <%= f.label :dob %><br>
+    <%= f.date_select :dob %>
+  </div>
+  <div class="field">
+    <%= f.label :birthplace %><br>
+    <%= f.text_field :birthplace %>
+  </div>
+  <div class="field">
+    <%= f.label :race %><br>
+    <%= f.text_field :race %>
+  </div>
+  <div class="field">
+    <%= f.label :dialect %><br>
+    <%= f.text_field :dialect %>
+  </div>
+  <div class="field">
+    <%= f.label :nric %><br>
+    <%= f.text_field :nric %>
+  </div>
+  <div class="field">
+    <%= f.label :colour %><br>
+    <%= f.text_field :colour %>
+  </div>
+  <div class="field">
+    <%= f.label :citizenship %><br>
+    <%= f.text_field :citizenship %>
+  </div>
+  <div class="field">
+  	<%sexes = ['M', 'F','others']%>
+    <%= f.label :sex %><br>
+    <%= f.select :sex, options_for_select(sexes) %>
+  </div>
+  <div class="field">
+    <%= f.label :religion %><br>
+    <%= f.text_field :religion %>
+  </div>
+  <div class="field">
+    <%= f.label :incometaxno %><br>
+    <%= f.text_field :incometaxno %>
+  </div>
+  <div class="field">
+    <%= f.label :drivinglicenseno %><br>
+    <%= f.text_field :drivinglicenseno %>
+  </div>
+  <div class="field">
+    <%= f.label :maritalstatus %><br>
+    <%= f.text_field :maritalstatus %>
+  </div>
+  <div class="field">
+    <%= f.label :spousename %><br>
+    <%= f.text_field :spousename %>
+  </div>
+  <div class="field">
+    <%= f.label :spouseoccupation %><br>
+    <%= f.text_field :spouseoccupation %>
+  </div>
+  <div class="field">
+    <%= f.label :noofchildren %><br>
+    <%= f.number_field :noofchildren %>
+  </div>
+  <div class="field">
+    <%= f.label :agerange %><br>
+    <%= f.text_field :agerange %>
+  </div>
+  <div class="field">
+    <%= f.label :emergencyname %><br>
+    <%= f.text_field :emergencyname %>
+  </div>
+  <div class="field">
+    <%= f.label :emergencyrelationship %><br>
+    <%= f.text_field :emergencyrelationship %>
+  </div>
+  <div class="field">
+    <%= f.label :emergencyaddress %><br>
+    <%= f.text_field :emergencyaddress %>
+  </div>
+  <div class="field">
+    <%= f.label :emergencytelephone %><br>
+    <%= f.number_field :emergencytelephone %>
+  </div>
+  <div class="field">
+    <%= f.label :servingbond %><br>
+    <%= f.check_box :servingbond %>
+  </div>
+  <div class="field">
+    <%= f.label :salaryexpected %><br>
+    <%= f.number_field :salaryexpected %>
+  </div>
+  <div class="field">
+    <%= f.label :dateavailable %><br>
+    <%= f.date_select :dateavailable %>
+  </div>
+  <div class="field">
+    <%= f.label :previousapplied %><br>
+    <%= f.check_box :previousapplied %>
+  </div>
+  <div class="field">
+    <%= f.label :previousdate %><br>
+    <%= f.date_select :previousdate, :include_blank=>true%>
+  </div>
+  <div class="field">
+    <%= f.label :previousposition %><br>
+    <%= f.text_field :previousposition %>
+  </div>
+  <div class="field">
+    <%= f.label :languagespoken %><br>
+    <%= f.text_field :languagespoken %>
+  </div>
+  <div class="field">
+    <%= f.label :languagewritten %><br>
+    <%= f.text_field :languagewritten %>
+  </div>
+  <div class="field">
+    <%= f.label :physicaldisability %><br>
+    <%= f.text_field :physicaldisability %>
+  </div>
+  <div class="field">
+    <%= f.label :majorillness %><br>
+    <%= f.text_field :majorillness %>
+  </div>
+  <h2>Add education details</h2>
+  <h3>First school</h3>
+  <%=f.fields_for :educations do |e|%>
+  <div class="field">
+    <%= e.label :schoolname %><br>
+    <%= e.text_field :schoolname %>
+  </div>
+  <div class="field">
+    <%= e.label :schooladdress %><br>
+    <%= e.text_field :schooladdress %>
+  </div>
+  <div class="field">
+    <%= e.label :level %><br>
+    <%= e.text_field :level%>
+  </div>
+  <div class="field">
+    <%= e.label :from %><br>
+    <%= e.number_field :from%>
+  </div>
+  <div class="field">
+    <%= e.label :to %><br>
+    <%= e.number_field :to %>
+  </div>
+  <div class="field">
+    <%= e.label :didyougraduate %><br>
+    <%= e.check_box :didyougraduate %>
+  </div>
+  <%end%>
+   <h3>Second school</h3>
+  <%=f.fields_for :educations, @education do |e|%>
+  <div class="field">
+    <%= e.label :schoolname %><br>
+    <%= e.text_field :schoolname %>
+  </div>
+  <div class="field">
+    <%= e.label :schooladdress %><br>
+    <%= e.text_field :schooladdress %>
+  </div>
+  <div class="field">
+    <%= e.label :level %><br>
+    <%= e.text_field :level%>
+  </div>
+  <div class="field">
+    <%= e.label :from %><br>
+    <%= e.number_field :from%>
+  </div>
+  <div class="field">
+    <%= e.label :to %><br>
+    <%= e.number_field :to %>
+  </div>
+  <div class="field">
+    <%= e.label :didyougraduate %><br>
+    <%= e.check_box :didyougraduate %>
+  </div>
+  <%end%>
+  <!-- <div class="field">
+    <%= f.label :staffid %><br>
+    <%= f.text_field :staffid %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.text_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :profession %><br>
+    <%= f.text_field :profession %>
+  </div>
+  <div class="field">
+    <%= f.label :company %><br>
+    <%= f.text_field :company %>
+  </div>
+  <div class="field">
+    <%= f.label :dateemployed %><br>
+    <%= f.date_select :dateemployed %>
+  </div>
+  <div class="field">
+    <%= f.label :dobchild %><br>
+    <%= f.date_select :dobchild %>
+  </div>
+  <div class="field">
+    <%= f.label :department %><br>
+    <%= f.text_field :department %>
+  </div>
+  <div class="field">
+    <%= f.label :tier %><br>
+    <%= f.number_field :tier %>
+  </div>
+  <div class="field">
+    <%= f.label :overwrittenleave %><br>
+    <%= f.text_field :overwrittenleave %>
+  </div>
+  <div class="field">
+    <%= f.label :overwrittenon %><br>
+    <%= f.date_select :overwrittenon %>
+  </div> -->
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
