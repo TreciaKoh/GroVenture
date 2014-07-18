@@ -16,6 +16,7 @@ class StaffsController < ApplicationController
   def new
     @staff = Staff.new
     @education = @staff.educations.build
+    @employmenthistory = @staff.employment_histories.build
   end
 
   # GET /staffs/1/edit

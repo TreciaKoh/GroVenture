@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140717083513) do
+ActiveRecord::Schema.define(version: 20140718020703) do
 
   create_table "appendixes", force: true do |t|
     t.string   "name"
@@ -34,6 +34,21 @@ ActiveRecord::Schema.define(version: 20140717083513) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "employment_histories", force: true do |t|
+    t.integer  "staff_id"
+    t.string   "employername"
+    t.string   "employeraddress"
+    t.string   "position"
+    t.integer  "from"
+    t.integer  "to"
+    t.integer  "salary"
+    t.string   "reasonforleaving"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "employment_histories", ["staff_id"], name: "index_employment_histories_on_staff_id", using: :btree
 
   create_table "follow_ups", force: true do |t|
     t.integer  "recordId"
