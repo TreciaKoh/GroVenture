@@ -9,10 +9,17 @@ Rails.application.routes.draw do
       patch :addremark2
     end
   end
+
   get 'staffs/approve'
   patch 'staffs/adduser'
   get 'admins/generateLetter'
   post 'admins/generate'
+
+  
+  get 'pays/paySet'
+  post 'pays/addPay'
+
+
   get 'admins/profile'
   get 'admins/manageemployees'
   get 'admins/leave'

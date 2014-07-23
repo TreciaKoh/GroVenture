@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  staffid: 1
+  basic: 9.99
+  cpf: 9.99
+  attendance: 9.99
+  performance: 9.99
+
+two:
+  staffid: 1
+  basic: 9.99
+  cpf: 9.99
+  attendance: 9.99
+  performance: 9.99
