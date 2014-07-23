@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140718020703) do
+ActiveRecord::Schema.define(version: 20140721015521) do
 
   create_table "appendixes", force: true do |t|
     t.string   "name"
@@ -209,6 +209,15 @@ ActiveRecord::Schema.define(version: 20140718020703) do
   create_table "telemarketers", force: true do |t|
     t.string   "teleid"
     t.string   "password"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "workingdays", force: true do |t|
+    t.string   "department"
+    t.integer  "year"
+    t.string   "month"
+    t.integer  "days"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
