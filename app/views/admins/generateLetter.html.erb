@@ -1,0 +1,9 @@
+<h3>Generate Letter</h3>
+<%=form_tag("/admins/generate", :method => "post") do %>
+Choose logo: <%=select_tag(:logo, options_from_collection_for_select(@logos, 'supportdoc', 'name'))%><br>
+
+Enter staff name: <%=text_field_tag(:name)%><br/>
+
+Choose type of letter:<%=select_tag(:letter, options_from_collection_for_select(@letters, 'text', 'name'))%><br>
+<%= submit_tag("Change password", :class=>"btn") %>
+<%end%>

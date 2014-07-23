@@ -6,6 +6,7 @@
       <th>Positionapplied</th>
       <th>Salutation</th>
       <th>Fullname</th>
+      <th>Remarks</th>
       <!-- <th>Address</th>
       <th>Telephone</th>
       <th>Dob</th>
@@ -100,6 +101,7 @@
         <td><%= staff.tier %></td>
         <td><%= staff.overwrittenleave %></td>
         <td><%= staff.overwrittenon %></td> -->
+        <td><%= staff.remarks %></td>
         <td><%= link_to 'Show', staff %></td>
         <td><%= link_to 'Edit', edit_staff_path(staff) %></td>
         <td><%= link_to 'Destroy', staff, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20140721015521) do
-=======
+
 ActiveRecord::Schema.define(version: 20140718085032) do
->>>>>>> 0c2370786f38e36010cc0aca2b354dbd89d4db87
+
+
 
   create_table "appendixes", force: true do |t|
     t.string   "name"
@@ -223,6 +222,7 @@ ActiveRecord::Schema.define(version: 20140718085032) do
     t.date     "overwrittenon"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "remarks"
   end
 
   create_table "telemarketers", force: true do |t|
