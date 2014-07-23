@@ -280,7 +280,7 @@ class ApplicationController < ActionController::Base
     annualLeave += tobringforward if !tobringforward.nil?
     childLeave = childLeave.to_f/12*today.month
     
-    overwrittenleave = u.overwritttenleave
+    overwrittenleave = u.overwrittenleave
     cantakeoverwritten = nil
     if !overwrittenleave.nil?
       overwrittenon = u.overwrittenon.to_date if !u.overwrittenon.nil?

@@ -1,10 +1,9 @@
 class AdminsController < ApplicationController
   def index
-
   end
   
   def loginPage
-    
+
   end
   
   def login
@@ -79,8 +78,7 @@ class AdminsController < ApplicationController
 
   def leave
     user = session[:user]
-    
-    
+  
     hash = calculateLeaves(user)
     entitledOverwritten = hash["overwritten"]
     overwritten = hash["cantakeoverwritten"]
@@ -386,14 +384,14 @@ class AdminsController < ApplicationController
   def setdefaultleave
     id = params[:id]
     s = Staff.find_by_id(id)
-    s.update_attribute(:overwritttenleave, nil)
+    s.update_attribute(:overwrittenleave, nil)
     s.update_attribute(:overwrittenon, nil)
     redirect_to :back
   end
   
-  def changepassword
-    
+  def changepassword  
   end
+  
   def changepassword2
     user = Staff.find_by_staffid(session[:user])
     oldpassword = params[:oldpassword]

@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   resources :staffs do
     resources :educations
   end
+  
+  get 'pays/paySet'
+  post 'pays/addPay'
 
   get 'admins/profile'
   get 'admins/manageemployees'
