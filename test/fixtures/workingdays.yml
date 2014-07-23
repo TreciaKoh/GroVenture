@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  department: MyString
+  year: 1
+  month: MyString
+  days: 1
+
+two:
+  department: MyString
+  year: 1
+  month: MyString
+  days: 1

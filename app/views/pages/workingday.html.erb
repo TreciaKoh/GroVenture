@@ -1,0 +1,91 @@
+<h2>Set Number of Working Day:</h2>
+<form action="/pages/addworkingday">
+	<table>
+		<tr>
+			<td>Enter Year: </td>
+			<td><input type="text" name="year"><br></td>
+		</tr>
+		
+		<tr>
+			<td>Select month: </td> 
+			<td><select name="month">
+				<option value="">Select Month</option>
+				<option value="1">January</option>
+				<option value="2">February</option>
+				<option value="3">March</option>
+				<option value="4">April</option>
+				<option value="5">May</option>
+				<option value="6">June</option>
+				<option value="7">July</option>
+				<option value="8">August</option>
+				<option value="9">September</option>
+				<option value="10">October</option>
+				<option value="11">November</option>
+				<option value="12">December</option>
+			</select></td>
+		</tr>
+		
+		<tr>
+			<td>Select department: </td>
+			<td><select name="dep">
+				<option value="">Select department</option>
+				<option value="1">All</option>
+				<option value="2">Accounts</option>
+				<option value="3">Administration</option>
+				<option value="4">Human Resource</option>
+				<option value="5">Marketing</option>
+				<option value="6">Sales</option>
+				<option value="7">Telemarketing</option>
+				<option value="8">Others</option>
+		</select></td>
+		</tr>
+		<tr>
+			<td id="showDept"><font color="red">* When others is chosen, please input a department:</font></td>
+			<td><input type="text" name="dept"></td>
+		</tr>
+		
+		<tr>
+			<td>Select working day per week:</td>
+			<td><select name="wrkweek">
+				<option value="">Select working day week</option>
+				<option value="5workingdayweek">5 working day week</option>
+				<option value="6workingdayweek">6 working day week</option>
+				<option value="SetWorkingDay">Manually Set Working Day</option>
+		</select></td>
+		</tr>
+		
+		<tr>
+			<td><font color="red">*When manually number of working days is chosen, please input number of working day:</font></td>
+			<td><input type="text" name="day"></td>
+		</tr>
+		
+		<tr>
+			<td colspan='2' align="center"><input type="submit" value="Submit"></td>
+		</tr>
+	</table>
+</form>
+<br />
+
+<h2>List of Working Days Set Per Month</h2>
+<%= form_tag"/pages/workingday" do %>
+<table border="1">
+	<tr>
+	<th>Department</th>
+	<th>Month</th>
+	<th>Year </th>
+	<th>Number of Day Set</th>
+	<th colspan="2">Action</th>
+	</tr>
+	<% @workday.each do|d|%>
+	<tr>
+		<td><%= d.department%></td>
+		<td><%= d.month%></td>
+		<td><%= d.year%></td>
+		<td><center><%= d.days%></center></td>
+		<td><a href='/pages/deleteWorkingday?month=<%= d.month%>'>Delete</a></td>
+	</tr>
+	<%end%>
+</table>
+<%end%>
+
+
