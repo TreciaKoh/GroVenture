@@ -1,0 +1,36 @@
+<h1>Staff Attendance</h1>
+<!-- <%= form_tag "/hrs/viewattendancebydate" do %>
+<p>
+	View from: <%= date_field_tag :date1, "Select a date"%> to: <%= date_field_tag :date2, "Select a date"%>
+<%= hidden_field_tag("date1", :date1.to_s)%>
+<%= hidden_field_tag("date2", :date2.to_s)%>
+<%= submit_tag("Go!", :class=>"btn")%>
+</p> -->
+
+<table border=1>
+	<tr>
+		<td><b>Date</td>
+		<td><b>Staff </td>
+		<td><b>Leave Type</td>
+		<td><b>Time In</td>
+	</tr>
+	<% i = 0%>
+	<%@list.each do |s|%>
+	<%= hidden_field_tag("staffid"+i.to_s, s.staffid)%>
+	<tr>
+		<td><%=s.date%></td>
+		<td><%= s.fullname%></td>
+
+		<td><%= s.leavetype%></td>
+		<td><%= s.timein%></td>
+	</tr>
+	<% i = i+1%>
+	<%end%>
+
+</table>
+
+<p></p>
+<p>
+	<u><a href="/hrs/attendance">Back</a></u>
+</p>
+<!-- <%end%> -->

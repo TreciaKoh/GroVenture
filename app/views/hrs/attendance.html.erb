@@ -1,0 +1,7 @@
+<%= form_tag "/hrs/attendance" do %>
+<h1>Staff Attendance</h1>
+<p><u><a href="/hrs/viewattendance">View all attendance</a></u></p>
+<p>Select a date:<%=date_field_tag :date, "Select a date"%> <%= submit_tag("Go", :class=>"btn")%><br>
+</p>
+<%end%>
+
