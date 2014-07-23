@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20140718085032) do
-
-
+ActiveRecord::Schema.define(version: 20140721054118) do
 
   create_table "appendixes", force: true do |t|
     t.string   "name"
@@ -172,8 +169,6 @@ ActiveRecord::Schema.define(version: 20140718085032) do
     t.decimal  "employeeCpf", precision: 10, scale: 2
   end
 
-  add_index "staffpays", ["staffid"], name: "staffid", using: :btree
-
   create_table "staffs", force: true do |t|
     t.string   "positionapplied"
     t.string   "salutation"
@@ -232,13 +227,6 @@ ActiveRecord::Schema.define(version: 20140718085032) do
     t.datetime "updated_at"
   end
 
-<<<<<<< HEAD
-  create_table "workingdays", force: true do |t|
-    t.string   "department"
-    t.integer  "year"
-    t.string   "month"
-    t.integer  "days"
-=======
   create_table "telepays", force: true do |t|
     t.integer  "teleid"
     t.decimal  "basic",       precision: 10, scale: 2
@@ -246,14 +234,17 @@ ActiveRecord::Schema.define(version: 20140718085032) do
     t.decimal  "attendance",  precision: 10, scale: 2
     t.decimal  "performance", precision: 10, scale: 2
     t.decimal  "commission",  precision: 10, scale: 2
->>>>>>> 0c2370786f38e36010cc0aca2b354dbd89d4db87
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-<<<<<<< HEAD
-=======
-  add_index "telepays", ["teleid"], name: "teleid", using: :btree
+  create_table "workingdays", force: true do |t|
+    t.string   "department"
+    t.integer  "year"
+    t.string   "month"
+    t.integer  "days"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
->>>>>>> 0c2370786f38e36010cc0aca2b354dbd89d4db87
 end
