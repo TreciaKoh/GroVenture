@@ -90,12 +90,6 @@ class PagesController < ApplicationController
     redirect_to :action => 'company'
   end
 
- 
-
-  
-
- 
-
   def edit
     type = params[:type]
     id = params[:id]
@@ -110,7 +104,7 @@ class PagesController < ApplicationController
 
   def edit2
     if params[:type] == 'staff'
-     
+
       new_staff = Staff.find_by_id(params[:staff][:id])
       # new_staff.update_attribute(:staffid, params[:staff][:staffid])
       new_staff.update_attribute(:password, params[:staff][:password])
@@ -135,8 +129,6 @@ class PagesController < ApplicationController
     end
     redirect_to :action => 'company'
   end
-
-
 
   def editRecord
     @new_record = MainRecord.find_by_id(params[:id])
@@ -168,6 +160,79 @@ class PagesController < ApplicationController
     end
   end
 
+  def workingday
+    @workday = Workingday.all
+  end
+
+  def addworkingday
+
+    d = Workingday.new
+    #Set month
+    if params[:month]== '1'
+      d.month = 'January'
+    elsif params[:month]== '2'
+      d.month = 'February'
+    elsif params[:month]== '3'
+      d.month = 'March'
+    elsif params[:month]== '4'
+      d.month = 'April'
+    elsif params[:month]== '5'
+      d.month = 'May'
+    elsif params[:month]== '6'
+      d.month = 'June'
+    elsif params[:month]== '7'
+      d.month = 'July'
+    elsif params[:month]== '8'
+      d.month = 'August'
+    elsif params[:month]== '9'
+      d.month = 'September'
+    elsif params[:month]== '10'
+      d.month = 'October'
+    elsif params[:month]== '11'
+      d.month = 'November'
+    elsif params[:month]== '12'
+      d.month = 'December'
+    end
+
+    #Set department
+    if params[:dep]== '1'
+      d.department = 'All'
+    elsif params[:dep]== '2'
+      d.department = 'Accounts'
+    elsif params[:dep]== '3'
+      d.department = 'Administration'
+    elsif params[:dep]== '4'
+      d.department = 'Human Resource'
+    elsif params[:dep]== '5'
+      d.department = 'Marketing'
+    elsif params[:dep]== '6'
+      d.department = 'Sales'
+    elsif params[:dep]== '7'
+      d.department = 'Telemarketing'
+    elsif params[:dep]== '8'
+      d.department = params[:dept]
+
+    end
+
+    #Set workingday
+    if params[:wrkweek]== '5workingdayweek'
+      d.days = '22'
+    elsif params[:wrkweek] == '6workingdayweek'
+      d.days = '26'
+    elsif params[:wrkweek] == 'SetWorkingDay'
+      d.days = params[:day]
+    end
+    d.year = params[:year]
+    d.save if !params[:month].empty?
+    redirect_to :action => 'workingday'
+  end
+
+  def deleteWorkingday
+    d = Workingday.find_by_month(params[:month])
+    d.delete
+    redirect_to :action => 'workingday'
+  end
+
   def togglecloseddream
     r = MainRecord.find_by_id(params[:id])
     closed = r.closed
@@ -177,6 +242,6 @@ class PagesController < ApplicationController
       r.update_attribute(:closed, true)
     end
     redirect_to :back
-  end 
+  end
 
 end

@@ -24,6 +24,8 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
+    p 'starhere'
+    p params[:product]
     @product = Product.new(product_params)
 
     respond_to do |format|
@@ -35,6 +37,10 @@ class ProductsController < ApplicationController
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
+    # for i in 0..2
+      # x = name + 
+      # Product.create(:name => params[])
+    # end
   end
 
   # PATCH/PUT /products/1

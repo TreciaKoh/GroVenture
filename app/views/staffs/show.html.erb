@@ -4,7 +4,10 @@
   <strong>Positionapplied:</strong>
   <%= @staff.positionapplied %>
 </p>
-
+<p>
+  <strong>Remarks on Staff</strong>
+  <%= @staff.remarks %>
+</p>
 <p>
   <strong>Salutation:</strong>
   <%= @staff.salutation %>
@@ -226,4 +229,7 @@
 </p>
 
 <%= link_to 'Edit', edit_staff_path(@staff) %> |
-<%= link_to 'Back', staffs_path %>
+<%= link_to 'Back', staffs_path %><br>
+<%= link_to 'Approve and confirm applicant', 'approve?id='+@staff.id.to_s %><br>
+<%= link_to 'Reject and delete applicant', 'reject?id='+@staff.id.to_s %><br>
+<%= link_to 'Add remarks', 'addremark?id='+@staff.id.to_s %>

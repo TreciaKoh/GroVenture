@@ -1,0 +1,29 @@
+<h2>Approve and confirm applicant</h2>
+<%= form_for @new_user, :url => { :action => "adduser" }  do |f|  %>
+<table>
+	<tr>
+		<td>Username:</td><td><%= f.text_field(:staffid)%></td>
+	</tr>
+	
+		<%= f.hidden_field(:password, :value =>'dreamgro')%>
+		<%= f.hidden_field(:id, :value =>@id)%>
+	<tr>
+		<td>Type:</td><td><%= f.select(:profession, "<option>Staff</option><option>Telemarketer</option>".html_safe)%></td>
+	</tr>
+	<tr>
+		<td>Company</td><td><%= f.select(:company, "<option>dreamwrkz</option><option>groventure</option>".html_safe)%></td>
+	</tr>
+	<tr>
+		<td>Date Employed</td><td><%= f.date_field(:dateemployed)%></td>
+	</tr>
+	<tr>
+		<td>Department</td><td><%= f.select(:department, "<option>A</option><option>B</option>".html_safe)%></td>
+	</tr>
+	<tr>
+		<td>Tier</td><td><%= f.select(:tier, "<option>1</option><option>2</option>".html_safe)%></td>
+	</tr>
+	<tr>
+		<td></td><td><%= f.submit("Add User", :class=>"btn") %></td>
+	</tr>
+	<%end%> <!-- form -->
+</table>

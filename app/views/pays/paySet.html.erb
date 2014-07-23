@@ -1,0 +1,51 @@
+<table class = "table table-bordered table-condensed">
+	<tr>
+		<th>Staff ID</th>
+		<!-- <th>Full Name</th> -->
+		<th>Basic</th>
+		<th>Employer CPF</th>
+		<th>Employee CPF</th>
+		<th>Attendance</th>
+		<th>Performance</th>
+		<th>Commission</th>
+		<th>Deduction</th>
+	</tr>
+
+	<%@compiledList.each do |x|%>
+	<%=form_for @newPay, :url => {:action => "addPay"} do |f|%>
+	<tr>
+		
+		
+
+		<%if x.instance_of?(Staffpay)%>
+		<!-- <td><%=Staff.find_by_id(x.staffid).fullname%></td> --> 
+		<td><%=Staff.find_by_id(x.staffid).staffid%></td>
+		<td><%= f.number_field(:basic, :placeholder => x.basic) %> </td>
+		<td><%= f.number_field(:employerCpf, :placeholder => x.employerCpf) %> </td>
+		<td><%= f.number_field(:employeeCpf, :placeholder => x.employeeCpf) %> </td>
+
+		<td><%= f.number_field(:attendance, :placeholder => x.attendance) %> </td>
+		<td><%= f.number_field(:performance, :placeholder => x.performance) %> </td>
+		<td><%= f.number_field(:commission, :placeholder => x.commission) %> </td>
+		<td><%= f.number_field(:deduction, :placeholder => x.deduction) %> </td>
+		<%else%>
+		<td><%= x.staffid%></td>
+		<td><%= f.number_field(:basic, :placeholder => 0) %> </td>
+		<td><%= f.number_field(:employerCpf, :placeholder => 0) %> </td>
+		<td><%= f.number_field(:employeeCpf, :placeholder => 0) %> </td>
+
+		<td><%= f.number_field(:attendance, :placeholder => 0) %> </td>
+		<td><%= f.number_field(:performance, :placeholder => 0) %> </td>
+		<td><%= f.number_field(:commission, :placeholder => 0) %> </td>
+		<td><%= f.number_field(:deduction, :placeholder => 0) %> </td>
+		<%end%>
+
+		<%= f.hidden_field(:staffid, :value => x.id)%>
+
+		<td><%= submit_tag("Update", :class=>"btn") %></td>
+	</tr>
+	<%end%>
+
+	<%end%>
+
+</table>
