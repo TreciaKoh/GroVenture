@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140718020703) do
+ActiveRecord::Schema.define(version: 20140721054118) do
 
   create_table "appendixes", force: true do |t|
     t.string   "name"
@@ -204,6 +204,7 @@ ActiveRecord::Schema.define(version: 20140718020703) do
     t.date     "overwrittenon"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "remarks"
   end
 
   create_table "telemarketers", force: true do |t|

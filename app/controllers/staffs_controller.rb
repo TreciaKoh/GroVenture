@@ -62,6 +62,31 @@ class StaffsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def approve
+    @id = params[:id]
+    @new_user = Staff.find_by_id(@id)
+  end
+  
+  def adduser
+    staff = Staff.find_by_id(params[:staff][:id])
+    staff.update_attributes(staff_params)
+    redirect_to :action => 'index'
+  end
+  
+  def reject
+    staff = Staff.find_by_id(params[:id])
+    staff.delete
+    redirect_to :action => 'index'
+  end
+  
+  def addremark
+    @staff = Staff.find_by_id(params[:id])
+    
+  end
+  def addremark2
+    @staff.update(staff_params)
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

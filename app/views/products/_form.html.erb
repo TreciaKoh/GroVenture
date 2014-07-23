@@ -10,12 +10,32 @@
       </ul>
     </div>
   <% end %>
-
+<%=f.fields_for :product, @product do |e|%>
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= e.label :name %><br>
+    <%= e.text_field :name %>
   </div>
+<%end%>
+<%=f.fields_for :product, @product do |e|%>
+  <div class="field">
+    <%= e.label :name %><br>
+    <%= e.text_field :name %>
+  </div>
+<%end%>
+<%=f.fields_for :product, @product do |e|%>
+  <div class="field">
+    <%= e.label :name %><br>
+    <%= e.text_field :name %>
+  </div>
+<%end%>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+<!-- 
+<%=form_tag('/products/create') do%>
+<%for i in 0..2%>
+<%=text_field_tag("name"+i.to_s)%>
+<%end%>
+<%=submit_tag("Submit")%>
+<%end%> -->

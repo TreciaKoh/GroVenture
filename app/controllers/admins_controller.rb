@@ -386,7 +386,7 @@ class AdminsController < ApplicationController
   def setdefaultleave
     id = params[:id]
     s = Staff.find_by_id(id)
-    s.update_attribute(:overwritttenleave, nil)
+    s.update_attribute(:overwrittenleave, nil)
     s.update_attribute(:overwrittenon, nil)
     redirect_to :back
   end
@@ -431,5 +431,31 @@ class AdminsController < ApplicationController
     s.update_attribute(:nummonths, params[:num])
     @success = 'Successfully changed'
     redirect_to :back
+  end
+  
+  def generateLetter
+    @logos = Logo.all
+    @letters = Letter.all
+  end
+  def generate
+    require 'prawn'
+    images = params[:logo]
+    images = 'public'+images
+    index = images.index('?')
+    images = images[0..index-1]
+    index1 = images.index('original')
+    index2 = images.index('/', index1)
+    images = images[0..index1-1]+'thumb'+images[index2..-1]
+    first = params[:name]
+    second = params[:letter]
+    Prawn::Document.generate("public/hello.pdf") do
+      image images, :position=>:center 
+      move_down 10
+      text first
+      move_down 30
+      text second
+    
+    end
+    redirect_to '/hello.pdf'
   end
 end

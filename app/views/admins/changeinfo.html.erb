@@ -7,7 +7,7 @@
 <%elsif @var == 'dobchild'%>
 <td>Date of birth of youngest child</td><td><%= f.date_field(:dobchild)%></td>
 <%elsif @var == 'overwrittenleave'%>
-<td>Leaves entitled</td><td><%= f.number_field(:overwritttenleave)%></td>
+<td>Leaves entitled</td><td><%= f.number_field(:overwrittenleave)%></td>
 <%= f.hidden_field(:overwrittenon, :value => Date.today)%>
 
 <%end%>

@@ -1,8 +1,18 @@
 Rails.application.routes.draw do
   resources :staffs do
     resources :educations
+    collection do
+      get :approve
+      patch :adduser
+      get :reject
+      get :addremark
+      patch :addremark2
+    end
   end
-
+  get 'staffs/approve'
+  patch 'staffs/adduser'
+  get 'admins/generateLetter'
+  post 'admins/generate'
   get 'admins/profile'
   get 'admins/manageemployees'
   get 'admins/leave'
