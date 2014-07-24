@@ -1,4 +1,22 @@
 Rails.application.routes.draw do
+  get 'hrs/attendance'
+  get 'hrs/newattendance'
+  post 'hrs/newattendance'
+  post '/hrs/attendance'
+  post '/hrs/addattendance'
+  get 'hrs/setWorkingday'
+  get 'hrs/editattendance'
+  post 'hrs/editattendance'
+  
+  get 'hrs/editattendancebydate'
+  post 'hrs/editattendancebydate'
+  
+  get 'hrs/viewattendance'
+  post 'hrs/viewattendance'
+
+  get 'hrs/viewattendancebydate'
+  post 'hrs/viewattendancebydate'
+  
   resources :staffs do
     resources :educations
     collection do

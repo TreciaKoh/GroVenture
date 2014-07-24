@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20140721054118) do
 
+
   create_table "appendixes", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -21,6 +22,15 @@ ActiveRecord::Schema.define(version: 20140721054118) do
     t.string   "supportdoc_content_type"
     t.integer  "supportdoc_file_size"
     t.datetime "supportdoc_updated_at"
+  end
+
+  create_table "attendances", force: true do |t|
+    t.string   "staffid"
+    t.string   "timein"
+    t.string   "leavetype"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "date"
   end
 
   create_table "educations", force: true do |t|

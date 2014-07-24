@@ -1,0 +1,45 @@
+<h1>Staff Attendance</h1>
+<p>
+	Edit attendance for date: <%= @selectedDate%>
+</p>
+<p>
+	<u><a href="/hrs/viewattendancebydate">View all attendance</a></u>
+</p>
+
+<%= form_tag "/hrs/editattendancebydate" do %>
+<table border=1>
+	<tr>
+		<td><b>Staffs</b> </td>
+		<td><b>Previous Leave Type</b></td>
+		<td><b>Edit Leave Type to..</b></td>
+		<td><b>Edit Time In</b></td>
+	</tr>
+	<% i = 0%>
+	<%= hidden_field_tag("date", @selectedDate.to_s)%>
+	<%@list.each do |s|%>
+	<%= hidden_field_tag("staffid"+i.to_s, s.staffid)%>
+	<tr>
+		<td><%= s.fullname%></td>
+		<td><%= s.leavetype%></td>
+		<td>
+		<select name="status<%= i.to_s%>">
+			<option disabled="true" ><%= s.leavetype%></option>
+			<option value="nil"> NIL (Present)</option>
+			<option value="halfday"> Half Day</option>
+			<option value="leave"> Normal Leave</option>
+			<option value="unpaid">Unpaid Leave</option>
+			/select>
+		</td>
+		<td>
+		<input type="text" name="timein<%= i.to_s%>" value="<%= s.timein%>"</td>
+		</tr>
+		<% i = i+1%>
+		<%end%>
+
+		</table>
+
+		<p></p>
+
+		<p></p>
+		<%= submit_tag("Update attandance", :class=>"btn")%>
+		<a href="/hrs/attendance">Back</a> <%end%>
