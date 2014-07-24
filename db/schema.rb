@@ -238,7 +238,6 @@ ActiveRecord::Schema.define(version: 20140721054118) do
     t.datetime "updated_at"
   end
 
-
   create_table "workingdays", force: true do |t|
     t.string   "department"
     t.integer  "year"
@@ -247,6 +246,5 @@ ActiveRecord::Schema.define(version: 20140721054118) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
 
 end
