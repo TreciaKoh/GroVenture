@@ -10,7 +10,7 @@
 <%=hidden_field_tag("selectedDate", @selectedDate.to_s)%>
 	<table>	
 		<tr>
-			<td><b>Staffs</b> </td>
+			<td><b>Staff</b> </td>
 			<td><b>Leave Type</b></td>
 			<td><b>Time In</b></td>
 		</tr>
@@ -19,7 +19,7 @@
 		<%=hidden_field_tag("staffid"+i.to_s, s.staffid)%>
 		
 		<tr>
-			<td><%= s.fullname%></td>
+			<td><%= s.staffid%></td>
 
 			<td>
 			<select name="status<%=i.to_s%>">
@@ -27,6 +27,7 @@
 				<option value="halfday"> Half Day</option>
 				<option value="leave"> Normal Leave</option>
 				<option value="unpaid">Unpaid Leave</option>
+				<option value="mc">MC</option>
 			</select> </td>
 			<td><input type="text" name="timein<%=i.to_s%>"></td>
 		</tr>

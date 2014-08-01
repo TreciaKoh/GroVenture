@@ -211,23 +211,35 @@ class ApplicationController < ActionController::Base
     if childdob.nil?
       childLeave = 0
     else
-      childYears = today.year-childdob.year
-      childMonths = today.month-childdob.month
-      if childMonths > 0
-        childYears = childYears + 1
-      elsif childMonths == 0
-        childDays = today.day - childdob.day
-        if childDays > 0
-          childYears = childYears + 1
-        end
-      end
-
-      childYears = childYears - 1
-      if childYears < 7
+      # childYears = today.year-childdob.year
+      # childMonths = today.month-childdob.month
+      # if childMonths > 0
+        # childYears = childYears + 1
+      # elsif childMonths == 0
+        # childDays = today.day - childdob.day
+        # if childDays > 0
+          # childYears = childYears + 1
+        # end
+      # end
+# 
+      # childYears = childYears - 1
+      # if childYears < 7
+        # childLeave = 6
+#         
+      # elsif childYears < 13
+        # childLeave = 2
+      # else
+        # childLeave = 0
+      # end
+      ageThisYear = today.year - childdob.year
+      if ageThisYear < 7
         childLeave = 6
-        
-      elsif childYears < 13
+      elsif ageThisYear == 7
+        childLeave = 6.to_f/12*childdob.month + 2.to_f/12*(12-childdob.month)
+      elsif ageThisYear < 12
         childLeave = 2
+      elsif ageThisYear == 12
+        childLeave = 2.to_f/12*childdob.month
       else
         childLeave = 0
       end
@@ -278,7 +290,15 @@ class ApplicationController < ActionController::Base
     entitledCL = childLeave
     annualLeave = annualLeave.to_f/12*today.month
     annualLeave += tobringforward if !tobringforward.nil?
-    childLeave = childLeave.to_f/12*today.month
+    
+    extraleaves = Extraleave.where(:staffid => user)
+    extraleaves.each do |e|
+      if e.validtill.to_date >= today
+        annualLeave += e.leave
+        entitledAL += e.leave
+      end
+    end
+    # childLeave = childLeave.to_f/12*today.month
     
     overwrittenleave = u.overwrittenleave
     cantakeoverwritten = nil

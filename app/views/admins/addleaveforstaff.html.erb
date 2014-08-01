@@ -1,0 +1,28 @@
+<h2>Add leave for staff</h2>
+<%= form_for @new_leave, :url => { :action => "addLeavePower" }, :html => { :multipart => true }  do |f|  %>
+<table align="center">
+	<tr>
+		<td>Staff:</td><td><%= f.select  :staff_id, options_from_collection_for_select(@allstaff, 'staffid', 'staffid') %></td>
+	</tr>
+	
+	<tr>
+		<td>Date From:</td><td><%= f.date_field  :datestart %></td><td><%=f.select(:starttime, "<option>AM</option><option>PM</option>".html_safe)%></td>
+	</tr>
+	<tr>
+		<td>Date To:</td><td> <%= f.date_field  :dateend %></td><td><%=f.select(:endtime, "<option>AM</option><option>PM</option>".html_safe)%></td>
+	</tr>
+	<tr>
+		<td>Type:</td><td><%= f.select(:leavetype, "<option>normal</option><option>childcare</option><option>unpaid</option><option>medical</option>".html_safe)   %></td>
+	</tr>
+	<tr>
+		<td>Reason:</td><td><%= f.text_field  :reason %></td>
+	</tr>
+	<tr>
+		<td>If taking MC, attach photo of MC</td><td><%= f.file_field  :avatar%></td>
+	</tr>
+	
+
+	<tr>
+		<td></td><td><%= f.submit "Add record", class: "btn btn-primary" %></td>
+	</tr>
+	<%end%>

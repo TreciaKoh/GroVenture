@@ -1,0 +1,17 @@
+<h2>Calculate Pay</h2>
+<%=form_tag '/hrs/calculate', :method => 'post' do%>
+<table>
+	<tr>
+		<td>Select staff:</td><td><%=select_tag(:staffid, options_from_collection_for_select(@staff, 'staffid','staffid'))%></td>
+	</tr>
+	<tr>
+		<%a = Array(1..12)%>
+		<td>Select month:</td><td><%=select_tag(:month, options_for_select(a))%></td>
+	</tr>
+	<tr>
+		<%b = Array[Date.today.year-1, Date.today.year]%>
+		<td>Select year:</td><td><%=select_tag(:year, options_for_select(b))%></td>
+	</tr>
+	<tr><td><%= submit_tag("Go", :class=>"btn")%></td></tr>
+</table>
+<%end%>

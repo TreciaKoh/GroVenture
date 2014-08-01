@@ -1,0 +1,29 @@
+<h2>Block Leave</h2>
+<%=form_tag "/admins/addblockleave", :method => 'post' do%>
+<table>
+	<tr>
+		<td>Date start:</td><td><%=date_field_tag(:datestart)%></td>
+	</tr>
+	<tr>
+		<td>Date end:</td><td><%=date_field_tag(:dateend)%></td>
+	</tr>
+	<tr>
+		<td>Type of staff:</td><td><%=select_tag(:typeofstaff, options_from_collection_for_select(@stafftype, 'profession', 'profession'))%></td>
+	</tr>
+	<tr>
+		<td><%= submit_tag("Submit", :class=>"btn") %></td>
+	</tr>
+</table><br><br>
+<%end%>
+<h2>Blocked Leaves</h2>
+<table class = 'table table-bordered'>
+	<tr>
+		<th>Date blocked</th><th>Type of Staff</th><th>Delete</th>
+		
+	</tr>
+	<%@blockedleaves.each do |b|%>
+	<tr>
+		<td><%=b.date%></td><td><%=b.profession%></td><td><a href='/admins/deleteblockedleave?id=<%=b.id%>'>Delete</a></td>
+	</tr>
+	<%end%>
+</table>

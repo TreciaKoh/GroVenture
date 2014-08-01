@@ -14,7 +14,9 @@ class PagesgroController < ApplicationController
     @new_record = MainRecordGro.new
     @staff = Staff.where(profession:"staff")
   end
-
+def indexMainRecords
+    @mainrecordgros = MainRecordGro.all
+  end
   def company
     # p params[:selections]
     # p params[:startdate]
@@ -56,22 +58,23 @@ class PagesgroController < ApplicationController
   end
 
   def add
-    r = MainRecordGro.new
-    r.companyName = params[:main_record_gro][:companyName]
-    r.address = params[:main_record_gro][:address]
-    r.postalCode = params[:main_record_gro][:postalCode]
-    r.contactPerson = params[:main_record_gro][:contactPerson]
-    r.position = params[:main_record_gro][:position]
-    r.hp = params[:main_record_gro][:hp]
-    r.office = params[:main_record_gro][:office]
-    r.email = params[:main_record_gro][:email]
-    r.apptBy = session[:user]
-    r.dateAppt = params[:main_record_gro][:dateAppt]
-    r.remarks = params[:main_record_gro][:remarks]
-    r.attendedBy = params[:main_record_gro][:attendedBy]
-    r.attendedByGrade = params[:main_record_gro][:attendedByGrade]
-    r.attendedByRemarks = params[:main_record_gro][:attendedByRemarks]
-    r.save
+    MainRecordGro.create(main_record_params)
+    # r = MainRecordGro.new
+    # r.companyName = params[:main_record_gro][:companyName]
+    # r.address = params[:main_record_gro][:address]
+    # r.postalCode = params[:main_record_gro][:postalCode]
+    # r.contactPerson = params[:main_record_gro][:contactPerson]
+    # r.position = params[:main_record_gro][:position]
+    # r.hp = params[:main_record_gro][:hp]
+    # r.office = params[:main_record_gro][:office]
+    # r.email = params[:main_record_gro][:email]
+    # r.apptBy = session[:user]
+    # r.dateAppt = params[:main_record_gro][:dateAppt]
+    # r.remarks = params[:main_record_gro][:remarks]
+    # r.attendedBy = params[:main_record_gro][:attendedBy]
+    # r.attendedByGrade = params[:main_record_gro][:attendedByGrade]
+    # r.attendedByRemarks = params[:main_record_gro][:attendedByRemarks]
+    # r.save
     if session[:type]=="Telemarketer"
       redirect_to :action => 'tele'
     elsif session[:type]=="Staff"
@@ -199,18 +202,21 @@ class PagesgroController < ApplicationController
   def editRecord2
     r = MainRecordGro.find_by_id(params[:main_record_gro][:id])
     # r.update_attributes(:companyName => params[:main_record_gro][:companyName],:address => params [:main_record_gro][:address],:postalCode => params[:main_record_gro][:postalCode],:contactPerson => params[:main_record_gro][:contactPerson],:position => params[:main_record_gro][:position],:hp => params[:main_record_gro][:hp],:office => params[:main_record_gro][:office],:email =>params [:main_record_gro][:email],:dateAppt => params[:main_record_gro][:dateAppt],:remarks => params[:main_record_gro][:remarks])
-    r.update_attributes(:companyName=>params[:main_record_gro][:companyName],:address=>params[:main_record_gro][:address],:postalCode=>params[:main_record_gro][:postalCode],:contactPerson=>params[:main_record_gro][:contactPerson],:position=>params[:main_record_gro][:position],:hp=>params[:main_record_gro][:hp],:office=>params[:main_record_gro][:office],:email=>params[:main_record_gro][:email],:dateAppt=>params[:main_record_gro][:dateAppt],:remarks=>params[:main_record_gro][:remarks])
-    if session[:type]=='Staff'
-      r.update_attributes(:attendedBy =>params[:main_record_gro][:attendedBy],:attendedByGrade =>params[:main_record_gro][:attendedByGrade],:attendedByRemarks =>params[:main_record_gro][:attendedByRemarks])
-    end
-
+    # r.update_attributes(:companyName=>params[:main_record_gro][:companyName],:address=>params[:main_record_gro][:address],:postalCode=>params[:main_record_gro][:postalCode],:contactPerson=>params[:main_record_gro][:contactPerson],:position=>params[:main_record_gro][:position],:hp=>params[:main_record_gro][:hp],:office=>params[:main_record_gro][:office],:email=>params[:main_record_gro][:email],:dateAppt=>params[:main_record_gro][:dateAppt],:remarks=>params[:main_record_gro][:remarks])
+    # if session[:type]=='Staff'
+      # r.update_attributes(:attendedBy =>params[:main_record_gro][:attendedBy],:attendedByGrade =>params[:main_record_gro][:attendedByGrade],:attendedByRemarks =>params[:main_record_gro][:attendedByRemarks])
+    # end
+    r.update_attributes(main_record_params)
     if session[:type] == "Staff"
       redirect_to :action => 'staff'
     else
       redirect_to :action => 'tele'
     end
   end
-
+  
+  def main_record_params
+    params.require(:main_record_gro).permit!
+  end
   def deleteRecord
     r = MainRecordGro.find_by_id(params[:id])
     r.delete

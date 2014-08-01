@@ -56,22 +56,23 @@ class PagesController < ApplicationController
   end
 
   def add
-    r = MainRecord.new
-    r.companyName = params[:main_record][:companyName]
-    r.address = params[:main_record][:address]
-    r.postalCode = params[:main_record][:postalCode]
-    r.contactPerson = params[:main_record][:contactPerson]
-    r.position = params[:main_record][:position]
-    r.hp = params[:main_record][:hp]
-    r.office = params[:main_record][:office]
-    r.email = params[:main_record][:email]
-    r.apptBy = session[:user]
-    r.dateAppt = params[:main_record][:dateAppt]
-    r.remarks = params[:main_record][:remarks]
-    r.attendedBy = params[:main_record][:attendedBy]
-    r.attendedByGrade = params[:main_record][:attendedByGrade]
-    r.attendedByRemarks = params[:main_record][:attendedByRemarks]
-    r.save
+    MainRecord.create(main_record_params)
+    # r = MainRecord.new
+    # r.companyName = params[:main_record][:companyName]
+    # r.address = params[:main_record][:address]
+    # r.postalCode = params[:main_record][:postalCode]
+    # r.contactPerson = params[:main_record][:contactPerson]
+    # r.position = params[:main_record][:position]
+    # r.hp = params[:main_record][:hp]
+    # r.office = params[:main_record][:office]
+    # r.email = params[:main_record][:email]
+    # r.apptBy = session[:user]
+    # r.dateAppt = params[:main_record][:dateAppt]
+    # r.remarks = params[:main_record][:remarks]
+    # r.attendedBy = params[:main_record][:attendedBy]
+    # r.attendedByGrade = params[:main_record][:attendedByGrade]
+    # r.attendedByRemarks = params[:main_record][:attendedByRemarks]
+    # r.save
     if session[:type]=="Telemarketer"
       redirect_to :action => 'tele'
     elsif session[:type]=="Staff"
@@ -79,6 +80,10 @@ class PagesController < ApplicationController
 
     end
 
+  end
+  
+  def main_record_params
+    params.require(:main_record).permit!
   end
 
   def update
@@ -138,11 +143,11 @@ class PagesController < ApplicationController
   def editRecord2
     r = MainRecord.find_by_id(params[:main_record][:id])
     # r.update_attributes(:companyName => params[:main_record][:companyName],:address => params [:main_record][:address],:postalCode => params[:main_record][:postalCode],:contactPerson => params[:main_record][:contactPerson],:position => params[:main_record][:position],:hp => params[:main_record][:hp],:office => params[:main_record][:office],:email =>params [:main_record][:email],:dateAppt => params[:main_record][:dateAppt],:remarks => params[:main_record][:remarks])
-    r.update_attributes(:companyName=>params[:main_record][:companyName],:address=>params[:main_record][:address],:postalCode=>params[:main_record][:postalCode],:contactPerson=>params[:main_record][:contactPerson],:position=>params[:main_record][:position],:hp=>params[:main_record][:hp],:office=>params[:main_record][:office],:email=>params[:main_record][:email],:dateAppt=>params[:main_record][:dateAppt],:remarks=>params[:main_record][:remarks])
-    if session[:type]=='Staff'
-      r.update_attributes(:attendedBy =>params[:main_record][:attendedBy],:attendedByGrade =>params[:main_record][:attendedByGrade],:attendedByRemarks =>params[:main_record][:attendedByRemarks])
-    end
-
+    # r.update_attributes(:companyName=>params[:main_record][:companyName],:address=>params[:main_record][:address],:postalCode=>params[:main_record][:postalCode],:contactPerson=>params[:main_record][:contactPerson],:position=>params[:main_record][:position],:hp=>params[:main_record][:hp],:office=>params[:main_record][:office],:email=>params[:main_record][:email],:dateAppt=>params[:main_record][:dateAppt],:remarks=>params[:main_record][:remarks])
+    # if session[:type]=='Staff'
+      # r.update_attributes(:attendedBy =>params[:main_record][:attendedBy],:attendedByGrade =>params[:main_record][:attendedByGrade],:attendedByRemarks =>params[:main_record][:attendedByRemarks])
+    # end
+    r.update_attributes(main_record_params)
     if session[:type] == "Staff"
       redirect_to :action => 'staff'
     else
@@ -215,20 +220,22 @@ class PagesController < ApplicationController
     end
 
     #Set workingday
-    if params[:wrkweek]== '5workingdayweek'
-      d.days = '22'
-    elsif params[:wrkweek] == '6workingdayweek'
-      d.days = '26'
-    elsif params[:wrkweek] == 'SetWorkingDay'
-      d.days = params[:day]
-    end
+    # if params[:wrkweek]== '5workingdayweek'
+      # d.days = '22'
+    # elsif params[:wrkweek] == '6workingdayweek'
+      # d.days = '26'
+    # elsif params[:wrkweek] == 'SetWorkingDay'
+      # d.days = params[:day]
+    # end
+    d.days = params[:num1]
+    d.days2 = params[:num2]
     d.year = params[:year]
     d.save if !params[:month].empty?
     redirect_to :action => 'workingday'
   end
 
   def deleteWorkingday
-    d = Workingday.find_by_month(params[:month])
+    d = Workingday.find_by_month_and_year(params[:month], params[:year])
     d.delete
     redirect_to :action => 'workingday'
   end
@@ -242,6 +249,9 @@ class PagesController < ApplicationController
       r.update_attribute(:closed, true)
     end
     redirect_to :back
+  end
+              def indexMainRecords
+    @mainrecords = MainRecord.all
   end
 
 end

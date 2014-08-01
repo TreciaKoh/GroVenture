@@ -26,4 +26,8 @@ class PaysController < ApplicationController
   def staffPay_params
     params.require(:staffpay).permit!
   end
+  
+  def indexStaffPays
+    @staffPays = Staffpay.all
+  end
 end

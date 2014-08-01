@@ -1,0 +1,45 @@
+<h2>Pay for <%=@staffid%> for the month of <%=@month%></h2>
+<%if !flash[:error].nil?%>
+<%=flash[:error]%>
+<%end%>
+<p>
+  <strong>Basic pay:</strong>
+  <%= @basic %>
+</p>
+<p>
+  <strong>Employer cpf:</strong>
+  <%= @employercpf %>%
+</p>
+<p>
+  <strong>Employee cpf:</strong>
+  <%= @employeecpf %>%
+</p>
+<p>
+  <strong>Days attended:</strong>
+  <%= @total %>
+</p>
+<p>
+  <strong>Attendance incentive:</strong>
+  <%= @attendanceincentive %>
+</p>
+<p>
+  <strong>Performance:</strong>
+  <%= @performance %>
+</p>
+<p>
+  <strong>Commission:</strong>
+  <%= @commission %>
+</p>
+<p>
+  <strong>Deduction:</strong>
+  <%= @deduction %>
+</p>
+
+<p>
+  <strong>Final pay:</strong>
+  <%= @pay %>
+</p>
+<p>
+  <strong>Employer contribution:</strong>
+  <%= @employercontribution %>
+</p>

@@ -7,16 +7,35 @@ Rails.application.routes.draw do
   get 'hrs/setWorkingday'
   get 'hrs/editattendance'
   post 'hrs/editattendance'
+  post 'hrs/realattendance'
+  get 'hrs/extraleave'
+  post 'hrs/addextraleave'
+  get 'hrs/deleteextra'
+  get 'hrs/index'
+  get 'hrs/indexAttendance'
+  get 'admins/indexBlockLeave'
   
   get 'hrs/editattendancebydate'
   post 'hrs/editattendancebydate'
   
   get 'hrs/viewattendance'
   post 'hrs/viewattendance'
-
+get 'admins/indexLoginLogs'
+get 'pages/indexMainRecords'
+get 'pagesgro/indexMainRecords'
   get 'hrs/viewattendancebydate'
   post 'hrs/viewattendancebydate'
-  
+  get 'admins/setpublicholidays'
+  post 'admins/addpublicholiday'
+  get 'admins/deleteholiday'
+  get 'admins/addleaveforstaff'
+  post 'admins/addLeavePower'
+  get 'admins/blockleave'
+  post 'admins/addblockleave'
+  get 'admins/deleteblockedleave'
+  get 'admins/viewprofile'
+  get 'hrs/calculatepay'
+  post 'hrs/calculate'
   resources :staffs do
     resources :educations
     collection do
@@ -31,6 +50,7 @@ Rails.application.routes.draw do
   get 'staffs/approve'
   patch 'staffs/adduser'
   get 'admins/generateLetter'
+  get 'admins/indexLetters'
   post 'admins/generate'
 
   
@@ -41,12 +61,17 @@ Rails.application.routes.draw do
   get 'admins/profile'
   get 'admins/manageemployees'
   get 'admins/leave'
+  get 'admins/indexReportSicks'
+  get 'admins/indexLeaves'
   get 'admins/approveleave'
   get 'admins/approve'
   get 'admins/reject'
   post 'admins/addLeave'
   get 'admins/editRecord'
   get 'admins/deleteRecord'
+  get 'admins/delete'
+  post 'admins/reportsick'
+  get 'admins/reportedsick'
   patch 'admins/updateLeave'
   patch 'admins/updateProfile'
   get 'admins/calendar'
@@ -168,7 +193,7 @@ Rails.application.routes.draw do
   get 'pages/deleteRecord'
 
   get 'pages/loginRecord'
-
+get 'pays/indexStaffPays'
   get 'admins/index'
 
   get 'appendixes/index'

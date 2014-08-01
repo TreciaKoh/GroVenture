@@ -58,9 +58,11 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 		<td bgcolor=#00FF00><b>AttendedBy</b></td>
 		<td bgcolor=#00FF00><b>Grade</b></td>
 		<td bgcolor=#00FF00><b>Remarks</b></td>
+		<th>Closed amount</th>
+		<th>Invoice no</th>
 		<th>Edit</th>
 		<th>Delete</th>
-		<th>Closed?</th>
+		<!-- <th>Closed?</th> -->
 	</tr></thead>
 	<%@records.each do |r|%>
 	<tr>
@@ -78,14 +80,11 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 		<td><%= r.attendedBy%></td>
 		<td><%= r.attendedByGrade%></td>
 		<td><%= r.attendedByRemarks%></td>
+		<td><%= r.closedamount%></td>
+		<td><%= r.invoiceno%></td>
 		<td><a href='/pages/editRecord?id=<%= r.id%>'>Edit</a></td>
 		<td><a href='/pages/deleteRecord?id=<%= r.id%>'>Delete</a></td>
-		<%closed = r.closed%>
-		<%if closed%>
-		<td><a href='/pages/togglecloseddream?id=<%= r.id%>'>Closed</a></td>
-		<%else%>
-		<td><a href='/pages/togglecloseddream?id=<%= r.id%>'>Not Closed</a></td>
-		<%end%>
+		
 
 	</tr>
 	<%end%>
@@ -138,6 +137,12 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 	<!-- <%= f.text_field  :attendedByGrade %>grade<br> -->
 	<tr>
 		<td>Remarks:</td><td> <%= f.text_field  :attendedByRemarks %></td>
+	</tr>
+	<tr>
+		<td>Closed Amount:</td><td> <%= f.number_field  :closedamount, :step=>0.01 %></td>
+	</tr>
+	<tr>
+		<td>Invoice Number:</td><td> <%= f.text_field  :invoiceno %></td>
 	</tr>
 	<tr>
 		<td></td><td><%= f.submit "Add record", class: "btn btn-primary" %></td>

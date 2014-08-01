@@ -1,10 +1,35 @@
-<%= form_for @user, :url => { :action => "updateProfile" }  do |f|  %>
+<%= form_for @user, :url => { :action => "updateProfile" }, :html => { :multipart => true }  do |f|  %>
 <table align="center">
+	<tr>
+		<td>Attach photo:</td><td><%=f.file_field(:photo)%></td>
+	</tr>
+	<tr>
+		<td>Attach picture of the front of NRIC:</td><td><%=f.file_field(:icfront)%></td>
+	</tr>
+	<tr>
+		<td>Attach picture of back of NRIC:</td><td><%=f.file_field(:icback)%></td>
+	</tr>
+	<tr>
+		<td>Attach birth cert of your youngest child:</td><td><%=f.file_field(:childbirthcert)%></td>
+	</tr>
+	<div class="field">
+			<% salutations = ['Mr','Miss','Mrs','Mdm']%>
+			<%= f.label :salutation %>
+			<br>
+			<%= f.select :salutation, options_for_select(salutations) %>
+		</div></td>
 	<tr>
 		<td>Full name:</td><td><%= f.text_field  :fullname %></td>
 	</tr>
 	<tr>
 		<td>NRIC:</td><td> <%= f.text_field  :nric %></td>
+	
+	<td>
+		<div class="field">
+			<%= f.label :colour %>
+			<br>
+			<%= f.text_field :colour %>
+		</div></td>
 	</tr>
 	<tr>
 		<td>Date of Birth:</td><td><%= f.date_field :dob %></td>
@@ -15,6 +40,150 @@
 	<tr>
 		<td>Date of Birth of Youngest Child:</td><td><%= f.date_field  :dobchild %></td>
 	</tr>
+	
+	
+	
+	<tr>
+		<td>
+		<div class="field">
+			<%= f.label :address %>
+			<br>
+			<%= f.text_field :address %>
+		</div></td>
+		<td>
+		<div class="field">
+			<%= f.label :telephone %>
+			<br>
+			<%= f.number_field :telephone %>
+		</div></td>
+		<tr>
+		<td>
+		<div class="field">
+			<%= f.label :birthplace %>
+			<br>
+			<%= f.text_field :birthplace %>
+		</div></td>
+
+		<td>
+		<div class="field">
+			<%= f.label :race %>
+			<br>
+			<%= f.text_field :race %>
+		</div></td>
+		<td>
+		<div class="field">
+			<%= f.label :dialect %>
+			<br>
+			<%= f.text_field :dialect %>
+		</div></td></tr>
+		
+		<tr>
+		<td>
+		<div class="field">
+			<%= f.label :citizenship %>
+			<br>
+			<%= f.text_field :citizenship %>
+		</div></td><td>
+		<div class="field">
+			<% sexes = ['M', 'F','others']%>
+			<%= f.label :sex %>
+			<br>
+			<%= f.select :sex, options_for_select(sexes) %>
+		</div></td><td>
+		<div class="field">
+			<%= f.label :religion %>
+			<br>
+			<%= f.text_field :religion %>
+		</div></td>
+		<td>
+		<div class="field">
+			<%= f.label :incometaxno %>
+			<br>
+			<%= f.text_field :incometaxno %>
+		</div></td><td>
+		<div class="field">
+			<%= f.label :drivinglicenseno %>
+			<br>
+			<%= f.text_field :drivinglicenseno %>
+		</div></td>
+	</tr>
+	<tr>
+		<td>
+		<div class="field">
+			<%= f.label :maritalstatus %>
+			<br>
+			<%= f.text_field :maritalstatus %>
+		</div></td><td>
+		<div class="field">
+			<%= f.label :spousename %>
+			<br>
+			<%= f.text_field :spousename %>
+		</div></td><td>
+		<div class="field">
+			<%= f.label :spouseoccupation %>
+			<br>
+			<%= f.text_field :spouseoccupation %>
+		</div></td><td>
+		<div class="field">
+			<%= f.label :noofchildren %>
+			<br>
+			<%= f.number_field :noofchildren %>
+		</div></td><td>
+		<div class="field">
+			<%= f.label :agerange %>
+			<br>
+			<%= f.text_field :agerange %>
+		</div></td>
+	</tr>
+	<tr>
+		<td>
+		<div class="field">
+			<%= f.label :emergencyname %>
+			<br>
+			<%= f.text_field :emergencyname %>
+		</div></td><td>
+		<div class="field">
+			<%= f.label :emergencyrelationship %>
+			<br>
+			<%= f.text_field :emergencyrelationship %>
+		</div></td><td>
+		<div class="field">
+			<%= f.label :emergencyaddress %>
+			<br>
+			<%= f.text_field :emergencyaddress %>
+		</div></td><td>
+		<div class="field">
+			<%= f.label :emergencytelephone %>
+			<br>
+			<%= f.number_field :emergencytelephone %>
+		</div></td>
+	</tr>
+	<tr>
+		<td>
+		<div class="field">
+			<%= f.label :languagespoken %>
+			<br>
+			<%= f.text_field :languagespoken %>
+		</div></td><td>
+		<div class="field">
+			<%= f.label :languagewritten %>
+			<br>
+			<%= f.text_field :languagewritten %>
+		</div></td><td>
+		<div class="field">
+			<%= f.label :physicaldisability %>
+			<br>
+			<%= f.text_field :physicaldisability %>
+		</div></td><td>
+		<div class="field">
+			<%= f.label :majorillness %>
+			<br>
+			<%= f.text_field :majorillness %>
+		</div></td>
+	</tr>
+	
+	
+	
 	<%=f.hidden_field(:id, :value => @user.id)%>
 
 	<tr>

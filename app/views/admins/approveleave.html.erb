@@ -42,7 +42,13 @@
 		<td><%= r.dateend%></td>
 		<td><%= r.total%></td>
 		<td><%= r.reason%></td>
+		<%leavetype = r.leavetype%>
+		<%if leavetype == 'medical'%>
+		<td><a href='<%=r.avatar.url%>'><%= r.leavetype%></a></td>
+		<%else%>
 		<td><%= r.leavetype%></td>
+		<%end%>
+		
 		<td><%= r.company%></td>
 		<%approved = r.approved%>
 		<%if approved == 0%>

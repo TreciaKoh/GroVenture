@@ -1,7 +1,49 @@
 <%= form_tag "/hrs/attendance" do %>
 <h1>Staff Attendance</h1>
-<p><u><a href="/hrs/viewattendance">View all attendance</a></u></p>
+<!-- <p><u><a href="/hrs/viewattendance">View all attendance</a></u></p> -->
 <p>Select a date:<%=date_field_tag :date, "Select a date"%> <%= submit_tag("Go", :class=>"btn")%><br>
 </p>
+<%end%>
+<%if !flash[:error].nil?%>
+<p>There was an error, probably you ticked both half and present.</p>
+<%end%>
+<%=form_tag "/hrs/realattendance" do%>
+<table class='table table-bordered'>
+	<tr>
+		<th>Staffid</th>
+		<th>Present</th>
+		<th>Half Day</th>
+		<th>Time In</th>
+	</tr>
+	<%if !@date.nil? && !@date.empty?%>
+	<b><%=@date%></b>
+	<%@staffs.each do |s|%>
+	<tr>
+		<td><%=s.staffid%></td>
+		<%=hidden_field_tag(:date, @date)%>
+		<%a = Attendance.find_by_staffid_and_date(s.staffid, @date)%>
+		<%if a.nil?%>
+		<td><%=check_box_tag('present[]', s.staffid)%></td>
+		<td><%=check_box_tag('half[]', s.staffid)%></td>
+		<%elsif a.leavetype == 'half'%>
+		<td><%=check_box_tag('present[]', s.staffid)%></td>
+		<td><%=check_box_tag('half[]', s.staffid, true)%></td>
+		<%else%>
+		<td><%=check_box_tag('present[]', s.staffid, true)%></td>
+		<td><%=check_box_tag('half[]', s.staffid)%></td>
+		<%end%>
+		<%if a.nil?%>
+		<td><%=text_field_tag('timein'+s.staffid)%></td>
+		<%else%>
+		<td><%=text_field_tag('timein'+s.staffid, a.timein)%></td>
+		<%end%>
+	</tr>
+	<%end%>
+	<tr>
+		<td><%= submit_tag("Go", :class=>"btn")%></td>
+	</tr>
+	<%end%>
+</table>
+
 <%end%>
 

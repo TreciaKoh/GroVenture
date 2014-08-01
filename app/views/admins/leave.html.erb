@@ -92,7 +92,7 @@ Leaves left:
 
 <h1 id='rec'>Add new leave:</h1>
 
-<%= form_for @new_leave, :url => { :action => "addLeave" }  do |f|  %>
+<%= form_for @new_leave, :url => { :action => "addLeave" }, :html => { :multipart => true }  do |f|  %>
 <table align="center">
 	<tr>
 		<td>Date From:</td><td><%= f.date_field  :datestart %></td><td><%=f.select(:starttime, "<option>AM</option><option>PM</option>".html_safe)%></td>
@@ -106,8 +106,21 @@ Leaves left:
 	<tr>
 		<td>Reason:</td><td><%= f.text_field  :reason %></td>
 	</tr>
+	<tr>
+		<td>If taking MC, attach photo of MC</td><td><%= f.file_field  :avatar%></td>
+	</tr>
+	<%=f.hidden_field(:staff_id, :value => session[:user])%>
 
 	<tr>
 		<td></td><td><%= f.submit "Add record", class: "btn btn-primary" %></td>
 	</tr>
 	<%end%>
+	</table>
+	<h2>Report Sick</h2>
+	<%if @reportedtoday == true%>
+	<p style = 'color:red'>You have reported sick today</p>
+	<%end%>
+<%= form_for @reportsick, :url => { :action => "reportsick" }  do |f|  %>
+	<%=f.hidden_field :staffid, :value => session[:user]%>
+	<%= f.submit "Report sick", class: "btn btn-primary", data: { confirm: 'Confirmation: You are going to report sick today' } %>
+<%end%>

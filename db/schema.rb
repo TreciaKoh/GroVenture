@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140721054118) do
-
+ActiveRecord::Schema.define(version: 20140731063537) do
 
   create_table "appendixes", force: true do |t|
     t.string   "name"
@@ -31,6 +30,13 @@ ActiveRecord::Schema.define(version: 20140721054118) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "date"
+  end
+
+  create_table "blocked_leaves", force: true do |t|
+    t.date     "date"
+    t.string   "profession"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "educations", force: true do |t|
@@ -60,6 +66,15 @@ ActiveRecord::Schema.define(version: 20140721054118) do
 
   add_index "employment_histories", ["staff_id"], name: "index_employment_histories_on_staff_id", using: :btree
 
+  create_table "extraleaves", force: true do |t|
+    t.string   "staffid"
+    t.integer  "leave"
+    t.string   "reason"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "validtill"
+  end
+
   create_table "follow_ups", force: true do |t|
     t.integer  "recordId"
     t.datetime "dateFollowUp"
@@ -74,7 +89,7 @@ ActiveRecord::Schema.define(version: 20140721054118) do
     t.string   "profession"
     t.date     "datestart"
     t.date     "dateend"
-    t.decimal  "total",      precision: 5, scale: 2
+    t.decimal  "total",               precision: 5, scale: 2
     t.string   "reason"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -83,6 +98,10 @@ ActiveRecord::Schema.define(version: 20140721054118) do
     t.string   "staff_id"
     t.string   "starttime"
     t.string   "endtime"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "leaves", ["staff_id"], name: "index_leaves_on_staff_id", using: :btree
@@ -129,7 +148,8 @@ ActiveRecord::Schema.define(version: 20140721054118) do
     t.string   "attendedByRemarks"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "closed",            default: false
+    t.decimal  "closedamount",      precision: 10, scale: 2
+    t.string   "invoiceno"
   end
 
   create_table "main_records", force: true do |t|
@@ -150,11 +170,25 @@ ActiveRecord::Schema.define(version: 20140721054118) do
     t.string   "attendedByRemarks"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "closed",            default: false
+    t.decimal  "closedamount",      precision: 10, scale: 2
+    t.string   "invoiceno"
   end
 
   create_table "products", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "public_holidays", force: true do |t|
+    t.string   "name"
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reportsicks", force: true do |t|
+    t.string   "staffid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -168,15 +202,15 @@ ActiveRecord::Schema.define(version: 20140721054118) do
 
   create_table "staffpays", force: true do |t|
     t.integer  "staffid"
-    t.decimal  "basic",       precision: 10, scale: 2
-    t.decimal  "attendance",  precision: 10, scale: 2
-    t.decimal  "performance", precision: 10, scale: 2
+    t.decimal  "basic",       precision: 10, scale: 2, default: 0.0
+    t.decimal  "attendance",  precision: 10, scale: 2, default: 0.0
+    t.decimal  "performance", precision: 10, scale: 2, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "commission",  precision: 10, scale: 2
-    t.decimal  "deduction",   precision: 10, scale: 2
-    t.decimal  "employerCpf", precision: 10, scale: 2
-    t.decimal  "employeeCpf", precision: 10, scale: 2
+    t.decimal  "commission",  precision: 10, scale: 2, default: 0.0
+    t.decimal  "deduction",   precision: 10, scale: 2, default: 0.0
+    t.decimal  "employerCpf", precision: 10, scale: 2, default: 0.0
+    t.decimal  "employeeCpf", precision: 10, scale: 2, default: 0.0
   end
 
   create_table "staffs", force: true do |t|
@@ -223,11 +257,28 @@ ActiveRecord::Schema.define(version: 20140721054118) do
     t.date     "dobchild"
     t.string   "department"
     t.integer  "tier"
-    t.decimal  "overwrittenleave",      precision: 5, scale: 2
+    t.decimal  "overwrittenleave",            precision: 5, scale: 2
     t.date     "overwrittenon"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remarks"
+    t.string   "workingunder"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.string   "icfront_file_name"
+    t.string   "icfront_content_type"
+    t.integer  "icfront_file_size"
+    t.datetime "icfront_updated_at"
+    t.string   "icback_file_name"
+    t.string   "icback_content_type"
+    t.integer  "icback_file_size"
+    t.datetime "icback_updated_at"
+    t.string   "childbirthcert_file_name"
+    t.string   "childbirthcert_content_type"
+    t.integer  "childbirthcert_file_size"
+    t.datetime "childbirthcert_updated_at"
   end
 
   create_table "telemarketers", force: true do |t|
@@ -255,6 +306,7 @@ ActiveRecord::Schema.define(version: 20140721054118) do
     t.integer  "days"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "days2"
   end
 
 end

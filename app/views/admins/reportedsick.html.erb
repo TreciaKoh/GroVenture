@@ -1,0 +1,12 @@
+<h2>People who have reported sick today</h2>
+<table class = 'table table-bordered'>
+	<tr>
+		<th>Staff ID</th><th>Time Reported</th>
+	</tr>
+	<%@reported.each do |r|%>
+	<tr>
+		<td><%=r.staffid%></td>
+		<td><%=r.created_at.strftime("%H:%M")%></td>
+	</tr>
+	<%end%>
+</table>

@@ -1,6 +1,6 @@
 <h2>Edit <%=@staff.staffid%> details</h2>
 <%= form_for @staff, :url => { :action => "edit2" }  do |f|  %>
-<td>Profession</td><td><%= f.select(:profession, "<option>Staff</option><option>Telemarketer</option>".html_safe)%></td>
+<td>Profession</td><td><%= f.select(:profession, "<option>Sales</option><option>Telemarketer</option><option>Designer</option><option>HR</option><option>Accounts</option><option>Admin</option>".html_safe)%></td>
 <td>Company</td><td><%= f.select(:company, "<option>dreamwrkz</option><option>groventure</option>".html_safe)%></td>
 <td>Department</td><td><%= f.select(:department, "<option>A</option><option>B</option>".html_safe)%></td>
 <td>Tier</td><td><%= f.select(:tier, "<option>1</option><option>2</option>".html_safe)%></td>

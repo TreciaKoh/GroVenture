@@ -59,12 +59,15 @@
 								<a href="/pages/staff">Work</a>
 							</li>
 							<%end%>
-							<%if role == 'Telemarketer' || role == 'Staff'%>
+							<%if role!= 'Master'%>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage My Account <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li>
 										<a href="/admins/profile">Set My Profile</a>
+									</li>
+									<li>
+										<a href="/admins/viewprofile">View My Profile</a>
 									</li>
 									<li>
 										<a href="/admins/changepassword">Change My Password</a>
@@ -129,10 +132,13 @@
 									<li>
 										<a href="/admins/setbroughtforward">Set brought forward leave period</a>
 									</li>
+									<li>
+										<a href="/admins/reportedsick">See who reported sick today</a>
+									</li>
 
 								</ul>
 							</li>
-							<li class="dropdown">
+							<!-- <li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Employees <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li>
@@ -152,16 +158,12 @@
 									</li>
 
 								</ul>
-							</li>
+							</li> -->
 							<li>
 								<a href="/admins/calendar">View Calendar</a>
 							</li>
-							<li>
-								<a href="#">View Employee Timetable</a>
-							</li>
-							<li>
-								<a href="/admins/viewsales">View Sales Records</a>
-							</li>
+							
+							
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Employees <b class="caret"></b></a>
 								<ul class="dropdown-menu">
@@ -202,9 +204,18 @@
 
 								</ul>
 							</li>
+							
+							<%end%>
+							<%if session[:type] == 'HR' || session[:type] == 'Master'%>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">HR tools <b class="caret"></b></a>
 								<ul class="dropdown-menu">
+									<li>
+										<a href="/hrs/attendance">Attendance</a>
+									</li>
+									<li>
+										<a href="/hrs/calculatepay">Calculate Pay</a>
+									</li>
 									<li>
 										<a href="/staffs">Applicants</a>
 									</li>
@@ -216,6 +227,18 @@
 									</li>
 									<li>
 										<a href='/pages/workingday'>Set working days per month</a>
+									</li>
+									<li>
+										<a href='/admins/setpublicholidays'>Set public holidays</a>
+									</li>
+									<li>
+										<a href='/admins/addleaveforstaff'>Take leave for staff</a>
+									</li>
+									<li>
+										<a href='/admins/blockleave'>Manage blocked leaves</a>
+									</li>
+									<li>
+										<a href='/hrs/extraleave'>Manage extra leaves</a>
 									</li>
 									<li>
 										<a href='/admins/generateLetter'>Create letter</a>

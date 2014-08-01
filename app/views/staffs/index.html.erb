@@ -55,6 +55,7 @@
 
   <tbody>
     <% @staffs.each do |staff| %>
+      <%if staff.staffid.nil?%>
       <tr>
         <td><%= staff.positionapplied %></td>
         <td><%= staff.salutation %></td>
@@ -106,6 +107,7 @@
         <td><%= link_to 'Edit', edit_staff_path(staff) %></td>
         <td><%= link_to 'Destroy', staff, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+      <%end%>
     <% end %>
   </tbody>
 </table>

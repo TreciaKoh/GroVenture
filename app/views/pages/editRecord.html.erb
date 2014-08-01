@@ -46,6 +46,13 @@
 
 		<%end%>
 	<tr>
+		<td>Closed Amount:</td><td> <%= f.number_field  :closedamount, :step=>0.01 %></td>
+	</tr>
+	<tr>
+		<td>Invoice Number:</td><td> <%= f.text_field  :invoiceno %></td>
+	</tr>
+	<tr>
+		
 		<td></td>
 		<td><%= f.hidden_field  :id %>
 		<%= f.submit "Edit record", class: "btn btn-primary" %>

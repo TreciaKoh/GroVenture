@@ -11,6 +11,7 @@ class AdminsController < ApplicationController
     pass = params[:password]
     t = Staff.find_by(staffid:userid, profession:"tele")
     s = Staff.find_by(staffid:userid, profession:"staff")
+    a = Staff.find_by(staffid:userid)
     if !t.nil?
 
       if pass != t.password
@@ -49,7 +50,21 @@ class AdminsController < ApplicationController
           redirect_to :controller => 'pagesgro',:action => 'staff'
         end
       end
-
+    
+    elsif !a.nil?
+      if pass != a.password
+        flash[:error] = "Wrong password!"
+        redirect_to :action => 'loginPage'
+      else
+        session[:user] = userid
+        session[:type] = a.profession
+        company = a.company
+        session[:company]= company
+        session[:tier] = a.tier
+        LoginLog.create(:userid => userid, :logintime => DateTime.current)
+        redirect_to :action => 'calendar'
+      end
+    
     elsif userid == "master"
       if pass != "master"
         flash[:error] = "Wrong password!"
@@ -77,6 +92,13 @@ class AdminsController < ApplicationController
   end
 
   def leave
+    @reportsick = Reportsick.new
+    reported = Reportsick.where(:staffid => session[:user])
+    reported.each do |r|
+      if r.created_at.to_date == Date.today
+        @reportedtoday = true
+      end
+    end
     user = session[:user]
   
     hash = calculateLeaves(user)
@@ -126,6 +148,81 @@ class AdminsController < ApplicationController
       my_days = [0,6]
       result = (startdate..enddate).to_a.select {|k| my_days.include?(k.wday)}
       total = total - result.size
+      publicholidays = PublicHolidays.all
+      publicholidays.each do |p|
+        if p.date >= startdate && p.date <= enddate
+          total -= 1
+        end
+      end
+      if starttime == 'AM' && endtime == 'PM'
+      elsif starttime == 'PM' && endtime == 'AM'
+        total = total - 1
+      else
+        total = total - 0.5
+      end 
+      problem = false
+      blockedleaves = BlockedLeave.where(:profession => session[:type])
+      blockedleaves.each do |b|
+        if b.date >= startdate && b.date <= enddate
+          problem = true
+        end
+      end
+      if leavetype == 'normal'
+        if @leavesleft["normal"] < total
+          problem = true
+        end
+      elsif leavetype == 'childcare'
+        if @leavesleft["child"] < total
+          problem = true
+        end
+      elsif leavetype == 'medical'
+        if @leavesleft["mc"] < total
+          problem = true
+        end
+        if params[:leave][:avatar].nil?
+          problem = true
+        end
+      end
+      if problem
+        flash[:error] = 'Not enough leave left or dates blocked or no MC attached!'
+      else
+        # Leave.create(leave_params)
+         Leave.create(:datestart => startdate, :dateend => enddate, :leavetype => params[:leave][:leavetype], :reason => params[:leave][:reason], :total => total, :staff_id => session[:user], :company => session[:company], :profession => session[:type], :approved => 0, :avatar => params[:leave][:avatar])
+      end
+     
+      redirect_to :action => 'leave'
+    end
+  end
+  def addLeavePower
+    if params[:leave][:dateend] == "" || params[:leave][:datestart] == "" || params[:leave][:leavetype] == ""
+      redirect_to :action => 'addleaveforstaff'
+    else
+      user = params[:leave][:staff_id]
+      u = Staff.find_by_staffid(user)
+      hash = calculateLeaves(user)
+      @numAnnualLeave = hash["numAL"]
+      @numChildLeave = hash["numCL"]
+      @leavestaken = hash["numTaken"]
+      
+      @childleavestaken = hash["childLeavesTaken"]
+      @mctaken = hash["mcTaken"]
+      @leavesleft = {"normal" => @numAnnualLeave - @leavestaken, "child" => @numChildLeave - @childleavestaken, "mc" => 14 - @mctaken}
+      leavetype = params[:leave][:leavetype]
+      
+      enddate = params[:leave][:dateend].to_date
+      startdate = params[:leave][:datestart].to_date
+      total = enddate - startdate + 1
+      starttime = params[:leave][:starttime]
+      endtime = params[:leave][:endtime]
+      my_days = [0,6]
+      result = (startdate..enddate).to_a.select {|k| my_days.include?(k.wday)}
+      total = total - result.size
+      publicholidays = PublicHolidays.all
+      publicholidays.each do |p|
+        if p.date >= startdate && p.date <= enddate
+          total -= 1
+        end
+      end
       if starttime == 'AM' && endtime == 'PM'
       elsif starttime == 'PM' && endtime == 'AM'
         total = total - 1
@@ -145,14 +242,18 @@ class AdminsController < ApplicationController
         if @leavesleft["mc"] < total
           problem = true
         end
+        if params[:leave][:avatar].nil?
+          problem = true
+        end
       end
       if problem
-        flash[:error] = 'Not enough leave left!'
+        flash[:error] = 'Not enough leave left or no MC attached!'
       else
-         Leave.create(:datestart => startdate, :dateend => enddate, :leavetype => params[:leave][:leavetype], :reason => params[:leave][:reason], :total => total, :staff_id => session[:user], :company => session[:company], :profession => session[:type], :approved => 0)
+        # Leave.create(leave_params)
+         Leave.create(:datestart => startdate, :dateend => enddate, :leavetype => params[:leave][:leavetype], :reason => params[:leave][:reason], :total => total, :staff_id => u.staffid, :company => u.company, :profession => u.profession, :approved => 0, :avatar => params[:leave][:avatar])
       end
      
-      redirect_to :action => 'leave'
+      redirect_to :action => 'addleaveforstaff'
     end
   end
 
@@ -290,6 +391,8 @@ class AdminsController < ApplicationController
       redirect_to :controller => 'pagesgro', :action => 'staff'
     elsif session[:type] == "Telemarketer" && session[:company] == 'groventure'
       redirect_to :controller => 'pagesgro', :action => 'tele' 
+    else
+      redirect_to :back
     end
   end
 
@@ -314,7 +417,7 @@ class AdminsController < ApplicationController
   
    def adduser
     Staff.create(staff_params)
-    redirect_to :action => 'manageemployees'
+    redirect_to :action => 'addRemove'
   end
   
   def workingunder
@@ -455,5 +558,82 @@ class AdminsController < ApplicationController
     
     end
     redirect_to '/hello.pdf'
+  end
+  
+  def reportsick
+    Reportsick.create(reportsickparams)
+    redirect_to :back
+  end
+  def reportsickparams
+    params.require(:reportsick).permit!
+  end
+  def reportedsick
+    all = Reportsick.all
+    @reported = []
+    all.each do |a|
+      if a.created_at.to_date == Date.today
+        @reported << a
+      end
+    end
+  end
+  
+  def setpublicholidays
+    @publicholidays = PublicHolidays.all
+    @newholiday = PublicHolidays.new
+  end
+  
+  def addpublicholiday
+    PublicHolidays.create(holiday_params)
+    redirect_to :back
+  end
+  def holiday_params
+    params.require(:public_holidays).permit!
+  end
+  def deleteholiday
+    h = PublicHolidays.find_by_id(params[:id])
+    h.delete
+    redirect_to :back
+  end
+  
+  def addleaveforstaff
+    @new_leave = Leave.new
+    @allstaff = Staff.all
+  end
+  def blockleave
+    @stafftype = Staff.find_by_sql('select distinct profession from staffs')
+    @blockedleaves = BlockedLeave.all
+  end
+  def addblockleave
+    startdate = params[:datestart].to_date
+    enddate = params[:dateend].to_date
+    profession = params[:typeofstaff]
+    for d in startdate..enddate
+      BlockedLeave.create(:date => d, :profession => profession)
+    end
+    redirect_to :back
+  end
+  def deleteblockedleave
+    b = BlockedLeave.find_by_id(params[:id])
+    b.delete
+    redirect_to :back
+  end
+  
+  def viewprofile
+    @staff = Staff.find_by_staffid(session[:user])
+  end
+    def indexBlockLeave
+    @blockleaves = BlockedLeave.all
+  end
+      def indexLeaves
+    @leaves = Leave.all
+  end
+        def indexReportSicks
+    @reportSicks = Reportsick.all
+  end
+          def indexLetters
+    @letters = Letter.all
+  end
+            def loginLogs
+    @loginlogs = LoginLog.all
   end
 end

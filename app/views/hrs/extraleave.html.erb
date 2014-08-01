@@ -1,0 +1,36 @@
+<h1>Extra Leave</h1>
+<%=form_tag "/hrs/addextraleave", :method=>"post" do%>
+<table>
+	<tr>
+		<td>Staff</td>
+		<td><%=select_tag "staff", options_for_select(@names)%></td>
+	</tr>
+	<tr>
+		<td>Number of days</td>
+		<td><%=number_field_tag :leave%></td>
+	</tr>
+	<tr>
+		<td>Reason</td>
+		<td><%=text_field_tag :reason%></td>
+	</tr>
+	<tr>
+		<td>Valid till</td>
+		<td><%=date_field_tag :validtill%></td>
+	</tr>
+	<tr><td><%=submit_tag("Submit", :class=>"btn")%></td></tr>
+</table>
+
+<%end%>
+
+<table class='table table-bordered'>
+	<tr>
+		<th>Staff</th><th>No. of days</th><th>Reason</th><th>Valid till</th><th>Delete</th>
+	</tr>
+	<%@extraleaves.each do |e|%>
+	<tr>
+		<td><%=e.staffid%></td><td><%=e.leave%></td><td><%=e.reason%></td><td><%=e.validtill%></td><td><a href='/hrs/deleteextra?id=<%=e.id%>'>Delete</a></td>
+	</tr>
+	<%end%>
+</table>
+
+

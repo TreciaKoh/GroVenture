@@ -1,0 +1,25 @@
+<h2>Set public holidays</h2>
+<%=form_for @newholiday, :url => { :action => "addpublicholiday" } do |f|%>
+<table>
+	<tr>
+		<td>Date:</td><td><%=f.date_field(:date)%></td>
+		
+	</tr>
+	<tr>
+		<td>Name of holiday:</td><td><%=f.text_field(:name)%></td>
+	</tr>
+	<tr><%= f.submit "Add holiday", class: "btn btn-primary" %></tr>
+</table>
+<br><br>
+<%end%>
+<h2>Holidays set</h2>
+<table class="table table-bordered">
+	<tr>
+		<th>Date</th><th>Holiday</th><th>Delete</th>
+	</tr>
+	<%@publicholidays.each do |p|%>
+		<tr>
+			<td><%=p.date%></td><td><%=p.name%></td><td><a href='/admins/deleteholiday?id=<%=p.id%>'>Delete</a></td>
+		</tr>
+	<%end%>
+</table>

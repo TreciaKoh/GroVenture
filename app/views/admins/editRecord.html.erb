@@ -7,10 +7,13 @@
 		<td>Date To:</td><td> <%= f.date_field  :dateend %></td><td><%=f.select(:endtime, "<option>AM</option><option>PM</option>".html_safe)%></td>
 	</tr>
 	<tr>
-		<td>Type:</td><td><%= f.select(:leavetype, "<option>normal</option><option>childcare</option><option>unpaid</option>".html_safe)   %></td>
+		<td>Type:</td><td><%= f.select(:leavetype, "<option>normal</option><option>childcare</option><option>unpaid</option><option>medical</option>".html_safe)   %></td>
 	</tr>
 	<tr>
 		<td>Reason:</td><td><%= f.text_field  :reason %></td>
+	</tr>
+	<tr>
+		<td>If taking MC, attach photo of MC</td><td><%= f.file_field  :avatar%></td>
 	</tr>
 	<%=f.hidden_field(:id, :value => @leave.id)%>
 
