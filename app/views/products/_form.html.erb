@@ -10,24 +10,10 @@
       </ul>
     </div>
   <% end %>
-<%=f.fields_for :product, @product do |e|%>
-  <div class="field">
-    <%= e.label :name %><br>
-    <%= e.text_field :name %>
+<div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name%>
   </div>
-<%end%>
-<%=f.fields_for :product, @product do |e|%>
-  <div class="field">
-    <%= e.label :name %><br>
-    <%= e.text_field :name %>
-  </div>
-<%end%>
-<%=f.fields_for :product, @product do |e|%>
-  <div class="field">
-    <%= e.label :name %><br>
-    <%= e.text_field :name %>
-  </div>
-<%end%>
   <div class="actions">
     <%= f.submit %>
   </div>

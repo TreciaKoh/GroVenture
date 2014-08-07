@@ -12,7 +12,7 @@ class PagesController < ApplicationController
     @records = @records1 + @records2
     @records = @records.uniq
     @new_record = MainRecord.new
-    @staff = Staff.where(profession:"staff")
+    @staff = Staff.where(profession:"Sales")
   end
 
   def company
@@ -75,7 +75,7 @@ class PagesController < ApplicationController
     # r.save
     if session[:type]=="Telemarketer"
       redirect_to :action => 'tele'
-    elsif session[:type]=="Staff"
+    elsif session[:type]=="Sales"
       redirect_to :action => 'staff'
 
     end
@@ -148,7 +148,7 @@ class PagesController < ApplicationController
       # r.update_attributes(:attendedBy =>params[:main_record][:attendedBy],:attendedByGrade =>params[:main_record][:attendedByGrade],:attendedByRemarks =>params[:main_record][:attendedByRemarks])
     # end
     r.update_attributes(main_record_params)
-    if session[:type] == "Staff"
+    if session[:type] == "Sales"
       redirect_to :action => 'staff'
     else
       redirect_to :action => 'tele'
@@ -158,7 +158,7 @@ class PagesController < ApplicationController
   def deleteRecord
     r = MainRecord.find_by_id(params[:id])
     r.delete
-    if session[:type] == "Staff"
+    if session[:type] == "Sales"
       redirect_to :action => 'staff'
     else
       redirect_to :action => 'tele'
@@ -240,7 +240,7 @@ class PagesController < ApplicationController
     redirect_to :action => 'workingday'
   end
 
-  def togglecloseddream
+  def toggleclosed
     r = MainRecord.find_by_id(params[:id])
     closed = r.closed
     if closed

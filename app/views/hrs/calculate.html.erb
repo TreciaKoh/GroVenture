@@ -27,6 +27,14 @@
   <%= @performance %>
 </p>
 <p>
+  <strong>Total sales:</strong>
+  <%= @sumsales %>
+</p>
+<p>
+  <strong>Commission rate:</strong>
+  <%= @commissionrate %>
+</p>
+<p>
   <strong>Commission:</strong>
   <%= @commission %>
 </p>
@@ -43,3 +51,26 @@
   <strong>Employer contribution:</strong>
   <%= @employercontribution %>
 </p>
+<%if !@finalrecords.nil?%>
+<h3>Sales</h3>
+<table class='table table-bordered'>
+	<tr>
+		<th>Invoice Number</th>
+		<th>Amount</th>
+		<th>Deposit details</th>
+		<th>On hold</th>
+	</tr>
+	<%@finalrecords.each do |f|%>
+		<tr>
+			<td><%=f.invoiceno%></td>
+			<td><%=f.closedamount%></td>
+			<td><%=f.depositbreakdown%></td>
+			<%if f.onhold%>
+			<td><a href='/hrs/togglehold?id=<%=f.id%>&company=<%=@company%>&staffid=<%=@staffid%>&year=<%=@year%>&month=<%=@month%>'>On hold</a></td>
+			<%else%>
+			<td><a href='/hrs/togglehold?id=<%=f.id%>&company=<%=@company%>&staffid=<%=@staffid%>&year=<%=@year%>&month=<%=@month%>'>Not on hold</a></td>
+			<%end%>
+		</tr>
+	<%end%>
+	<%end%>
+</table>

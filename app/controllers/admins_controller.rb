@@ -1,4 +1,35 @@
 class AdminsController < ApplicationController
+  def managepermissions
+    @staff = Staff.all
+    @permissions = Permission.all
+  end
+  
+  def changepermissions
+    staff = Staff.all
+    staff.each do |s|
+      if !s.staffid.nil?
+        checkbox = params[s.staffid]
+        
+        str = ''
+        if !checkbox.nil?
+          checkbox.each do |c|
+            str = str + c + ','
+          end
+        end
+        p = Permission.find_by_staffid(s.staffid)
+        if p.nil?
+          Permission.create(staffid:s.staffid, permissions:str)
+        else
+          p.update_attribute(:permissions, str)
+        end
+        
+      end
+      
+    end
+    redirect_to :back
+    
+  end
+  
   def index
   end
   
@@ -8,6 +39,12 @@ class AdminsController < ApplicationController
   
   def login
     userid = params[:userid]
+    p = Permission.find_by_staffid(userid)
+    permissions = ''
+    if !p.nil?
+      permissions = p.permissions
+    end
+    session[:permissions]=permissions
     pass = params[:password]
     t = Staff.find_by(staffid:userid, profession:"tele")
     s = Staff.find_by(staffid:userid, profession:"staff")
@@ -272,11 +309,31 @@ class AdminsController < ApplicationController
     
     array = []
     leaves.each do |l|
-      hash = {:title => l.staff_id + ", " + l.leavetype, :start => l.datestart, :end => l.dateend + 1, :color => '#33FF00'}
+      hash = {:title => l.staff_id, :start => l.datestart, :end => l.dateend + 1, :color => '#33FF00'}
       if l.approved == 0
-        hash[:color] = 'red'
-      elsif l.approved == 2
-        hash[:color] = 'yellow'
+        lt = l.leavetype
+        if lt == 'normal'
+          hash[:color] = '#CC66FF'
+        elsif lt == 'unpaid'
+          hash[:color] = '#FDE3A7'
+        elsif lt == 'medical'
+          hash[:color] = '#C8F7C5'
+        elsif lt == 'childcare'
+          hash[:color] = '#FFFF19'
+        end
+        
+      elsif l.approved == 1
+        lt = l.leavetype
+        if lt == 'normal'
+          hash[:color] = '#FF0000'
+        elsif lt == 'unpaid'
+          hash[:color] = '#F9BF3B'
+        elsif lt == 'medical'
+          hash[:color] = '#26A65B'
+        elsif lt == 'childcare'
+          hash[:color] = '#19B5FE'
+        end
+       
       end
       array<<hash
     end
@@ -635,5 +692,51 @@ class AdminsController < ApplicationController
   end
             def loginLogs
     @loginlogs = LoginLog.all
+  end
+  def indexLoginLogs
+    @loginlogs = LoginLog.all
+  end
+  
+  def generateleavereport
+    @a = []
+    staff = Staff.all
+    staff.each do |s|
+      @a << s.staffid if !s.staffid.nil?
+    end
+    if !params[:year].nil? 
+      @check = true
+    end
+    if @check
+      if !params[:month].nil? && !params[:month].empty?
+        @data = Leave.find_by_sql("select staff_id, leavetype, sum(total) as bigtotal from leaves where year(datestart) = "+params[:year]+" and month(datestart) = "+params[:month]+" group by staff_id, leavetype")
+      else
+        @data = Leave.find_by_sql("select staff_id, leavetype, sum(total) as bigtotal from leaves where year(datestart) = "+params[:year]+" group by staff_id, leavetype")
+      end
+
+    end
+  end
+  
+  def addinvoice
+    @records = MainRecord.where(closed: true)
+    @records2 = MainRecordGro.where(closed: true)
+   
+  end
+  
+  def updater
+    r = MainRecord.find_by_id(params[:main_record][:id])
+    r.update_attributes(main_record_params)
+    redirect_to :back
+  end
+  def updater2
+    r = MainRecordGro.find_by_id(params[:main_record_gro][:id])
+    r.update_attributes(main_record_gro_params)
+    redirect_to :back
+  end
+  
+  def main_record_params
+    params.require(:main_record).permit!
+  end
+  def main_record_gro_params
+    params.require(:main_record_gro).permit!
   end
 end

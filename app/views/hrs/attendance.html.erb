@@ -18,6 +18,7 @@
 	<%if !@date.nil? && !@date.empty?%>
 	<b><%=@date%></b>
 	<%@staffs.each do |s|%>
+	<%if !s.staffid.nil?%>
 	<tr>
 		<td><%=s.staffid%></td>
 		<%=hidden_field_tag(:date, @date)%>
@@ -38,6 +39,7 @@
 		<td><%=text_field_tag('timein'+s.staffid, a.timein)%></td>
 		<%end%>
 	</tr>
+	<%end%>
 	<%end%>
 	<tr>
 		<td><%= submit_tag("Go", :class=>"btn")%></td>

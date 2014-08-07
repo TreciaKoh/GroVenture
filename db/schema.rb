@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140731063537) do
+ActiveRecord::Schema.define(version: 20140807015842) do
 
   create_table "appendixes", force: true do |t|
     t.string   "name"
@@ -150,6 +150,9 @@ ActiveRecord::Schema.define(version: 20140731063537) do
     t.datetime "updated_at"
     t.decimal  "closedamount",      precision: 10, scale: 2
     t.string   "invoiceno"
+    t.boolean  "closed"
+    t.string   "depositbreakdown"
+    t.boolean  "onhold"
   end
 
   create_table "main_records", force: true do |t|
@@ -172,6 +175,16 @@ ActiveRecord::Schema.define(version: 20140731063537) do
     t.datetime "updated_at"
     t.decimal  "closedamount",      precision: 10, scale: 2
     t.string   "invoiceno"
+    t.boolean  "closed"
+    t.string   "depositbreakdown"
+    t.boolean  "onhold"
+  end
+
+  create_table "permissions", force: true do |t|
+    t.string   "staffid"
+    t.string   "permissions"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "products", force: true do |t|

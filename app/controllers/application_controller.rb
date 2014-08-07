@@ -285,7 +285,7 @@ class ApplicationController < ActionController::Base
       tobringforward = lastyearentitlement - total1
     end
     
-    entitledAL = annualLeave
+    entitledAL = annualLeave.round(2)
     entitledAL += tobringforward if !tobringforward.nil?
     entitledCL = childLeave
     annualLeave = annualLeave.to_f/12*today.month

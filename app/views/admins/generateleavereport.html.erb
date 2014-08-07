@@ -1,0 +1,22 @@
+<h2>Leave reports</h2>
+
+<%=form_tag '/admins/generateleavereport', :method => 'post' do%>
+Select year:<%=number_field_tag :year%>
+Select month:<%=number_field_tag :month%>
+<%=submit_tag 'Submit', :class=>'btn'%>
+
+<%end%>
+
+<%if @check%>
+<table class='table table-bordered'>
+	<tr><th>Staffid</th><th>Leave type</th><th>Total</th></tr>
+	<%@data.each do |d|%>
+	<tr>
+		<td><%=d.staff_id%></td>
+		<td><%=d.leavetype%></td>
+		<td><%=d.bigtotal%></td>
+	</tr>
+	<%end%>
+	<tr></tr>
+</table>
+<%end%>

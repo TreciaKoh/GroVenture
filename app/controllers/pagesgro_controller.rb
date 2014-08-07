@@ -12,7 +12,7 @@ class PagesgroController < ApplicationController
     @records = @records1 + @records2
     @records = @records.uniq
     @new_record = MainRecordGro.new
-    @staff = Staff.where(profession:"staff")
+    @staff = Staff.where(profession:"Sales")
   end
 def indexMainRecords
     @mainrecordgros = MainRecordGro.all
@@ -77,7 +77,7 @@ def indexMainRecords
     # r.save
     if session[:type]=="Telemarketer"
       redirect_to :action => 'tele'
-    elsif session[:type]=="Staff"
+    elsif session[:type]=="Sales"
       redirect_to :action => 'staff'
 
     end
@@ -207,7 +207,7 @@ def indexMainRecords
       # r.update_attributes(:attendedBy =>params[:main_record_gro][:attendedBy],:attendedByGrade =>params[:main_record_gro][:attendedByGrade],:attendedByRemarks =>params[:main_record_gro][:attendedByRemarks])
     # end
     r.update_attributes(main_record_params)
-    if session[:type] == "Staff"
+    if session[:type] == "Sales"
       redirect_to :action => 'staff'
     else
       redirect_to :action => 'tele'
@@ -220,7 +220,7 @@ def indexMainRecords
   def deleteRecord
     r = MainRecordGro.find_by_id(params[:id])
     r.delete
-    if session[:type] == "Staff"
+    if session[:type] == "Sales"
       redirect_to :action => 'staff'
     else
       redirect_to :action => 'tele'
@@ -231,7 +231,7 @@ def indexMainRecords
     @login_records = LoginLog.all
   end
   
-  def toggleclosedgro
+  def toggleclosed
     r = MainRecordGro.find_by_id(params[:id])
     closed = r.closed
     if closed

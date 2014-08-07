@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>GroVenture</title>
+		
 
 		<!-- <link rel='stylesheet' type='text/css' href='fullcalendar.css' />
 		<script type='text/javascript' src='jquery.js'></script>
@@ -33,13 +34,15 @@
 		</style>
 	</head>
 	<body>
-
+	<%permissions = ''%>
+	<%permissions = session[:permissions] if !session[:permissions].nil?%>
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<div class="navbar-inner">
 
 						<ul class="nav navbar-nav">
+							<%if permissions.include?('asp')%>
 							<% role = session[:type]%>
 							<% company = session[:company]%>
 							<%if role == 'Telemarketer' && company == 'groventure'%>
@@ -50,14 +53,15 @@
 							<li>
 								<a href="/pages/tele">Work</a>
 							</li>
-							<%elsif role == 'Staff' && company == 'groventure'%>
+							<%elsif role == 'Sales' && company == 'groventure'%>
 							<li>
 								<a href="/pagesgro/staff">Work</a>
 							</li>
-							<%elsif role == 'Staff' && company == 'dreamwrkz'%>
+							<%elsif role == 'Sales' && company == 'dreamwrkz'%>
 							<li>
 								<a href="/pages/staff">Work</a>
 							</li>
+							<%end%>
 							<%end%>
 							<%if role!= 'Master'%>
 							<li class="dropdown">
@@ -90,7 +94,7 @@
 
 							<%end%>
 
-							<% tierInDb = Setting.find_by_id(1).numtiers%>
+							<!-- <% tierInDb = Setting.find_by_id(1).numtiers%>
 							<%if !session[:tier].nil? && session[:tier] < tierInDb-1 && session[:tier] != 0%>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Employees <b class="caret"></b></a>
@@ -106,6 +110,11 @@
 							</li>
 							<li>
 								<a href="/admins/calendar">View Calendar</a>
+							</li>
+							<%end%>
+							<%if session[:type] == 'Admin' || session[:type] == 'Master'%>
+							<li>
+										<a href='/admins/addinvoice'>Manage invoices</a>
 							</li>
 							<%end%>
 							<%if session[:type] == 'Master'%>
@@ -137,7 +146,7 @@
 									</li>
 
 								</ul>
-							</li>
+							</li> -->
 							<!-- <li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Employees <b class="caret"></b></a>
 								<ul class="dropdown-menu">
@@ -164,20 +173,20 @@
 							</li>
 							
 							
-							<li class="dropdown">
+							<!-- <li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Employees <b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li>
+								<ul class="dropdown-menu"> -->
+									<!-- <li>
 										<a href="/admins/manageemployees">Manage employee structure</a>
-									</li>
-									<li>
+									</li> -->
+									<!-- <li>
 										<a href="/admins/employeeinfo">Manage employee info</a>
-									</li>
-									<li>
+									</li> -->
+									<!-- <li>
 										<a href="/admins/organstructure">See organisational structure</a>
-									</li>
+									</li> -->
 									<li>
-										<a href='/admins/loginRecord'>View login records</a>
+										<!-- <a href='/admins/loginRecord'>View login records</a>
 									</li>
 									<li>
 										<a href='/admins/addRemove'>Add/Remove Employees</a>
@@ -206,7 +215,7 @@
 							</li>
 							
 							<%end%>
-							<%if session[:type] == 'HR' || session[:type] == 'Master'%>
+							<%if session[:type] == 'HR' || session[:type] == 'Master' || session[:type] == 'Accounts'%>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">HR tools <b class="caret"></b></a>
 								<ul class="dropdown-menu">
@@ -245,10 +254,177 @@
 									</li>
 
 								</ul>
+							</li> -->
+							
+							<!-- <%end%> -->
+							<!-- START HERE -->
+							
+							<%if session[:type] == 'Master'%>
+							<li>
+								<a href="/pages/company">Dreamwrkz Work</a>
+							</li>
+							<li>
+								<a href="/pagesgro/company">Groventure Work</a>
 							</li>
 							<%end%>
+							<%if permissions.include?('al')%>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Approve Leaves <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="/admins/approveleave?tier=1">Tier 1 Employees</a>
+									</li>
+									<li>
+										<a href="/admins/approveleave?tier=2">Tier 2 Employees</a>
+									</li>
+									<%if Setting.find_by_id(1).numtiers==4%>
+									<li>
+										<a href="/admins/approveleave?tier=3">Tier 3 Employees</a>
+									</li>
+									<%end%>
+									<li>
+										<a href="/admins/setbroughtforward">Set brought forward leave period</a>
+									</li>
+									<li>
+										<a href="/admins/reportedsick">See who reported sick today</a>
+									</li>
 
+								</ul>
+							</li>
+							<%end%>
+							
+							<%if permissions.include?('me')%>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Employees <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									
+									<li>
+										<a href="/admins/employeeinfo">Manage employee info</a>
+									</li>
+									
+									<li>
+										<a href='/admins/loginRecord'>View login records</a>
+									</li>
+									<li>
+										<a href='/admins/addRemove'>Add/Remove Employees</a>
+									</li>
+
+								</ul>
+							</li>
+							<%end%>
+							
+							<%if permissions.include?('at')%>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin tools <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="/appendixes">Appendixes</a>
+									</li>
+									<li>
+										<a href="/products">Products sold by our company</a>
+									</li>
+									<li>
+										<a href="/logos">Company logos</a>
+									</li>
+									<li>
+										<a href='/letters'>Employee letters</a>
+									</li>
+									
+
+								</ul>
+							</li>
+							<%end%>
+							
+							<%if permissions.include?('act')%>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account tools <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="/hrs/calculatepay">Calculate Pay</a>
+									</li>
+								
+									<li>
+										<a href="/pays/paySet">Manage CPF/Commissions</a>
+									</li>
+									
+									
+
+								</ul>
+							</li>
+							<%end%>
+							
+							<%if permissions.include?('ta')%>
+							<li>
+										<a href="/hrs/attendance">Attendance</a>
+							</li>
+							<%end%>
+							
+							<%if permissions.include?('ma')%>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage applicants <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="/staffs">Applicants</a>
+									</li>
+									<li>
+										<a href="/staffs/new">Application form</a>
+									</li>
+									
+									
+
+								</ul>
+							</li>
+							<%end%>
+							
+							<%if permissions.include?('hr')%>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">HR tools <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									
+									<li>
+										<a href='/pages/workingday'>Set working days per month</a>
+									</li>
+									<li>
+										<a href='/admins/setpublicholidays'>Set public holidays</a>
+									</li>
+									<li>
+										<a href='/admins/addleaveforstaff'>Take leave for staff</a>
+									</li>
+									<li>
+										<a href='/admins/blockleave'>Manage blocked leaves</a>
+									</li>
+									<li>
+										<a href='/hrs/extraleave'>Manage extra leaves</a>
+									</li>
+									
+
+								</ul>
+							</li>
+							<%end%>
+							
+							<%if permissions.include?('cl')%>
+							<li>
+										<a href='/admins/generateLetter'>Create letter</a>
+							</li>
+							<%end%>
+							
+							<%if session[:type] == 'Master'%>
+							<li>
+										<a href='/admins/managepermissions'>Manage permissions</a>
+							</li>
+							<%end%>
+							<%if permissions.include?('mi')%>
+							<li>
+										<a href='/admins/addinvoice'>Manage invoices</a>
+							</li>
+							<%end%>
+							
 						</ul>
+						
+						
+						
+						
+						
 						<!-- More nav bar links to be added later -->
 						<ul class="nav navbar-nav navbar-right">
 							<li>

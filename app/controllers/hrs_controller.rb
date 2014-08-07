@@ -95,16 +95,16 @@ class HrsController < ApplicationController
 
   def calculate
     staffid = params[:staffid]
+    @company = Staff.find_by_staffid(staffid).company
     month = params[:month]
     year = params[:year]
     attendance = Attendance.where(:staffid => staffid)
     total = 0.to_f
-    p 'hello'
-    p attendance.size
+   
     attendance.each do |a|
-      p a.date.year
+    
       if a.date.year.to_s == year && a.date.month.to_s == month
-        p 'true'
+       
         if a.leavetype == 'half'
         total += 0.5
         else
@@ -125,8 +125,26 @@ class HrsController < ApplicationController
       end
     end
     @total = total
+    finalrecords = []
     sp = Staffpay.find_by_staffid(Staff.find_by_staffid(staffid).id)
     if !sp.nil?
+      records = MainRecord.where(apptBy: staffid)
+      records2 = MainRecordGro.where(apptBy: staffid)
+      records = records + records2
+      
+      records.each do |r| 
+       
+        if r.dateAppt.year == year.to_i && r.dateAppt.month == month.to_i
+          finalrecords << r
+        end
+      end
+      @sumsales = 0.0
+      finalrecords.each do |f|
+        if f.onhold != true
+          @sumsales += f.closedamount
+        end
+      end
+      @finalrecords = finalrecords
       @staffid = staffid
       @month = array[month.to_i-1]
       @basic = sp.basic
@@ -138,10 +156,13 @@ class HrsController < ApplicationController
         @attendanceincentive = 0
       end
       @performance = sp.performance
-      @commission = sp.commission
+      @commissionrate = sp.commission
+      @commission = @commissionrate/100*@sumsales
       @deduction = sp.deduction
       @employercontribution = (@employercpf/100)*@basic
       @pay = (100.to_f-@employeecpf)/100*@basic+@attendanceincentive+@performance+@commission-@deduction
+      @month = month
+      @year = year
     else
       flash[:error] = 'Data for employee not set!'
     end
@@ -220,5 +241,20 @@ class HrsController < ApplicationController
   end
     def indexAttendance
     @attendances = Attendance.all
+  end
+  
+  def togglehold
+    company = params[:company]
+    if company == 'dreamwrkz'
+      r = MainRecord.find_by_id(params[:id])
+    else
+      r = MainRecordGro.find_by_id(params[:id])
+    end
+    if r.onhold
+      r.update_attribute(:onhold, false)
+    else
+      r.update_attribute(:onhold, true)
+    end
+    redirect_to :action => 'calculate', :staffid => params[:staffid], :year => params[:year], :month => params[:month], :company => params[:company]
   end
 end

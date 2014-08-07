@@ -1,0 +1,111 @@
+<h2>Admin Page</h2>
+<h3>Dreamwrkz</h3>
+<table class = "table table-bordered table-condensed", align='center', id='sf'>
+	<thead><tr>
+		<th>Company Name</th>
+		<th>Address</th>
+		<th>Postal Code</th>
+		<th>Contact Person</th>
+		<th>Position</th>
+		<th>Hp</th>
+		<th>Office</th>
+		<th>Email</th>
+		<th>Appt By</th>
+		<th>Appt Date</th>
+		<th>Remarks</th>	
+		<td bgcolor=#00FF00><b>AttendedBy</b></td>
+		<td bgcolor=#00FF00><b>Grade</b></td>
+		<td bgcolor=#00FF00><b>Remarks</b></td>
+		<th>Invoice No</th>
+		<th>Closed Amount</th>
+		<th>Deposit Breakdown</th>
+		<!-- <th>Closed amount</th>
+		<th>Invoice no</th> -->
+		<th>Update</th>
+		
+		<!-- <th>Closed?</th> -->
+	</tr></thead>
+	<%@records.each do |r|%>
+	<tr>
+		<td><%= r.companyName%></td>
+		<td><%= r.address%></td>
+		<td><%= r.postalCode%></td>
+		<td><%= r.contactPerson%></td>
+		<td><%= r.position%></td>
+		<td><%= r.hp%></td>
+		<td><%= r.office%></td>
+		<td><%= r.email%></td>
+		<td><%= r.apptBy%></td>
+		<td><%= r.dateAppt%></td>
+		<td><%= r.remarks%></td>
+		<td><%= r.attendedBy%></td>
+		<td><%= r.attendedByGrade%></td>
+		<td><%= r.attendedByRemarks%></td>
+		<%=form_for r, :url => {:action => 'updater'} do |f|%>
+		<td><%=f.text_field :invoiceno%></td>
+		<td><%=f.number_field :closedamount, :step => '0.01'%></td>
+		<td><%=f.text_field :depositbreakdown%></td>
+		<%=f.hidden_field :id, :value => r.id%>
+		<td><%=f.submit 'Update'%></td>
+		<%end%>
+		
+		
+
+	</tr>
+	<%end%>
+</table>
+<h3>Groventure</h3>
+<table class = "table table-bordered table-condensed", align='center', id='sf'>
+	<thead><tr>
+		<th>Company Name</th>
+		<th>Address</th>
+		<th>Postal Code</th>
+		<th>Contact Person</th>
+		<th>Position</th>
+		<th>Hp</th>
+		<th>Office</th>
+		<th>Email</th>
+		<th>Appt By</th>
+		<th>Appt Date</th>
+		<th>Remarks</th>	
+		<td bgcolor=#00FF00><b>AttendedBy</b></td>
+		<td bgcolor=#00FF00><b>Grade</b></td>
+		<td bgcolor=#00FF00><b>Remarks</b></td>
+		<th>Invoice No</th>
+		<th>Closed Amount</th>
+		<th>Deposit Breakdown</th>
+		<!-- <th>Closed amount</th>
+		<th>Invoice no</th> -->
+		<th>Update</th>
+		
+		<!-- <th>Closed?</th> -->
+	</tr></thead>
+	<%@records2.each do |r|%>
+	<tr>
+		<td><%= r.companyName%></td>
+		<td><%= r.address%></td>
+		<td><%= r.postalCode%></td>
+		<td><%= r.contactPerson%></td>
+		<td><%= r.position%></td>
+		<td><%= r.hp%></td>
+		<td><%= r.office%></td>
+		<td><%= r.email%></td>
+		<td><%= r.apptBy%></td>
+		<td><%= r.dateAppt%></td>
+		<td><%= r.remarks%></td>
+		<td><%= r.attendedBy%></td>
+		<td><%= r.attendedByGrade%></td>
+		<td><%= r.attendedByRemarks%></td>
+		<%=form_for r, :url => {:action => 'updater2'} do |f|%>
+		<td><%=f.text_field :invoiceno%></td>
+		<td><%=f.number_field :closedamount, :step => '0.01'%></td>
+		<td><%=f.text_field :depositbreakdown%></td>
+		<%=f.hidden_field :id, :value => r.id%>
+		<td><%=f.submit 'Update'%></td>
+		<%end%>
+		
+		
+
+	</tr>
+	<%end%>
+</table>

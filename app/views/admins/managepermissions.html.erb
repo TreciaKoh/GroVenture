@@ -1,0 +1,91 @@
+<h2>Manage permissions</h2>
+<%=form_tag '/admins/changepermissions', :method => 'post' do%>
+<table class='table table-bordered'>
+	<tr><th>Staff</th>
+		<th>Manage invoices</th>
+		<th>Access sales page</th>
+		<th>Access company page</th>
+		<th>Approve leaves</th>
+		<th>Manage employees</th>
+		<th>Admin tools</th>
+		<th>Account tools</th>
+		<th>Take attendance</th>
+		<th>Manage applicants</th>
+		<th>HR tools</th>
+		<th>Create letters</th>
+	</tr>
+	
+	<%@staff.each do |s|%>
+	<%if !s.staffid.nil?%>
+	<%a = s.staffid + '[]'%>
+	<%p = @permissions.find_by_staffid(s.staffid)%>
+	<%if !p.nil?%>
+	<%t = p.permissions%>
+	<%else%>
+	<%t = ""%>
+	<%end%>
+	<tr>
+		<td><%=s.staffid%></td>
+		<%if t.include?('mi')%>
+		<td><%=check_box_tag a, 'mi', true%></td>
+		<%else%>
+		<td><%=check_box_tag a, 'mi'%></td>
+		<%end%>
+		<%if t.include?('asp')%>
+		<td><%=check_box_tag a, 'asp', true%></td>
+		<%else%>
+		<td><%=check_box_tag a, 'asp'%></td>
+		<%end%>
+		<%if t.include?('acp')%>
+		<td><%=check_box_tag a, 'acp', true%></td>
+		<%else%>
+		<td><%=check_box_tag a, 'acp'%></td>
+		<%end%>
+		<%if t.include?('al')%>
+		<td><%=check_box_tag a, 'al', true%></td>
+		<%else%>
+		<td><%=check_box_tag a, 'al'%></td>
+		<%end%>
+		<%if t.include?('me')%>
+		<td><%=check_box_tag a, 'me', true%></td>
+		<%else%>
+		<td><%=check_box_tag a, 'me'%></td>
+		<%end%>
+		<%if t.include?('at')%>
+		<td><%=check_box_tag a, 'at', true%></td>
+		<%else%>
+		<td><%=check_box_tag a, 'at'%></td>
+		<%end%>
+		<%if t.include?('act')%>
+		<td><%=check_box_tag a, 'act', true%></td>
+		<%else%>
+		<td><%=check_box_tag a, 'act'%></td>
+		<%end%>
+		<%if t.include?('ta')%>
+		<td><%=check_box_tag a, 'ta', true%></td>
+		<%else%>
+		<td><%=check_box_tag a, 'ta'%></td>
+		<%end%>
+		<%if t.include?('ma')%>
+		<td><%=check_box_tag a, 'ma', true%></td>
+		<%else%>
+		<td><%=check_box_tag a, 'ma'%></td>
+		<%end%>
+		<%if t.include?('hr')%>
+		<td><%=check_box_tag a, 'hr', true%></td>
+		<%else%>
+		<td><%=check_box_tag a, 'hr'%></td>
+		<%end%>
+		<%if t.include?('cl')%>
+		<td><%=check_box_tag a, 'cl', true%></td>
+		<%else%>
+		<td><%=check_box_tag a, 'cl'%></td>
+		<%end%>
+		
+		
+	</tr>
+	<%end%>
+	<%end%>
+	<tr><%=submit_tag 'Submit'%></tr>
+</table>
+<%end%>

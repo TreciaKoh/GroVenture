@@ -18,7 +18,20 @@
 <%= submit_tag("Update", :class=>"btn") %>
 <%end%>
 
+<table>
+	<tr><td bgcolor="#FF0000">Normal approved</td></tr>
+	<tr><td bgcolor="#CC66FF">Normal not approved</td></tr>
+	<tr><td bgcolor="#19B5F3">Childcare approved</td></tr>
+	<tr><td bgcolor="#FFFF19">Childcare not approved</td></tr>
+	<tr><td bgcolor="#26A65B">Medical approved</td></tr>
+	<tr><td bgcolor="#C8F7C5">Medical not approved</td></tr>
+	<tr><td bgcolor="#F9BF3B">Unpaid approved</td></tr>
+	<tr><td bgcolor="#FDE3A7">Unpaid not approved</td></tr>
+	
+</table>
+
 <div id='calendar'></div>
+
 
 <%=javascript_tag do%>
 		$(document).ready(function() {

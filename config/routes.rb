@@ -14,10 +14,12 @@ Rails.application.routes.draw do
   get 'hrs/index'
   get 'hrs/indexAttendance'
   get 'admins/indexBlockLeave'
-  
+  get 'admins/generateleavereport'
+  post 'admins/generateleavereport'
   get 'hrs/editattendancebydate'
   post 'hrs/editattendancebydate'
-  
+  get 'admins/managepermissions'
+  post 'admins/changepermissions'
   get 'hrs/viewattendance'
   post 'hrs/viewattendance'
 get 'admins/indexLoginLogs'
@@ -36,6 +38,7 @@ get 'pagesgro/indexMainRecords'
   get 'admins/viewprofile'
   get 'hrs/calculatepay'
   post 'hrs/calculate'
+  get 'hrs/calculate'
   resources :staffs do
     resources :educations
     collection do
@@ -83,12 +86,14 @@ get 'pagesgro/indexMainRecords'
   get 'pagesgro/tele'
   get 'admins/changepassword'
   post 'admins/changepassword2'
-  get 'pages/togglecloseddream'
-  get 'pages/toggleclosedgro'
+  get 'pages/toggleclosed'
+  get 'pagesgro/toggleclosed'
   get 'pagesgro/staff'
-
+  get 'admins/addinvoice'
+  patch 'admins/updater'
+  patch 'admins/updater2'
   get 'pagesgro/company'
-
+  get 'hrs/togglehold'
   post 'pagesgro/company'
 
   get 'pagesgro/overall'
