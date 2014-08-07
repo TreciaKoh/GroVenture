@@ -150,6 +150,7 @@ class HrsController < ApplicationController
       @basic = sp.basic
       @employercpf = sp.employerCpf
       @employeecpf = sp.employeeCpf
+      @target = sp.target  
       if addAttendance
         @attendanceincentive = sp.attendance
       else
@@ -160,7 +161,10 @@ class HrsController < ApplicationController
       @commission = @commissionrate/100*@sumsales
       @deduction = sp.deduction
       @employercontribution = (@employercpf/100)*@basic
-      @pay = (100.to_f-@employeecpf)/100*@basic+@attendanceincentive+@performance+@commission-@deduction
+      @pay = (100.to_f-@employeecpf)/100*@basic+@attendanceincentive+@commission-@deduction
+      if @sumsales >= @target
+        @pay += @performance
+      end
       @month = month
       @year = year
     else

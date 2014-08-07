@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807015842) do
+ActiveRecord::Schema.define(version: 20140807073023) do
 
   create_table "appendixes", force: true do |t|
     t.string   "name"
@@ -224,6 +224,7 @@ ActiveRecord::Schema.define(version: 20140807015842) do
     t.decimal  "deduction",   precision: 10, scale: 2, default: 0.0
     t.decimal  "employerCpf", precision: 10, scale: 2, default: 0.0
     t.decimal  "employeeCpf", precision: 10, scale: 2, default: 0.0
+    t.decimal  "target",      precision: 10, scale: 2
   end
 
   create_table "staffs", force: true do |t|
