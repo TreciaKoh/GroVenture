@@ -139,10 +139,12 @@ class HrsController < ApplicationController
         end
       end
       @sumsales = 0.0
+      @sumsalesfortarget = 0.0
       finalrecords.each do |f|
         if f.onhold != true
           @sumsales += f.closedamount
         end
+        @sumsalesfortarget += f.closedamount
       end
       @finalrecords = finalrecords
       @staffid = staffid
@@ -163,7 +165,7 @@ class HrsController < ApplicationController
       @deduction = sp.deduction
       @employercontribution = (@employercpf/100)*@basic
       @pay = (100.to_f-@employeecpf)/100*@basic+@attendanceincentive+@commission-@deduction
-      if @sumsales >= @target
+      if @sumsalesfortarget >= @target
         @pay += @performance
       end
       @month = month

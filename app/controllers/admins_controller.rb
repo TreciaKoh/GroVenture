@@ -125,6 +125,7 @@ class AdminsController < ApplicationController
     session[:user]=nil
     session[:type]=nil
     session[:company]= nil
+    session[:permissions]=nil
     redirect_to :action => 'loginPage'
   end
 

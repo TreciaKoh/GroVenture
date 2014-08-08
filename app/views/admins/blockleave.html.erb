@@ -16,14 +16,20 @@
 </table><br><br>
 <%end%>
 <h2>Blocked Leaves</h2>
-<table class = 'table table-bordered'>
-	<tr>
+<table class = 'table table-bordered', id='sf'>
+	<thead><tr>
 		<th>Date blocked</th><th>Type of Staff</th><th>Delete</th>
 		
-	</tr>
+	</tr></thead>
 	<%@blockedleaves.each do |b|%>
 	<tr>
 		<td><%=b.date%></td><td><%=b.profession%></td><td><a href='/admins/deleteblockedleave?id=<%=b.id%>'>Delete</a></td>
 	</tr>
 	<%end%>
 </table>
+<script>
+$(document).ready(function() {
+    $('#sf').dataTable();
+} );
+
+</script>

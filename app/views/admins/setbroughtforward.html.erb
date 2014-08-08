@@ -1,7 +1,7 @@
 <h2>Set brought forward leave period</h2>
 Number of months to allow previous year leave to be taken: <br>
 <%=form_tag("/admins/setbroughtforward2", :method => "post") do%>
-<%=number_field_tag(:num)%><br>
+<%=number_field_tag(:num, Setting.find_by_id(1).nummonths)%><br>
 <td><%= submit_tag("Set", :class=>"btn") %></td>
 <%end%>
 <%if !@success.nil?%>

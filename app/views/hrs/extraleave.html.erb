@@ -22,10 +22,10 @@
 
 <%end%>
 
-<table class='table table-bordered'>
-	<tr>
+<table class='table table-bordered', id='sf'>
+	<thead><tr>
 		<th>Staff</th><th>No. of days</th><th>Reason</th><th>Valid till</th><th>Delete</th>
-	</tr>
+	</tr></thead>
 	<%@extraleaves.each do |e|%>
 	<tr>
 		<td><%=e.staffid%></td><td><%=e.leave%></td><td><%=e.reason%></td><td><%=e.validtill%></td><td><a href='/hrs/deleteextra?id=<%=e.id%>'>Delete</a></td>
@@ -33,4 +33,9 @@
 	<%end%>
 </table>
 
+<script>
+$(document).ready(function() {
+    $('#sf').dataTable();
+} );
 
+</script>

@@ -93,15 +93,15 @@
 
 <h2>List of Working Days Set Per Month</h2>
 <%= form_tag"/pages/workingday" do %>
-<table border="1">
-	<tr>
+<table border="1", id='sf'>
+	<thead><tr>
 	<!-- <th>Department</th> -->
 	<th>Month</th>
 	<th>Year </th>
 	<th>Number of Day Set for 5 day work weeks</th>
 	<th>Number of Day Set for 6 day work weeks</th>
 	<th colspan="2">Action</th>
-	</tr>
+	</tr></thead>
 	<% @workday.each do|d|%>
 	<tr>
 		<!-- <td><%= d.department%></td> -->
@@ -114,5 +114,12 @@
 	<%end%>
 </table>
 <%end%>
+
+<script>
+$(document).ready(function() {
+    $('#sf').dataTable();
+} );
+
+</script>
 
 

@@ -13,13 +13,20 @@
 <br><br>
 <%end%>
 <h2>Holidays set</h2>
-<table class="table table-bordered">
-	<tr>
+<table class="table table-bordered", id='sf'>
+	<thead><tr>
 		<th>Date</th><th>Holiday</th><th>Delete</th>
-	</tr>
+	</tr></thead>
 	<%@publicholidays.each do |p|%>
 		<tr>
 			<td><%=p.date%></td><td><%=p.name%></td><td><a href='/admins/deleteholiday?id=<%=p.id%>'>Delete</a></td>
 		</tr>
 	<%end%>
 </table>
+
+<script>
+$(document).ready(function() {
+    $('#sf').dataTable();
+} );
+
+</script>

@@ -51,7 +51,7 @@ Leaves left:
 </div>
 
 <table class = "table table-bordered table-condensed" align='center', id='sf'>
-	<tr>
+	<thead><tr>
 		<th>Date Start</th>
 		<th>Date End</th>
 		<th>Total</th>
@@ -61,7 +61,7 @@ Leaves left:
 
 		<th>Edit</th>
 		<th>Delete</th>
-	</tr>
+	</tr></thead>
 	<%@leaves.each do |r|%>
 	<tr>
 		<td><%= r.datestart%></td>
@@ -124,3 +124,10 @@ Leaves left:
 	<%=f.hidden_field :staffid, :value => session[:user]%>
 	<%= f.submit "Report sick", class: "btn btn-primary", data: { confirm: 'Confirmation: You are going to report sick today' } %>
 <%end%>
+
+<script>
+$(document).ready(function() {
+    $('#sf').dataTable();
+} );
+
+</script>

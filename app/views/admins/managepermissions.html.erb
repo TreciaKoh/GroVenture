@@ -1,7 +1,7 @@
 <h2>Manage permissions</h2>
 <%=form_tag '/admins/changepermissions', :method => 'post' do%>
-<table class='table table-bordered'>
-	<tr><th>Staff</th>
+<table class='table table-bordered', id='sf'>
+	<thead><tr><th>Staff</th>
 		<th>Manage invoices</th>
 		<th>Access sales page</th>
 		<th>Access company page</th>
@@ -13,7 +13,7 @@
 		<th>Manage applicants</th>
 		<th>HR tools</th>
 		<th>Create letters</th>
-	</tr>
+	</tr></thead>
 	
 	<%@staff.each do |s|%>
 	<%if !s.staffid.nil?%>
@@ -89,3 +89,10 @@
 	<tr><%=submit_tag 'Submit'%></tr>
 </table>
 <%end%>
+
+<script>
+$(document).ready(function() {
+    $('#sf').dataTable();
+} );
+
+</script>

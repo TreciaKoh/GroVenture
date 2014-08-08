@@ -47,7 +47,7 @@ class PagesController < ApplicationController
       end
     end
 
-    @staff = Staff.where(profession:"staff", company:"dreamwrkz")
+    @staff = Staff.where(profession:"Sales", company:"dreamwrkz")
     @telemarketers = Staff.where(profession:"tele", company:"dreamwrkz")
   end
 

@@ -5,7 +5,7 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 
 <%if !@records.nil?%>
 <table class = "table table-bordered table-condensed", id='sf'>
-	<tr>
+	<thead><tr>
 		<th>Company Name</th>
 
 		<th>Contact Person</th>
@@ -17,7 +17,7 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 		<td bgcolor=#00FF00><b>Attended By</b></td>
 		<td bgcolor=#00FF00><b>Grade</b></td>
 		<td bgcolor=#00FF00><b>Remarks</b></td>
-	</tr>
+	</tr></thead>
 	<%@records.each do |r|%>
 	<tr>
 		<td><%= r.companyName%></td>
@@ -35,3 +35,10 @@ Search: <input name="filter" onkeyup="filter2(this, 'sf', 1)" type="text">
 	<%end%>
 </table>
 <%end%>
+
+<script>
+$(document).ready(function() {
+    $('#sf').dataTable();
+} );
+
+</script>

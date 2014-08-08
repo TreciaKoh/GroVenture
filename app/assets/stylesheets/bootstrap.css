@@ -2283,7 +2283,7 @@ table th[class*="span"],
 
 th{
 	background-color:#95B9C7;
-	color: #ffffff;
+	color: #000000;
 }
 
 .table-hover tbody tr.info:hover > td {

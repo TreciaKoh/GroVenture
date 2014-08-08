@@ -1,6 +1,6 @@
 <h2>Manage Employee Info</h2>
 
-<table class="table table-bordered">
+<table class="table table-bordered", id='sf'>
 	<thead>
 		<tr>
 			<td>Staffid</td><td>Employment Date</td><td>Child Birth Date</td><td>Leave entitlement</td><td>Overwrite leave entitlement</td><td>Set default leave</td>
@@ -34,3 +34,9 @@
 	</tr>
 	<%end%>
 </table>
+<script>
+$(document).ready(function() {
+    $('#sf').dataTable();
+} );
+
+</script>

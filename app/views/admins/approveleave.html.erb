@@ -12,7 +12,7 @@
 </div>
 
 <table class = "table table-bordered table-condensed" align='center', id='sf'>
-	<tr>
+	<thead><tr>
 		<th>Staff ID</th>
 		<th>Date Start</th>
 		<th>Date End</th>
@@ -33,7 +33,7 @@
 
 		
 		<th>Approve</th>
-	</tr>
+	</tr></thead>
 	<%@leaves.each do |r|%>
 	<%p r%>
 	<tr>
@@ -81,8 +81,8 @@
 <h2>Cancellation requests</h2>
 
 
-<table class = "table table-bordered table-condensed" align='center', id='sf'>
-	<tr>
+<table class = "table table-bordered table-condensed" align='center', id='sf2'>
+	<thead><tr>
 		<th>Staff ID</th>
 		<th>Date Start</th>
 		<th>Date End</th>
@@ -104,7 +104,7 @@
 		
 		<th>Approve Cancellation</th>
 		<th>Reject Cancellation</th>
-	</tr>
+	</tr></thead>
 	<%@leavestocancel.each do |r|%>
 	<%p r%>
 	<tr>
@@ -145,8 +145,8 @@
 </table>
 
 <h2>Approved Leaves</h2>
-<table class = "table table-bordered table-condensed" align='center', id='sf'>
-	<tr>
+<table class = "table table-bordered table-condensed" align='center', id='sf3'>
+	<thead><tr>
 		<th>Staff ID</th>
 		<th>Date Start</th>
 		<th>Date End</th>
@@ -167,7 +167,7 @@
 
 		
 		<th>Reject</th>
-	</tr>
+	</tr></thead>
 	<%@leavesapproved.each do |r|%>
 	<%p r%>
 	<tr>
@@ -206,4 +206,21 @@
 	<%end%>
 </table>
 
+<script>
+$(document).ready(function() {
+    $('#sf').dataTable();
+} );
 
+</script>
+<script>
+$(document).ready(function() {
+    $('#sf2').dataTable();
+} );
+
+</script>
+<script>
+$(document).ready(function() {
+    $('#sf3').dataTable();
+} );
+
+</script>

@@ -49,7 +49,7 @@ def indexMainRecords
       end
     end
 
-    @staff = Staff.where(profession:"staff", company:"groventure")
+    @staff = Staff.where(profession:"Sales", company:"groventure")
     @telemarketers = Staff.where(profession:"tele", company:"groventure")
   end
 
