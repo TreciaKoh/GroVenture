@@ -1,7 +1,6 @@
 <table class = "table table-bordered table-condensed">
 	<tr>
 		<th>Staff ID</th>
-		<!-- <th>Full Name</th> -->
 		<th>Basic</th>
 		<th>Employer CPF (%)</th>
 		<th>Employee CPF (%)</th>
@@ -15,36 +14,32 @@
 	<%@compiledList.each do |x|%>
 	<%=form_for @newPay, :url => {:action => "addPay"} do |f|%>
 	<tr>
-		
-		
-
 		<%if x.instance_of?(Staffpay)%>
-		<td><%=Staff.find_by_id(x.staffid).staffid%></td>
-		<td><%= f.number_field(:basic, :placeholder => x.basic) %> </td>
-		<td><%= f.number_field(:employerCpf, :placeholder => x.employerCpf) %> </td>
-		<td><%= f.number_field(:employeeCpf, :placeholder => x.employeeCpf) %> </td>
-	
-		<td><%= f.number_field(:attendance, :placeholder => x.attendance) %> </td>
-		<td><%= f.number_field(:performance, :placeholder => x.performance) %> </td>
-		<td><%= f.number_field(:target, :placeholder => x.target) %> </td>
-		<td><%= f.number_field(:commission, :placeholder => x.commission) %> </td>
-		<td><%= f.number_field(:deduction, :placeholder => x.deduction) %> </td>
+		<td><%= Staff.find_by_id(x.staffid).staffid%></td>
+		<td><%= f.number_field(:basic, :value => x.basic) %> </td>
+		<td><%= f.number_field(:employerCpf, :value => x.employerCpf, :required => true) %> </td>
+		<td><%= f.number_field(:employeeCpf, :value => x.employeeCpf, :required => true) %> </td>
+		<td><%= f.number_field(:attendance, :value => x.attendance, :required => true) %> </td>
+		<td><%= f.number_field(:performance, :value => x.performance, :required => true) %> </td>
+		<td><%= f.number_field(:target, :value => x.target, :required => true) %> </td>
+		<td><%= f.number_field(:commission, :value => x.commission, :required => true) %> </td>
+		<td><%= f.number_field(:deduction, :value => x.deduction, :required => true) %> </td>
+		<%= f.hidden_field(:staffid, :value => x.staffid)%>
 		<%else%>
 		<td><%= x.staffid%></td>
-		<td><%= f.number_field(:basic, :placeholder => 0) %> </td>
-		<td><%= f.number_field(:employerCpf, :placeholder => 0) %> </td>
-		<td><%= f.number_field(:employeeCpf, :placeholder => 0) %> </td>
-
-		<td><%= f.number_field(:attendance, :placeholder => 0) %> </td>
-		<td><%= f.number_field(:performance, :placeholder => 0) %> </td>
-		<td><%= f.number_field(:target, :placeholder => 0) %> </td>
-		<td><%= f.number_field(:commission, :placeholder => 0) %> </td>
-		<td><%= f.number_field(:deduction, :placeholder => 0) %> </td>
+		<td><%= f.number_field(:basic, :value => "", :placeholder => 0, :required => true) %> </td>
+		<td><%= f.number_field(:employerCpf, :value => "", :placeholder => 0, :required => true) %> </td>
+		<td><%= f.number_field(:employeeCpf, :value => "", :placeholder => 0, :required => true) %> </td>
+		<td><%= f.number_field(:attendance, :value => "", :placeholder => 0, :required => true) %> </td>
+		<td><%= f.number_field(:performance, :value => "", :placeholder => 0, :required => true) %> </td>
+		<td><%= f.number_field(:target, :value => "", :placeholder => 0, :required => true) %> </td>
+		<td><%= f.number_field(:commission, :value => "", :placeholder => 0, :required => true) %> </td>
+		<td><%= f.number_field(:deduction, :value => "", :placeholder => 0, :required => true) %> </td>
+		<%= f.hidden_field(:staffid, :value => x.id)%>
 		<%end%>
 
-		<%= f.hidden_field(:staffid, :value => x.id)%>
-
 		<td><%= submit_tag("Update", :class=>"btn") %></td>
+		
 	</tr>
 	<%end%>
 
