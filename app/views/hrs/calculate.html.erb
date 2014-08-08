@@ -1,4 +1,4 @@
-<h2>Pay for <%=@staffid%> for the month of <%=@month%></h2>
+<h2>Pay for <%=@staffid%> for the month of <%=Date::MONTHNAMES[@month.to_i]%></h2>
 <%if !flash[:error].nil?%>
 <%=flash[:error]%>
 <%end%>

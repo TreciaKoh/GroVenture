@@ -126,7 +126,7 @@ class HrsController < ApplicationController
     end
     @total = total
     finalrecords = []
-    sp = Staffpay.find_by_staffid(Staff.find_by_staffid(staffid).id)
+    sp = Staffpay.where(staffid:Staff.find_by_staffid(staffid).id).order("created_at").last
     if !sp.nil?
       records = MainRecord.where(apptBy: staffid)
       records2 = MainRecordGro.where(apptBy: staffid)
@@ -151,6 +151,7 @@ class HrsController < ApplicationController
       @employercpf = sp.employerCpf
       @employeecpf = sp.employeeCpf
       @target = sp.target  
+      p @target
       if addAttendance
         @attendanceincentive = sp.attendance
       else
